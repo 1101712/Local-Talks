@@ -1,0 +1,19 @@
+{% extends "talks/base.html" %}
+
+{% block content %}
+  <h2>Advertisements</h2>
+  <p>Number of ads in template: {{ ads|length }}</p>
+
+  {% for ad in ads %}
+  <div class="ad">
+    <h3>{{ ad.title }}</h3>
+    <p>Posted by {{ ad.author }} on {{ ad.date_posted }}</p>
+    <p>{{ ad.description|truncatewords:50 }}</p>
+    <a href="#">Read More</a>
+  </div>
+  {% endfor %}
+
+  <div class="pagination">
+    <!-- We will add pagination controls here later -->
+  </div>
+{% endblock %}
