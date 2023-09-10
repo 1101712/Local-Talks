@@ -1,0 +1,22 @@
+{% extends "talks/base.html" %}
+
+{% block content %}
+<h2>{{ ad.title }}</h2>
+<p>Posted by {{ ad.author }} on {{ ad.date_posted }}</p>
+<p>{{ ad.description }}</p>
+
+<h3>Comments</h3>
+{% for comment in ad.comments.all %}
+    <div class="comment">
+        <p>By {{ comment.author }} on {{ comment.created_date }}</p>
+        <p>{{ comment.text }}</p>
+    </div>
+{% endfor %}
+
+<h3>Add a Comment</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add Comment</button>
+</form>
+{% endblock %}

@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Ad
+from .models import Ad, Comment
 from django.http import HttpResponse
 from django.contrib import messages
+from .forms import CommentForm
 
 
 class AdListView(ListView):
@@ -40,3 +41,36 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'talks/registration/login.html', {'form': form})
+
+def save_comment(request, ad):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.ad = ad
+        comment.author = request.user
+        comment.save()
+        return True, form
+    return False, form
+
+def add_comment(request, pk):
+    ad = get_object_or_404(Ad, pk=pk)
+    if request.method == "POST":
+        is_saved, form = save_comment(request, ad)
+        if is_saved:
+            return redirect('ad-detail', pk=ad.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'talks/add_comment.html', {'form': form})
+
+def ad_detail(request, ad_id):
+    ad = get_object_or_404(Ad, id=ad_id)
+    comments = Comment.objects.filter(ad=ad)
+    
+    if request.method == 'POST':
+        is_saved, form = save_comment(request, ad)
+        if is_saved:
+            return redirect('ad_detail', ad_id=ad.id)
+    else:
+        form = CommentForm()
+
+    return render(request, 'talks/ad_detail.html', {'ad': ad, 'comments': comments, 'form': form})
