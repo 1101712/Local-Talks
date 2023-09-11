@@ -1,76 +1,96 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
-from django.contrib.auth import authenticate, login, logout 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic.edit import FormMixin
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from .models import Ad, Comment
 from django.http import HttpResponse
-from django.contrib import messages
 from .forms import CommentForm
+from django.urls import reverse_lazy
 
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'talks/registration/register.html'
+    success_url = reverse_lazy('ad-list')
+
+    def form_valid(self, form):
+        """
+        Override the form_valid method to login the user after registration.
+        """
+        response = super().form_valid(form)
+        username = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        user = authenticate(self.request, username=username, password=raw_password)
+        login(self.request, user)
+        return response
+
+class CustomLoginView(LoginView):
+    """
+    Custom login view using Django's built-in LoginView.
+    Redirects authenticated users to the ad-list view.
+    """
+    template_name = 'talks/registration/login.html'
+    redirect_authenticated_user = True
 
 class AdListView(ListView):
+    """
+    Display a list of all ads with pagination.
+    """
     model = Ad
     template_name = 'talks/ad_list.html'
     context_object_name = 'ads'
     paginate_by = 10
 
-def test_view(request):
-    return HttpResponse("Test Page")
+class AdDetailView(FormMixin, DetailView):
+    """
+    Display the details of an ad and allow users to add comments.
+    Integrates form handling within a DetailView using FormMixin.
+    """
+    model = Ad
+    template_name = 'talks/ad_detail.html'
+    context_object_name = 'ad'
+    form_class = CommentForm
 
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    def get_success_url(self):
+        """
+        Define the URL to redirect to on successful form submission.
+        """
+        return reverse('ad-detail', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        """
+        Inject the list of comments related to the current ad into the context.
+        """
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(ad=self.object)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed POST variables
+        and then check if it's valid.
+        """
+        self.object = self.get_object()
+        form = self.get_form()
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('ad-list')  # Redirect to the list of ads after successful registration
-    else:
-        form = UserCreationForm()
-    return render(request, 'talks/registration/register.html', {'form': form})
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('ad-list')  # Redirect to the list of ads after successful login
-    else:
-        form = AuthenticationForm()
-    return render(request, 'talks/registration/login.html', {'form': form})
-
-def save_comment(request, ad):
-    form = CommentForm(request.POST)
-    if form.is_valid():
+    def form_valid(self, form):
+        """
+        Save the comment instance to the database after associating it with the current ad and user.
+        """
         comment = form.save(commit=False)
-        comment.ad = ad
-        comment.author = request.user
+        comment.ad = self.object
+        comment.author = self.request.user
         comment.save()
-        return True, form
-    return False, form
+        return super().form_valid(form)
 
-def add_comment(request, pk):
-    ad = get_object_or_404(Ad, pk=pk)
-    if request.method == "POST":
-        is_saved, form = save_comment(request, ad)
-        if is_saved:
-            return redirect('ad-detail', pk=ad.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'talks/add_comment.html', {'form': form})
-
-def ad_detail(request, ad_id):
-    ad = get_object_or_404(Ad, id=ad_id)
-    comments = Comment.objects.filter(ad=ad)
-    
-    if request.method == 'POST':
-        is_saved, form = save_comment(request, ad)
-        if is_saved:
-            return redirect('ad_detail', ad_id=ad.id)
-    else:
-        form = CommentForm()
-
-    return render(request, 'talks/ad_detail.html', {'ad': ad, 'comments': comments, 'form': form})
+def test_view(request):
+    """
+    Simple test view that returns a basic HttpResponse.
+    """
+    return HttpResponse("Test Page")
