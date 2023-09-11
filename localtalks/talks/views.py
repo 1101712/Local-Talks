@@ -4,9 +4,10 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ad, Comment
 from django.http import HttpResponse
-from .forms import CommentForm
+from .forms import CommentForm, AdForm
 from django.urls import reverse_lazy
 
 
@@ -94,3 +95,16 @@ def test_view(request):
     Simple test view that returns a basic HttpResponse.
     """
     return HttpResponse("Test Page")
+
+class AdCreateView(LoginRequiredMixin, CreateView):
+    model = Ad
+    form_class = AdForm
+    template_name = 'talks/ad_create.html'
+    success_url = reverse_lazy('ad-list')
+
+    def form_valid(self, form):
+        """
+        Set the ad's author to the current user.
+        """
+        form.instance.author = self.request.user
+        return super().form_valid(form)

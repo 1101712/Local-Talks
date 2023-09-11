@@ -27,6 +27,7 @@ class Ad(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='ads_images/', blank=True, null=True)  # New field for ad images
 
     def __str__(self):
         return self.title
