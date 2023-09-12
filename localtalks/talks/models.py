@@ -4,9 +4,14 @@ from django.contrib.auth.models import User
 
 # Model representing categories of ads
 class Category(models.Model):
+    # Name of the category. Ensures each category has a unique name.
     name = models.CharField(max_length=255, unique=True)
+    
+    # Optional description for more details about the category.
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
+        # Returns the name of the category when the object is referenced.
         return self.name
 
 
@@ -26,7 +31,7 @@ class Ad(models.Model):
     description = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    categories = models.ManyToManyField(Category)
     image = models.ImageField(upload_to='ads_images/', blank=True, null=True)  # New field for ad images
 
     def __str__(self):
