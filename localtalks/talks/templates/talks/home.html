@@ -1,0 +1,14 @@
+{% extends "talks/base.html" %}
+
+{% block content %}
+<h2>Latest Ads</h2>
+<ul>
+    {% for ad in latest_ads %}
+    <li>
+        <h3><a href="{% url 'ad-detail' ad.pk %}">{{ ad.title }}</a></h3>
+        <p>{{ ad.description|truncatewords:20 }}</p>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'ad-list' %}">View All Ads</a>
+{% endblock %}

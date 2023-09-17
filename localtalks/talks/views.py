@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth import authenticate, login
@@ -42,7 +42,7 @@ class AdListView(ListView):
     model = Ad
     template_name = 'talks/ad_list.html'
     context_object_name = 'ads'
-    paginate_by = 10
+    paginate_by = 5
 
 class AdDetailView(FormMixin, DetailView):
     """
@@ -108,3 +108,9 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         """
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class HomeView(ListView):
+    model = Ad
+    template_name = 'talks/home.html'
+    context_object_name = 'latest_ads'
+    queryset = Ad.objects.all().order_by('-date_posted')[:5]
