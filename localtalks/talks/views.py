@@ -9,10 +9,11 @@ from .models import Ad, Comment
 from django.http import HttpResponse
 from .forms import CommentForm, AdForm
 from django.urls import reverse_lazy
+from .forms import ExtendedUserCreationForm
 
 
 class RegisterView(CreateView):
-    form_class = UserCreationForm
+    form_class = ExtendedUserCreationForm
     template_name = 'talks/registration/register.html'
     success_url = reverse_lazy('ad-list')
 

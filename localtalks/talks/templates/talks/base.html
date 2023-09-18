@@ -33,8 +33,23 @@
                         <a class="nav-link" href="{% url 'login' %}">Profile</a>
                     </li>
                     <li class="nav-item {% if request.resolver_match.url_name == 'test-view' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'test-view' %}">How It Works</a>
+                        <a class="nav-link" href="{% url 'test-view' %}">How it works</a>
                     </li>
+                    
+                    {% if user.is_authenticated %}
+                        <!-- Если пользователь вошел в систему -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <!-- Если пользователь НЕ вошел в систему -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <form class="form-inline ml-auto">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
