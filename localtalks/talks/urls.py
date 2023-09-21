@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView
+from . import views
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),  # Homepage with latest ads
@@ -11,4 +12,5 @@ urlpatterns = [
     path('ad/<int:pk>/', AdDetailView.as_view(), name='ad-detail'),  # Detailed ad page
     path('ad/create/', AdCreateView.as_view(), name='ad-create'),
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
 ]

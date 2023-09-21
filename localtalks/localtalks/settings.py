@@ -11,6 +11,21 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import Config
+
+config = Config('.env')
+
+SECRET_KEY = config('SECRET_KEY')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+    }
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,9 +33,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d_9(+3r2w-nxua=qw+d+^b0s9@%4+z0-f^@1^*y%_paaw83@c@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,22 +81,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'localtalks.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'qktraqnh',
-        'USER': 'qktraqnh',
-        'PASSWORD': 'QYcoI3L8wYXxnNSL18DUmUAd7l_qKrpE',
-        'HOST': 'trumpet.db.elephantsql.com',
-        'PORT': '5432',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -138,3 +134,5 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'ad-list'
 
 STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
+
+AUTH_USER_MODEL = 'talks.CustomUser'

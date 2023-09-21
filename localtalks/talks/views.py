@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth import authenticate, login
@@ -115,3 +116,9 @@ class HomeView(ListView):
     template_name = 'talks/home.html'
     context_object_name = 'latest_ads'
     queryset = Ad.objects.all().order_by('-date_posted')[:5]
+
+class ProfileView(View):
+    template_name = 'talks/registration/profile.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
