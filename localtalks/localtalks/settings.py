@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-d_9(+3r2w-nxua=qw+d+^b0s9@%4+z0-f^@1^*y%_paaw83@c@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-1101712-localtalks-owv8pwe7k8z.ws-eu104.gitpod.io', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['8000-1101712-localtalks-gz98xw7hv6h.ws-eu104.gitpod.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'localtalks.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'qktraqnh',
+        'USER': 'qktraqnh',
+        'PASSWORD': 'QYcoI3L8wYXxnNSL18DUmUAd7l_qKrpE',
+        'HOST': 'trumpet.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
 
@@ -123,7 +127,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ["https://8000-1101712-localtalks-owv8pwe7k8z.ws-eu104.gitpod.io"]
+CSRF_TRUSTED_ORIGINS = ["https://1101712-localtalks-gz98xw7hv6h.ws-eu104.gitpod.io"]
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
