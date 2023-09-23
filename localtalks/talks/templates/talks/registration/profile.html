@@ -1,6 +1,8 @@
 {% extends 'talks/base.html' %}
+{% load static %}
 
 {% block content %}
 <h2>Profile Page</h2>
 <p>Welcome, {{ user.username }}!</p>
+<script src="{% static 'localtalks/js/registration.js' %}"></script>
 {% endblock %}

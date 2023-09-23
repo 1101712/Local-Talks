@@ -11,19 +11,27 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import Config
+import os
+from decouple import Config, Csv
 
-config = Config('.env')
+config = Config(os.path.join(os.path.dirname(__file__), '.env'))
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'default_name'),
+#         'USER': os.environ.get('DB_USER', 'default_user'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'default_password'),
+#         'HOST': os.environ.get('DB_HOST', 'localhost'),
+#         'PORT': os.environ.get('DB_PORT', '5432'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase', # This is where you put the name of the db file. 
+                 # If one doesn't exist, it will be created at migration time.
     }
 }
 
@@ -123,7 +131,8 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ["https://1101712-localtalks-gz98xw7hv6h.ws-eu104.gitpod.io"]
+CSRF_TRUSTED_ORIGINS = ["https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu104.gitpod.io"]
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -131,8 +140,11 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'ad-list'
+LOGIN_REDIRECT_URL = 'profile'
 
 STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
 
 AUTH_USER_MODEL = 'talks.CustomUser'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

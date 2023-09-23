@@ -27,9 +27,12 @@ class CustomUser(AbstractUser):
         return self.username
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="profile")
     # Дополнительные поля для профиля пользователя
     bio = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
 
 # Model representing individual advertisements
 class Ad(models.Model):

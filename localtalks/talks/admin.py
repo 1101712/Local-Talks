@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Category, Ad, Comment
+from .models import CustomUser, Category, Ad, Comment, UserProfile
 
 # Registering the UserProfile model to make it available in the admin panel.
 admin.site.register(CustomUser)

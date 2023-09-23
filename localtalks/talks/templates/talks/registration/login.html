@@ -1,4 +1,5 @@
 {% extends "talks/base.html" %}
+{% load static %}
 
 {% block content %}
 <h2>Login</h2>
@@ -8,4 +9,5 @@
     <button type="submit">Login</button>
 </form>
 <a href="{% url 'register' %}">Register</a>
+<script src="{% static 'localtalks/js/registration.js' %}"></script>
 {% endblock %}
