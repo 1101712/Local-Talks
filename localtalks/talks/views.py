@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.views import View
+from django.views import View, generic
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth import authenticate, login

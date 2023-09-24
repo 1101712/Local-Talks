@@ -3,6 +3,11 @@
 
 {% block content %}
 <h2>{{ ad.title }}</h2>
+{% if ad.image %}
+    <img src="{{ ad.image.url }}" alt="Ad Image">
+{% else %}
+    <p>No image available for this ad.</p>
+{% endif %}
 <p>Posted by {{ ad.author }} on {{ ad.date_posted }}</p>
 <p>{{ ad.description }}</p>
 
