@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View, generic
 from django.views.generic import ListView, DetailView, CreateView
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
@@ -123,7 +123,8 @@ class ProfileView(View):
     template_name = 'talks/registration/profile.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        ads = Ad.objects.filter(author=request.user)
+        return render(request, self.template_name, {'ads': ads})
 
 class DeleteProfileView(View):
     def post(self, request, *args, **kwargs):
@@ -133,3 +134,16 @@ class DeleteProfileView(View):
         return redirect('home')
     def get(self, request, *args, **kwargs):
         return render(request, 'delete_profile.html')
+
+class AdUpdateView(UpdateView):
+    model = Ad
+    fields = ['title', 'description', 'image']
+    template_name = 'talks/ad_edit.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('profile')
+
+class AdDeleteView(DeleteView):
+    model = Ad
+    template_name = 'talks/ad_delete.html'
+    success_url = reverse_lazy('profile')

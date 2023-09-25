@@ -1,0 +1,11 @@
+{% extends "talks/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Are you sure you want to delete this ad?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'profile' %}">No, take me back</a>
+</form>
+{% endblock %}
