@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView
+from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView, DeleteProfileView
 from . import views
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     path('ad/create/', AdCreateView.as_view(), name='ad-create'),
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('delete_profile/', views.DeleteProfileView.as_view(), name='delete_profile'),
 ]

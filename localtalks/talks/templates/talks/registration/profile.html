@@ -10,4 +10,8 @@
     <p>No profile picture available.</p>
 {% endif %}
 <script src="{% static 'localtalks/js/registration.js' %}"></script>
+<form action="{% url 'delete_profile' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete My Profile" onclick="return confirm('Are you sure you want to delete your profile? This action is irreversible.');">
+</form>
 {% endblock %}

@@ -1,8 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View, generic
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,12 +11,13 @@ from django.http import HttpResponse
 from .forms import CommentForm, AdForm
 from django.urls import reverse_lazy
 from .forms import ExtendedUserCreationForm
+from django.contrib import messages
 
 
 class RegisterView(CreateView):
     form_class = ExtendedUserCreationForm
     template_name = 'talks/registration/register.html'
-    success_url = reverse_lazy('ad-list')
+    success_url = reverse_lazy('profile')
 
     def form_valid(self, form):
         """
@@ -27,6 +28,7 @@ class RegisterView(CreateView):
         raw_password = form.cleaned_data.get('password1')
         user = authenticate(self.request, username=username, password=raw_password)
         login(self.request, user)
+        messages.success(self.request, 'Your account has been successfully created.')
         return response
 
 class CustomLoginView(LoginView):
@@ -122,3 +124,12 @@ class ProfileView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+class DeleteProfileView(View):
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        logout(request)
+        user.delete()
+        return redirect('home')
+    def get(self, request, *args, **kwargs):
+        return render(request, 'delete_profile.html')
