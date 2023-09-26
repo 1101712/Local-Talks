@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from PIL import Image
-
+import os
+from django.contrib.auth import get_user_model
 
 
 # Model representing categories of ads
@@ -55,7 +56,7 @@ class Ad(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, related_name='ads', on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
     image = models.ImageField(upload_to='ads_images/', blank=True, null=True)
 
@@ -94,3 +95,14 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
     instance.profile.save()
+
+@receiver(post_delete, sender=Ad)
+def delete_ad_image(sender, instance, **kwargs):
+    instance.image.delete(False)
+
+@receiver(post_delete, sender=get_user_model())  # Используйте модель пользователя, указанную в вашем проекте
+def delete_user_images(sender, instance, **kwargs):
+    instance.profile_picture.delete(False)  # 'profile_picture' — это имя поля изображения в вашей модели пользователя
+    # Удаление всех изображений объявлений связанных с этим пользователем
+    for ad in instance.ads.all():  # 'ads' — это имя обратной связи к модели объявлений
+        ad.image.delete(False)
