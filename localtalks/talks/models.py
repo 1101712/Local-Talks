@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from PIL import Image
 
 
+
 # Model representing categories of ads
 class Category(models.Model):
     # Name of the category. Ensures each category has a unique name.
@@ -19,12 +20,8 @@ class Category(models.Model):
 
 
 # Model representing user profile with extended fields like nickname and profile_picture
-from django.contrib.auth.models import AbstractUser
-from django.db import models
-from PIL import Image  # Don't forget to import Image from Pillow
-
 class CustomUser(AbstractUser):
-    nickname = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(unique=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
 
     def __str__(self):
@@ -37,8 +34,8 @@ class CustomUser(AbstractUser):
         if self.profile_picture:
             img = Image.open(self.profile_picture.path)  # Open the image
 
-            if img.height > 200 or img.width > 200:  # If the height or width is greater than 300 pixels
-                output_size = (200, 200)  # Set the output size
+            if img.height > 100 or img.width > 100:  # If the height or width is greater than 100 pixels
+                output_size = (100, 100)  # Set the output size
                 img.thumbnail(output_size)  # Resize the image
                 img.save(self.profile_picture.path)  # Save the changes
 
@@ -60,10 +57,26 @@ class Ad(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
-    image = models.ImageField(upload_to='ads_images/', blank=True, null=True)  # New field for ad images
+    image = models.ImageField(upload_to='ads_images/', blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    # Вот новый метод save
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Сначала вызовем оригинальный метод save
+
+        # Проверим, есть ли изображение для ресайза
+        if self.image:
+            img = Image.open(self.image.path)  # Откроем изображение
+
+            if img.height > 200 or img.width > 200:  # Если высота или ширина больше 200 пикселей
+                output_size = (200, 200)  # Установим размеры для вывода
+                img.thumbnail(output_size)  # Изменим размер изображения
+                img.save(self.image.path)  # Сохраним изменения
+
+        else:
+            print('No image to resize.')
 
 
 # Model representing comments on advertisements

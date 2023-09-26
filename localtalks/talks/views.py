@@ -30,7 +30,7 @@ class RegisterView(CreateView):
         login(self.request, user)
         messages.success(self.request, 'Your account has been successfully created.')
         return response
-
+    
 class CustomLoginView(LoginView):
     """
     Custom login view using Django's built-in LoginView.

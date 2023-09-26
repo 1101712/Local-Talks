@@ -14,9 +14,9 @@ class AdForm(forms.ModelForm):
         fields = ['title', 'description', 'image']
         
 class ExtendedUserCreationForm(UserCreationForm):
-    nickname = forms.CharField(max_length=255, required=False, help_text='Optional.')
+    email = forms.EmailField(required=True)
     profile_picture = forms.ImageField(required=False, help_text='Optional.')
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2', 'nickname', 'profile_picture')
+        fields = ('username', 'email', 'password1', 'password2', 'profile_picture')

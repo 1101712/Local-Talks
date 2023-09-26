@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import CustomUser, Category, Ad, Comment, UserProfile
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'nickname', 'profile_picture')
+    list_display = ('username', 'email', 'profile_picture')
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
