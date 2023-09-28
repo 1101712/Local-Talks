@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth.views import LogoutView
 from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView, DeleteProfileView, AdUpdateView, AdDeleteView
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),  # Homepage with latest ads
@@ -16,4 +17,11 @@ urlpatterns = [
     path('delete_profile/', views.DeleteProfileView.as_view(), name='delete_profile'),
     path('ad/<int:pk>/edit/', AdUpdateView.as_view(), name='ad_edit'),
     path('ad/<int:pk>/delete/', AdDeleteView.as_view(), name='ad_delete'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(
+        template_name='talks/password/password_reset_form.html',
+        email_template_name='talks/password/password_reset_email.html'
+    ), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]

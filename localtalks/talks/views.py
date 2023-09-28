@@ -44,7 +44,7 @@ class AdListView(ListView):
     Display a list of all ads with pagination.
     """
     model = Ad
-    template_name = 'talks/ad_list.html'
+    template_name = 'talks/ad/ad_list.html'
     context_object_name = 'ads'
     paginate_by = 5
 
@@ -54,7 +54,7 @@ class AdDetailView(FormMixin, DetailView):
     Integrates form handling within a DetailView using FormMixin.
     """
     model = Ad
-    template_name = 'talks/ad_detail.html'
+    template_name = 'talks/ad/ad_detail.html'
     context_object_name = 'ad'
     form_class = CommentForm
 
@@ -103,7 +103,7 @@ def test_view(request):
 class AdCreateView(LoginRequiredMixin, CreateView):
     model = Ad
     form_class = AdForm
-    template_name = 'talks/ad_create.html'
+    template_name = 'talks/ad/ad_create.html'
     success_url = reverse_lazy('ad-list')
 
     def form_valid(self, form):
@@ -138,12 +138,12 @@ class DeleteProfileView(View):
 class AdUpdateView(UpdateView):
     model = Ad
     fields = ['title', 'description', 'image']
-    template_name = 'talks/ad_edit.html'
+    template_name = 'talks/ad/ad_edit.html'
     
     def get_success_url(self):
         return reverse_lazy('profile')
 
 class AdDeleteView(DeleteView):
     model = Ad
-    template_name = 'talks/ad_delete.html'
+    template_name = 'talks/ad/ad_delete.html'
     success_url = reverse_lazy('profile')

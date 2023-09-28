@@ -14,8 +14,27 @@ from pathlib import Path
 import os
 from decouple import Config, Csv
 
-config = Config(os.path.join(os.path.dirname(__file__), '.env'))
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Read .env file and set environment variables
+env_path = os.path.join(BASE_DIR, '.env')
+if os.path.exists(env_path):
+    with open(env_path, 'r') as f:
+        for line in f:
+            key, value = line.strip().split('=', 1)
+            os.environ[key] = value
+
+# use BASE_DIR to find the .env file
+config = Config(os.path.join(BASE_DIR, '.env'))
+
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
 # DATABASES = {
 #     'default': {
@@ -34,18 +53,13 @@ DATABASES = {
                  # If one doesn't exist, it will be created at migration time.
     }
 }
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-1101712-localtalks-gz98xw7hv6h.ws-eu104.gitpod.io', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -131,7 +145,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ["https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu104.gitpod.io"]
+CSRF_TRUSTED_ORIGINS = ["https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io"]
 
 
 AUTHENTICATION_BACKENDS = (
