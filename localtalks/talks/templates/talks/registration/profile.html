@@ -19,6 +19,7 @@
 {% for ad in ads %}
     <h4>{{ ad.title }}</h4>
     <p>{{ ad.description }}</p>
+    <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
     {% if ad.image %}
   <img src="{{ ad.image.url }}" alt="Ad image">
 {% else %}

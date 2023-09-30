@@ -1,0 +1,12 @@
+{% for ad in ads %}
+  <div class="ad-item">
+    <h3><a href="{% url 'ad_detail' ad.pk %}">{{ ad.title }}</a></h3>
+    <p>Posted by: {{ ad.author }}</p>
+    <p>Date: {{ ad.date_posted }}</p>
+    <p>Categories: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {% if ad.image %}
+      <img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="200">
+    {% endif %}
+    <p>{{ ad.description|truncatewords:20 }}</p>
+  </div>
+{% endfor %}

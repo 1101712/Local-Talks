@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Ad, Comment
+from .models import Ad, Comment, Category
 from django.http import HttpResponse
 from .forms import CommentForm, AdForm
 from django.urls import reverse, reverse_lazy
@@ -148,3 +148,16 @@ class AdDeleteView(DeleteView):
     model = Ad
     template_name = 'talks/ad/ad_delete.html'
     success_url = reverse_lazy('profile')
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'talks/category_list.html'  
+    context_object_name = 'categories'
+
+class AdsByCategoryView(ListView):
+    model = Ad
+    template_name = 'talks/ads_by_category.html'  # имя шаблона
+    context_object_name = 'ads'
+
+    def get_queryset(self):
+        return Ad.objects.filter(categories__name=self.kwargs['category_name'])

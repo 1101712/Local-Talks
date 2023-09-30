@@ -3,6 +3,7 @@
 
 {% block content %}
 <h2>{{ ad.title }}</h2>
+<small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
 {% if ad.image %}
     <img src="{{ ad.image.url }}" alt="Ad Image">
 {% else %}

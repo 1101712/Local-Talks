@@ -12,7 +12,7 @@ class CommentForm(forms.ModelForm):
 class AdForm(forms.ModelForm):
     class Meta:
         model = Ad
-        fields = ['title', 'description', 'image']
+        fields = ['title', 'description', 'image', 'categories']
 
 class ExtendedUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
