@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ad, Comment
 from django.http import HttpResponse
 from .forms import CommentForm, AdForm
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from .forms import ExtendedUserCreationForm
 from django.contrib import messages
 
@@ -62,7 +62,7 @@ class AdDetailView(FormMixin, DetailView):
         """
         Define the URL to redirect to on successful form submission.
         """
-        return reverse('ad-detail', kwargs={'pk': self.object.pk})
+        return reverse('ad_detail', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
         """
@@ -70,6 +70,7 @@ class AdDetailView(FormMixin, DetailView):
         """
         context = super().get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(ad=self.object)
+        context['form'] = self.form_class()
         return context
 
     def post(self, request, *args, **kwargs):
