@@ -33,3 +33,8 @@ class ExtendedUserCreationForm(UserCreationForm):
         if CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError("A user with that email already exists.")
         return email
+
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser  # Используем ту же модель, что и в ExtendedUserCreationForm
+        fields = ['profile_picture']  # Указываем только поле фотографии профиля

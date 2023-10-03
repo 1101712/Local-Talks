@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ad, Comment, Category
 from django.http import HttpResponse
-from .forms import CommentForm, AdForm, ExtendedUserCreationForm
+from .forms import CommentForm, AdForm, ExtendedUserCreationForm, ProfilePictureForm
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.contrib import messages
@@ -137,7 +137,18 @@ class ProfileView(View):
 
     def get(self, request):
         ads = Ad.objects.filter(author=request.user)
-        return render(request, self.template_name, {'ads': ads})
+        form = ProfilePictureForm(instance=request.user)  # Инициализируем форму
+        return render(request, self.template_name, {'ads': ads, 'form': form})
+
+    def post(self, request):
+        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile picture updated successfully')
+            return redirect('profile')
+        else:
+            messages.error(request, 'There was an error updating your profile picture')
+            return redirect('profile')
 
 class DeleteProfileView(View):
     def post(self, request, *args, **kwargs):
