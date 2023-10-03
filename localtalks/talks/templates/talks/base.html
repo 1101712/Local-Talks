@@ -28,11 +28,11 @@
                     <li class="nav-item {% if request.resolver_match.url_name == 'ad-list' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'ad-list' %}">Ads</a>
                     </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'login' %}">Profile</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                     </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'test-view' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'test-view' %}">How it works</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'rules' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'rules' %}">How it works</a>
                     </li>
                     
                     {% if user.is_authenticated %}

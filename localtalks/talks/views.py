@@ -184,3 +184,7 @@ class AdsByCategoryView(ListView):
 
     def get_queryset(self):
         return Ad.objects.filter(categories__name=self.kwargs['category_name'])
+
+class RulesView(View):
+    def get(self, request):
+        return render(request, 'talks/rules.html')    

@@ -26,4 +26,5 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('categories/', views.CategoryListView.as_view(), name='category_list'),
     path('category/<str:category_name>/', views.AdsByCategoryView.as_view(), name='ads_by_category'),
+    path('how-it-works/', views.RulesView.as_view(), name='rules'),
 ]
