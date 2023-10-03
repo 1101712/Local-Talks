@@ -8,9 +8,9 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ad, Comment, Category
 from django.http import HttpResponse
-from .forms import CommentForm, AdForm
+from .forms import CommentForm, AdForm, ExtendedUserCreationForm
 from django.urls import reverse, reverse_lazy
-from .forms import ExtendedUserCreationForm
+from django.db.models import Q
 from django.contrib import messages
 
 
@@ -40,13 +40,20 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
 class AdListView(ListView):
-    """
-    Display a list of all ads with pagination.
-    """
     model = Ad
     template_name = 'talks/ad/ad_list.html'
     context_object_name = 'ads'
     paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('-date_posted')
+        search_term = self.request.GET.get('search', '')
+        if search_term:
+            queryset = queryset.filter(
+                Q(title__icontains=search_term) | 
+                Q(description__icontains=search_term)
+            )
+        return queryset
 
 class AdDetailView(FormMixin, DetailView):
     """
@@ -119,6 +126,11 @@ class HomeView(ListView):
     template_name = 'talks/home.html'
     context_object_name = 'latest_ads'
     queryset = Ad.objects.all().order_by('-date_posted')[:5]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 class ProfileView(View):
     template_name = 'talks/registration/profile.html'
@@ -151,12 +163,12 @@ class AdDeleteView(DeleteView):
 
 class CategoryListView(ListView):
     model = Category
-    template_name = 'talks/category_list.html'  
+    template_name = 'talks/ad/category_list.html'
     context_object_name = 'categories'
 
 class AdsByCategoryView(ListView):
     model = Ad
-    template_name = 'talks/ads_by_category.html'  # имя шаблона
+    template_name = 'talks/ad/ads_by_category.html'  # имя шаблона
     context_object_name = 'ads'
 
     def get_queryset(self):

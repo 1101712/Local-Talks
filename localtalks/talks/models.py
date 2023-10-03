@@ -100,7 +100,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 def delete_ad_image(sender, instance, **kwargs):
     instance.image.delete(False)
 
-@receiver(post_delete, sender=get_user_model())  # Используйте модель пользователя, указанную в вашем проекте
+@receiver(post_delete, sender=get_user_model())
 def delete_user_images(sender, instance, **kwargs):
     instance.profile_picture.delete(False)  # 'profile_picture' — это имя поля изображения в вашей модели пользователя
     # Удаление всех изображений объявлений связанных с этим пользователем
