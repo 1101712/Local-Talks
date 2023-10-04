@@ -28,8 +28,8 @@
                     <li class="nav-item {% if request.resolver_match.url_name == 'ad-list' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'ad-list' %}">Ads</a>
                     </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'profile_view' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'profile_view' %}">Profile</a>
                     </li>
                     <li class="nav-item {% if request.resolver_match.url_name == 'rules' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'rules' %}">How it works</a>

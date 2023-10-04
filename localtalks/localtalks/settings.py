@@ -154,7 +154,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'profile_view'
 
 STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
 

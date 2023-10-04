@@ -1,12 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View, generic
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.views.generic.edit import FormMixin, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Ad, Comment, Category
+from .models import Ad, Comment, Category, CustomUser
 from django.http import HttpResponse
 from .forms import CommentForm, AdForm, ExtendedUserCreationForm, ProfilePictureForm
 from django.urls import reverse, reverse_lazy
@@ -17,7 +17,7 @@ from django.contrib import messages
 class RegisterView(CreateView):
     form_class = ExtendedUserCreationForm
     template_name = 'talks/registration/register.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('profile_view')
 
     def form_valid(self, form):
         """
@@ -108,6 +108,48 @@ def test_view(request):
     """
     return HttpResponse("Test Page")
 
+class HomeView(ListView):
+    model = Ad
+    template_name = 'talks/home.html'
+    context_object_name = 'latest_ads'
+    queryset = Ad.objects.all().order_by('-date_posted')[:5]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'talks/registration/profile_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ads'] = Ad.objects.filter(author=self.request.user)
+        return context
+
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = 'talks/registration/profile_edit.html'
+    fields = ['email', 'profile_picture']
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse_lazy('profile_view')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Profile updated successfully')
+        return super().form_valid(form)
+
+class ProfileDeleteView(LoginRequiredMixin, DeleteView):
+    model = CustomUser
+    template_name = 'talks/registration/profile_delete.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
 class AdCreateView(LoginRequiredMixin, CreateView):
     model = Ad
     form_class = AdForm
@@ -122,51 +164,13 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, 'Your ad has been successfully published.')  # Добавляем сообщение
         return super().form_valid(form)
 
-class HomeView(ListView):
-    model = Ad
-    template_name = 'talks/home.html'
-    context_object_name = 'latest_ads'
-    queryset = Ad.objects.all().order_by('-date_posted')[:5]
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
-
-class ProfileView(View):
-    template_name = 'talks/registration/profile.html'
-
-    def get(self, request):
-        ads = Ad.objects.filter(author=request.user)
-        form = ProfilePictureForm(instance=request.user)  # Инициализируем форму
-        return render(request, self.template_name, {'ads': ads, 'form': form})
-
-    def post(self, request):
-        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile picture updated successfully')
-            return redirect('profile')
-        else:
-            messages.error(request, 'There was an error updating your profile picture')
-            return redirect('profile')
-
-class DeleteProfileView(View):
-    def post(self, request, *args, **kwargs):
-        user = self.request.user
-        logout(request)
-        user.delete()
-        return redirect('home')
-    def get(self, request, *args, **kwargs):
-        return render(request, 'delete_profile.html')
-
 class AdUpdateView(UpdateView):
     model = Ad
     fields = ['title', 'description', 'image']
     template_name = 'talks/ad/ad_edit.html'
 
     def get_success_url(self):
-        return reverse_lazy('profile')
+        return reverse_lazy('profile_view')
 
     def form_valid(self, form):
         old_instance = Ad.objects.get(id=self.object.id)
@@ -181,7 +185,7 @@ class AdUpdateView(UpdateView):
 class AdDeleteView(DeleteView):
     model = Ad
     template_name = 'talks/ad/ad_delete.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('profile_view')
 
 class CategoryListView(ListView):
     model = Category

@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView, DeleteProfileView, AdUpdateView, AdDeleteView
+from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView, AdUpdateView, AdDeleteView, ProfileView, ProfileDeleteView
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -13,8 +13,7 @@ urlpatterns = [
     path('ad/<int:pk>/', AdDetailView.as_view(), name='ad_detail'),  # Detailed ad page
     path('ad/create/', AdCreateView.as_view(), name='ad_create'),
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
-    path('profile/', views.ProfileView.as_view(), name='profile'),
-    path('delete_profile/', views.DeleteProfileView.as_view(), name='delete_profile'),
+    path('profile/', views.ProfileView.as_view(), name='profile_view'),
     path('ad/<int:pk>/edit/', AdUpdateView.as_view(), name='ad_edit'),
     path('ad/<int:pk>/delete/', AdDeleteView.as_view(), name='ad_delete'),
     path('password_reset/', auth_views.PasswordResetView.as_view(
@@ -27,4 +26,6 @@ urlpatterns = [
     path('categories/', views.CategoryListView.as_view(), name='category_list'),
     path('category/<str:category_name>/', views.AdsByCategoryView.as_view(), name='ads_by_category'),
     path('how-it-works/', views.RulesView.as_view(), name='rules'),
+    path('profile/edit/', views.ProfileEditView.as_view(), name='profile_edit'),
+    path('profile/delete/', views.ProfileDeleteView.as_view(), name='profile_delete'),
 ]

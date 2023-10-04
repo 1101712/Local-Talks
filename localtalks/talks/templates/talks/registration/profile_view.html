@@ -1,0 +1,29 @@
+{% extends 'talks/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Profile Page</h2>
+<p>Welcome, {{ user.username }}!</p>
+{% if user.profile_picture %}
+    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+{% else %}
+    <p>No profile picture available.</p>
+{% endif %}
+
+<!-- Edit and Delete buttons for the profile -->
+<a href="{% url 'profile_edit' %}">Edit Profile</a>
+<a href="{% url 'profile_delete' %}">Delete Profile</a>
+
+<h3>Your Ads</h3>
+
+<!-- Add button for the ads -->
+<a href="{% url 'ad_create' %}">Add Ad</a>
+
+{% for ad in ads %}
+    <h4>{{ ad.title }}</h4>
+    <p>{{ ad.description }}</p>
+    <!-- Edit and Delete buttons for the ads -->
+    <a href="{% url 'ad_edit' ad.id %}">Edit</a>
+    <a href="{% url 'ad_delete' ad.id %}">Delete</a>
+{% endfor %}
+{% endblock %}

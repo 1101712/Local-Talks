@@ -11,7 +11,7 @@
             <a href="{% url 'login' %}" class="btn btn-secondary custom-margin">Add Ad (Login Required)</a>
         {% endif %}
 
-        <h2>Latest Ads</h2>
+        <h2 class="custom1-color">Latest Ads</h2>
         <ul>
             {% for ad in latest_ads %}
             <li>
@@ -22,7 +22,7 @@
             {% endfor %}
         </ul>
 
-        <a href="{% url 'ad-list' %}" class="custom-color">View All Ads</a>
+        <a href="{% url 'ad-list' %}" class="custom1-color">View All Ads</a>
     </div>
 
     <div class="col-md-4">
