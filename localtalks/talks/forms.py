@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser
-from .models import Comment, Ad, CustomUser
+from .models import Comment, Ad, CustomUser, Category
 from django.core.exceptions import ValidationError
 
 class CommentForm(forms.ModelForm):
@@ -10,6 +10,11 @@ class CommentForm(forms.ModelForm):
         fields = ['text']
 
 class AdForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Ad
         fields = ['title', 'description', 'image', 'categories']

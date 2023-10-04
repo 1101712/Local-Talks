@@ -119,6 +119,7 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         Set the ad's author to the current user.
         """
         form.instance.author = self.request.user
+        messages.success(self.request, 'Your ad has been successfully published.')  # Добавляем сообщение
         return super().form_valid(form)
 
 class HomeView(ListView):
