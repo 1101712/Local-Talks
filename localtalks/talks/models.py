@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 from PIL import Image
 import os
@@ -29,6 +29,13 @@ class CustomUser(AbstractUser):
         return self.username
 
     def save(self, *args, **kwargs):
+        try:
+            this_old = CustomUser.objects.get(id=self.id)
+            if this_old.profile_picture != self.profile_picture:
+                this_old.profile_picture.delete(save=False)
+        except CustomUser.DoesNotExist:
+            pass  # Объект только что создан, поэтому его еще нет в базе данных
+
         super().save(*args, **kwargs)  # First call the original save method
 
         # Check if there is an image to resize
@@ -42,6 +49,17 @@ class CustomUser(AbstractUser):
 
         else:
             print('No profile picture to resize.')
+
+@receiver(pre_save, sender=CustomUser)
+def delete_old_image(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            old_image = CustomUser.objects.get(pk=instance.pk).profile_picture
+            new_image = instance.profile_picture
+            if old_image != new_image:
+                old_image.delete(save=False)
+        except CustomUser.DoesNotExist:
+            pass
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="profile")

@@ -163,9 +163,19 @@ class AdUpdateView(UpdateView):
     model = Ad
     fields = ['title', 'description', 'image']
     template_name = 'talks/ad/ad_edit.html'
-    
+
     def get_success_url(self):
         return reverse_lazy('profile')
+
+    def form_valid(self, form):
+        old_instance = Ad.objects.get(id=self.object.id)
+        new_instance = form.save(commit=False)
+        
+        if old_instance.image != new_instance.image:
+            old_instance.image.delete(save=False)
+                    
+        messages.success(self.request, 'Ad updated successfully')
+        return super().form_valid(form)
 
 class AdDeleteView(DeleteView):
     model = Ad
@@ -187,4 +197,4 @@ class AdsByCategoryView(ListView):
 
 class RulesView(View):
     def get(self, request):
-        return render(request, 'talks/rules.html')    
+        return render(request, 'talks/rules.html')
