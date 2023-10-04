@@ -6,23 +6,23 @@
 <div class="row">
     <div class="col-md-8">
         {% if user.is_authenticated %}
-            <a href="{% url 'ad_create' %}" class="btn btn-primary">Add Ad</a>
+            <a href="{% url 'ad_create' %}" class="btn btn-primary custom-margin" >Add Ad</a>
         {% else %}
-            <a href="{% url 'login' %}" class="btn btn-secondary">Add Ad (Login Required)</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary custom-margin">Add Ad (Login Required)</a>
         {% endif %}
 
         <h2>Latest Ads</h2>
         <ul>
             {% for ad in latest_ads %}
             <li>
-                <h3><a href="{% url 'ad_detail' ad.pk %}">{{ ad.title }}</a></h3>
+                <h3><a href="{% url 'ad_detail' ad.pk %}" class="custom-color">{{ ad.title }}</a></h3>
                 <p>{{ ad.description|truncatewords:20 }}</p>
                 <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
             </li>
             {% endfor %}
         </ul>
 
-        <a href="{% url 'ad-list' %}">View All Ads</a>
+        <a href="{% url 'ad-list' %}" class="custom-color">View All Ads</a>
     </div>
 
     <div class="col-md-4">
@@ -30,7 +30,7 @@
             <h3>Categories</h3>
             <ul>
                 {% for category in categories %}
-                    <li><a href="{% url 'ads_by_category' category.name %}">{{ category.name }}</a></li>
+                    <li><a href="{% url 'ads_by_category' category.name %}" class="custom-color">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

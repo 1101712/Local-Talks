@@ -49,9 +49,28 @@ footer {
 
 /* Кнопки */
 .btn-primary {
-    background-color: #007bff;
+    background-color: #ab81a9;
+    border-color: #ab81a9 !important;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #caca66;
+    border-color: #caca66 !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #caca66 !important;
+    border-color: #caca66 !important;
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+    background-color: #ab81a9 !important;
+}
+
+.custom-margin {
+    margin-bottom: 20px;
+}
+
+.custom-color {
+    color: #ab81a9 !important;
 }
