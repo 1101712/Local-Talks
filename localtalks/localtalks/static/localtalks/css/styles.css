@@ -4,3 +4,54 @@
     display: block;
     margin: 20px auto;
 }
+
+/* Общий стиль */
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: PT Sans, Arial;
+    color: #3a3a3a;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+/* Шапка */
+header {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Навигация */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Основной контент */
+main {
+    margin: 20px;
+}
+
+/* Подвал */
+footer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
