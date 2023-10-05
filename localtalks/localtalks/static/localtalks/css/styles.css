@@ -48,24 +48,14 @@ footer {
 }
 
 /* Кнопки */
-.btn-primary {
+.btn-custom {
     background-color: #ab81a9;
-    border-color: #ab81a9 !important;
+    border-color: #ab81a9;
 }
 
-.btn-secondary {
+.btn-custom:hover {
     background-color: #caca66;
-    border-color: #caca66 !important;
-}
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-    background-color: #caca66 !important;
-    border-color: #caca66 !important;
-}
-
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
-    background-color: #ab81a9 !important;
-    border-color: #ab81a9 !important;
+    border-color: #caca66;
 }
 
 .custom-margin {
@@ -122,9 +112,12 @@ footer {
 .ad-container {
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
 }
+
 .ads-header {
     margin-bottom: 20px;
     padding-bottom: 10px;
+}
+.fas {
+    margin-right: 5px;
 }

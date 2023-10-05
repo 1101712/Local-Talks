@@ -1,21 +1,26 @@
 <ul>
     {% for ad in ads %}
-        <li class="ad-container">
-            <h4>{{ ad.title }}</h4>
-            <div>
-                <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
-            </div>
-            <div>
-                <small class="text-muted">Posted on: {{ ad.date_posted|date:"Y-m-d" }}</small>
-            </div>
-            <p>{{ ad.description }}</p>
-            {% if ad.image %}
+    <li class="ad-container">
+        <h4>{{ ad.title }}</h4>
+        <div>
+            <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+        </div>
+        <div>
+            <small class="text-muted">Posted on: {{ ad.date_posted|date:"Y-m-d" }}</small>
+        </div>
+        <p>{{ ad.description }}</p>
+        {% if ad.image %}
             <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
         {% else %}
             <p>No image uploaded</p>
         {% endif %}
-            <a href="{% url 'ad_edit' ad.id %}" class="custom-color">Edit</a>
-            <a href="{% url 'ad_delete' ad.id %}" class="custom-color">Delete</a>
-        </li>
-    {% endfor %}
-    </ul>
+        
+        {% if user.is_authenticated %}
+            <div class="ad-actions">
+                <a href="{% url 'ad_edit' ad.id %}" class="custom-color">Edit</a>
+                <a href="{% url 'ad_delete' ad.id %}" class="custom-color">Delete</a>
+            </div>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
