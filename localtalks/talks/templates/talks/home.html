@@ -12,16 +12,9 @@
         {% endif %}
 
         <h2 class="custom1-color">Latest Ads</h2>
-        <ul>
-            {% for ad in latest_ads %}
-            <li>
-                <h3><a href="{% url 'ad_detail' ad.pk %}" class="custom-color">{{ ad.title }}</a></h3>
-                <p>{{ ad.description|truncatewords:20 }}</p>
-                <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
-            </li>
-            {% endfor %}
-        </ul>
-
+        
+        {% include '_ad_list.html' with ads=latest_ads %}
+        
         <a href="{% url 'ad-list' %}" class="custom1-color">View All Ads</a>
     </div>
 

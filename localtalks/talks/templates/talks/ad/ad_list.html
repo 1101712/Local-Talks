@@ -2,39 +2,6 @@
 {% load static %}
 
 {% block content %}
-<h2>All Ads</h2>
-<ul>
-    {% for ad in ads %}
-    <li>
-      <h3><a href="{% url 'ad_detail' ad.pk %}" class="custom-color">{{ ad.title }}</a></h3>
-      <p>{{ ad.description|truncatewords:20 }}</p>
-      <p><strong>Categories:</strong> 
-          {% for category in ad.categories.all %}
-              {{ category.name }}
-          {% endfor %}
-      </p>
-    </li>
-    {% endfor %}
-</ul>
-{% if ads.has_other_pages %}
-<ul class="pagination">
-  {% if ads.has_previous %}
-  <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-  <li class="page-item"><a class="page-link" href="?page={{ ads.previous_page_number }}">Previous</a></li>
-  {% endif %}
-
-  {% for i in ads.paginator.page_range %}
-  {% if ads.number == i %}
-  <li class="page-item active"><span class="page-link">{{ i }}</span></li>
-  {% else %}
-  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-  {% endif %}
-  {% endfor %}
-
-  {% if ads.has_next %}
-  <li class="page-item"><a class="page-link" href="?page={{ ads.next_page_number }}">Next</a></li>
-  <li class="page-item"><a class="page-link" href="?page={{ ads.paginator.num_pages }}">Last</a></li>
-  {% endif %}
-</ul>
-{% endif %}
+<h2 class="custom1-color">All Ads</h2>
+{% include '_ad_list.html' %}
 {% endblock %}

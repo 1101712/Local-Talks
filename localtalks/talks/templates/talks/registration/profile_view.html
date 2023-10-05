@@ -2,28 +2,22 @@
 {% load static %}
 
 {% block content %}
-<h2>Profile Page</h2>
-<p>Welcome, {{ user.username }}!</p>
-{% if user.profile_picture %}
-    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
-{% else %}
-    <p>No profile picture available.</p>
-{% endif %}
+<div class="profile-container">
+    {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">
+    {% else %}
+        <p>No profile picture available.</p>
+    {% endif %}
+    <div class="profile-buttons">
+        <a href="{% url 'profile_edit' %}" class="custom-color">Edit Profile</a>
+        <a href="{% url 'profile_delete' %}" class="custom-color">Delete Profile</a>
+    </div>
+</div>
 
-<!-- Edit and Delete buttons for the profile -->
-<a href="{% url 'profile_edit' %}">Edit Profile</a>
-<a href="{% url 'profile_delete' %}">Delete Profile</a>
+<div class="ads-header">
+    <h3 class="custom1-color">Your Ads</h3>
+    <a href="{% url 'ad_create' %}" class="custom-color">Add Ad</a>
+</div>
 
-<h3>Your Ads</h3>
-
-<!-- Add button for the ads -->
-<a href="{% url 'ad_create' %}">Add Ad</a>
-
-{% for ad in ads %}
-    <h4>{{ ad.title }}</h4>
-    <p>{{ ad.description }}</p>
-    <!-- Edit and Delete buttons for the ads -->
-    <a href="{% url 'ad_edit' ad.id %}">Edit</a>
-    <a href="{% url 'ad_delete' ad.id %}">Delete</a>
-{% endfor %}
+{% include '_ad_list.html' %}
 {% endblock %}
