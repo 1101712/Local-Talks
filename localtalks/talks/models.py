@@ -24,6 +24,7 @@ class Category(models.Model):
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    using_default_image = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
@@ -46,7 +47,6 @@ class CustomUser(AbstractUser):
                 output_size = (100, 100)  # Set the output size
                 img.thumbnail(output_size)  # Resize the image
                 img.save(self.profile_picture.path)  # Save the changes
-
         else:
             print('No profile picture to resize.')
 
@@ -77,6 +77,7 @@ class Ad(models.Model):
     author = models.ForeignKey(CustomUser, related_name='ads', on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
     image = models.ImageField(upload_to='ads_images/', blank=True, null=True)
+    using_default_image = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -116,11 +117,13 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=Ad)
 def delete_ad_image(sender, instance, **kwargs):
-    instance.image.delete(False)
+    if not instance.using_default_image:
+        instance.image.delete(False)
 
 @receiver(post_delete, sender=get_user_model())
 def delete_user_images(sender, instance, **kwargs):
-    instance.profile_picture.delete(False)  # 'profile_picture' — это имя поля изображения в вашей модели пользователя
-    # Удаление всех изображений объявлений связанных с этим пользователем
-    for ad in instance.ads.all():  # 'ads' — это имя обратной связи к модели объявлений
-        ad.image.delete(False)
+    if not instance.using_default_image:
+        instance.profile_picture.delete(False)
+    for ad in instance.ads.all():
+        if not ad.using_default_image:
+            ad.image.delete(False)

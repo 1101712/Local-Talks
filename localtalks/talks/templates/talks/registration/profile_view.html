@@ -3,10 +3,10 @@
 
 {% block content %}
 <div class="profile-container">
-    {% if user.profile_picture %}
+    {% if user.profile_picture and not user.using_default_image %}
         <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">
     {% else %}
-        <p>No profile picture available.</p>
+    <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Profile Picture" class="profile-image">
     {% endif %}
     <div class="profile-buttons">
         <a href="{% url 'profile_edit' %}" class="custom-color">Edit Profile</a>

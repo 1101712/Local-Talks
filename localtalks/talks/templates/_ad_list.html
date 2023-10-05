@@ -2,11 +2,12 @@
     {% for ad in ads %}
     <li class="ad-container">
         <h4>{{ ad.title }}</h4>
-        <div>
-            <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+        <div class="post-info">
+            <img src="{{ ad.author.profile_picture.url }}" alt="profile picture" class="small-profile-picture">
+            <small class="text-muted">Posted by {{ ad.author.username }} on: {{ ad.date_posted|date:"Y-m-d" }}</small>
         </div>
         <div>
-            <small class="text-muted">Posted on: {{ ad.date_posted|date:"Y-m-d" }}</small>
+            <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
         </div>
         <p>{{ ad.description }}</p>
         {% if ad.image %}
@@ -22,5 +23,5 @@
             </div>
         {% endif %}
     </li>
-{% endfor %}
+    {% endfor %}
 </ul>

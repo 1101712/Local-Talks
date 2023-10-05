@@ -6,6 +6,13 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+
+    {% if ad.image and not ad.using_default_image %}
+        <img src="{{ ad.image.url }}" alt="Ad Image">
+    {% else %}
+        <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
+    {% endif %}
+
     <button type="submit">Update</button>
 </form>
 {% endblock %}

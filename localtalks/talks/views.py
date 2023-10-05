@@ -12,6 +12,8 @@ from .forms import CommentForm, AdForm, ExtendedUserCreationForm, ProfilePicture
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.contrib import messages
+from django.core.files import File
+from django.conf import settings
 
 
 class RegisterView(CreateView):
@@ -24,11 +26,15 @@ class RegisterView(CreateView):
         Override the form_valid method to login the user after registration.
         """
         response = super().form_valid(form)
-        username = form.cleaned_data.get('username')
-        raw_password = form.cleaned_data.get('password1')
-        user = authenticate(self.request, username=username, password=raw_password)
-        login(self.request, user)
-        messages.success(self.request, 'Your account has been successfully created.')
+        user = self.object
+        if not user.profile_picture:
+            user.profile_picture.save(
+                'default.jpg',
+                File(open('localtalks/media/default/default.jpg', 'rb'))
+            )
+            user.using_default_image = True
+            user.save()
+        login(self.request, user)  # Автоматический вход в систему
         return response
     
 class CustomLoginView(LoginView):
@@ -125,6 +131,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ads'] = Ad.objects.filter(author=self.request.user).order_by('-date_posted')
+        context['MEDIA_URL'] = settings.MEDIA_URL  # добавляем MEDIA_URL в контекст
         return context
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
@@ -161,8 +168,21 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         Set the ad's author to the current user.
         """
         form.instance.author = self.request.user
-        messages.success(self.request, 'Your ad has been successfully published.')  # Добавляем сообщение
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        ad = self.object
+        if not ad.image:
+            ad.image.save(
+                'default.jpg',
+                File(open('localtalks/media/default/default.jpg', 'rb'))
+            )
+            ad.using_default_image = True
+            ad.save()
+        return response
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['MEDIA_URL'] = settings.MEDIA_URL  # добавляем MEDIA_URL в контекст
+        return context
 
 class AdUpdateView(UpdateView):
     model = Ad
