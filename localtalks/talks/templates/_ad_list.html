@@ -3,20 +3,24 @@
     <li class="ad-container">
         <h4>{{ ad.title }}</h4>
         <div class="post-info">
-            <img src="{{ ad.author.profile_picture.url }}" alt="profile picture" class="small-profile-picture">
+            {% if ad.author.profile_picture and not ad.author.using_default_image %}
+                <img src="{{ ad.author.profile_picture.url }}" alt="Profile picture" class="small-profile-picture">
+            {% else %}
+                <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default profile picture" class="small-profile-picture">
+            {% endif %}
             <small class="text-muted">Posted by {{ ad.author.username }} on: {{ ad.date_posted|date:"Y-m-d" }}</small>
         </div>
         <div>
             <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
         </div>
         <p>{{ ad.description }}</p>
-        {% if ad.image %}
+        {% if ad.image and not ad.using_default_image %}
             <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
         {% else %}
-            <p>No image uploaded</p>
+            <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad image" class="ad-image">
         {% endif %}
         
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user == ad.author %}
             <div class="ad-actions">
                 <a href="{% url 'ad_edit' ad.id %}" class="custom-color">Edit</a>
                 <a href="{% url 'ad_delete' ad.id %}" class="custom-color">Delete</a>

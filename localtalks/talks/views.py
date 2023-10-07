@@ -30,7 +30,7 @@ class RegisterView(CreateView):
         if not user.profile_picture:
             user.profile_picture.save(
                 'default.jpg',
-                File(open('localtalks/media/default/default.jpg', 'rb'))
+                File(open(os.path.join(base_media_path, default_image_folder, default_image_filename), 'rb'))
             )
             user.using_default_image = True
             user.save()
@@ -173,7 +173,7 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         if not ad.image:
             ad.image.save(
                 'default.jpg',
-                File(open('localtalks/media/default/default.jpg', 'rb'))
+                File(open(os.path.join(base_media_path, default_image_folder, default_image_filename), 'rb'))
             )
             ad.using_default_image = True
             ad.save()
