@@ -51,6 +51,11 @@ class AdListView(ListView):
     context_object_name = 'ads'
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset().order_by('-date_posted')
         search_term = self.request.GET.get('search', '')

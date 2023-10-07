@@ -1,9 +1,8 @@
 {% extends "talks/base.html" %}
 
 {% block content %}
-    <!-- Здесь твой текущий код -->
     {% for ad in ads %}
-      <div class="ad-item">
+      <div>
         <h3><a href="{% url 'ad_detail' ad.pk %}">{{ ad.title }}</a></h3>
         <p>Posted by: {{ ad.author }}</p>
         <p>Date: {{ ad.date_posted }}</p>

@@ -49,8 +49,8 @@ footer {
 
 /* Кнопки */
 .btn-custom {
-    background-color: #ab81a9;
-    border-color: #ab81a9;
+    background-color: #dcb8da;
+    border-color: #dcb8da;
 }
 
 .btn-custom:hover {
@@ -110,13 +110,17 @@ footer {
 }
 
 .ad-container {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     padding-bottom: 10px;
 }
 
 .ads-header {
     margin-bottom: 20px;
     padding-bottom: 10px;
+}
+
+.custom-ads {
+    margin-bottom: 50px;
 }
 
 /* Добавленные стили для горизонтальной панели категорий */
@@ -137,7 +141,7 @@ footer {
 }
 
 .category-navbar a:hover {
-    background-color: #ab81a9;
+    background-color: #dcb8da;
     color: #ffffff;
 }
 .category-margin {
@@ -148,4 +152,39 @@ footer {
     height: 20px;
     border-radius: 50%;
     margin-right: 5px;
+}
+
+/* Для изменения фона только панели категорий */
+.category-nav {
+    background-color: #f4f4cb !important; /* Цвет фона */
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.ads-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.ad-item {
+    flex-basis: calc(50% - 10px); /* два элемента в ряд */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* нижний отступ для дополнительного пространства между рядами */
+    display: inline-block; /* чтобы Flexbox корректно применился */
+    margin-bottom: 50px;
+}
+
+.ad-description {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

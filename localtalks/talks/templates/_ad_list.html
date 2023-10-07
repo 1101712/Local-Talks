@@ -1,6 +1,6 @@
-<ul>
+<div class="ads-wrapper">
     {% for ad in ads %}
-    <li class="ad-container">
+    <div class="ad-item">
         <h4>{{ ad.title }}</h4>
         <div class="post-info">
             {% if ad.author.profile_picture and not ad.author.using_default_image %}
@@ -13,19 +13,19 @@
         <div>
             <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
         </div>
-        <p>{{ ad.description }}</p>
+        <p class="ad-description">{{ ad.description }}</p>
         {% if ad.image and not ad.using_default_image %}
             <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
         {% else %}
             <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad image" class="ad-image">
         {% endif %}
-        
+            
         {% if user.is_authenticated and user == ad.author %}
             <div class="ad-actions">
                 <a href="{% url 'ad_edit' ad.id %}" class="custom-color">Edit</a>
                 <a href="{% url 'ad_delete' ad.id %}" class="custom-color">Delete</a>
             </div>
         {% endif %}
-    </li>
+    </div>
     {% endfor %}
-</ul>
+</div>
