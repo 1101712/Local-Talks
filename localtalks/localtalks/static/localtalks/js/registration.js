@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
     passwordHint.id = "passwordHint";
     emailHint.id = "emailHint";
     
-    passwordHint.style.color = "red";
-    emailHint.style.color = "red";
+    passwordHint.style.color = "#76161eda";
+    emailHint.style.color = "#76161eda";
 
     const accountInfo = document.querySelector("h3");
     accountInfo.parentNode.insertBefore(passwordHint, accountInfo.nextSibling);

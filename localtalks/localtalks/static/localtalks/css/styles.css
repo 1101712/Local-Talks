@@ -188,3 +188,109 @@ footer {
     flex-direction: column;
     align-items: center;
 }
+
+/* Для формы входа */
+.login-form {
+    max-width: 350px;  /* Максимальная ширина формы */
+    margin: auto;  /* Центрирование формы */
+    margin-bottom: 10px;
+}
+
+.login-form .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form .form-group label {
+    margin-bottom: 5px;
+}
+
+.login-form .form-group input {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    margin: auto;
+}
+
+.login-form .register-button {
+    background-color: #dcb8da;
+    padding: 8px 16px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+.login-form .register-button:hover {
+    background-color: #caca66;
+}
+
+/* Для формы регистрации */
+.register-form {
+    max-width: 350px;  /* Максимальная ширина формы */
+    margin: auto;  /* Центрирование формы */
+}
+
+.register-form .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form .form-group label {
+    margin-bottom: 5px;
+}
+
+.register-form .form-group input {
+    width: 100%;  /* Ширина поля ввода */
+    max-width: 300px;  /* Максимальная ширина поля ввода */
+    padding: 8px;  /* Отступы внутри поля */
+    margin: auto;  /* Центрирование поля */
+}
+
+.register-form .register-button {
+    background-color: #dcb8da;
+    padding: 10px 20px;  /* Увеличиваем горизонтальные отступы для кнопки */
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;  /* Скругляем углы кнопки */
+}
+
+.register-form .register-button:hover {
+    background-color: #caca66;
+}
+
+/* Заголовки страниц */
+.page-title {
+    font-size: 1.5em;  /* Уменьшаем размер шрифта */
+    max-width: 350px;  /* Соответствует максимальной ширине форм */
+    margin: auto;  /* Центрирование */
+}
+
+.sub-title {
+    font-size: 1.2em;  /* Уменьшаем размер шрифта */
+    margin-bottom: 10px;  /* Добавляем отступ */
+    max-width: 350px;  /* Соответствует максимальной ширине форм */
+    margin: auto;  /* Центрирование */
+}
+/* Для меньших ссылок */
+.small-link {
+    font-size: 0.8em;  /* Уменьшаем размер шрифта для ссылок */
+}
+
+.extra-links {
+    max-width: 350px;  /* Соответствует максимальной ширине форм */
+    margin: auto;  /* Центрирование */
+}
+
+.error-message {
+    color: #76161eda;
+    max-width: 350px;  /* Ограничиваем максимальную ширину, как у полей формы */
+    margin: auto;  /* Центрирование */
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 10px;
+}
