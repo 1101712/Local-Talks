@@ -14,7 +14,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.core.files import File
 from django.conf import settings
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class RegisterView(CreateView):
     form_class = ExtendedUserCreationForm
@@ -49,11 +49,29 @@ class AdListView(ListView):
     model = Ad
     template_name = 'talks/ad/ad_list.html'
     context_object_name = 'ads'
-    paginate_by = 5
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
+        page = self.request.GET.get('page', 1) 
+
+        try:
+            page = max(1, int(page))
+        except ValueError:
+            page = 1
+
+        try:
+            ads = paginator.page(page)
+        except PageNotAnInteger:
+            ads = paginator.page(1)
+        except EmptyPage:
+            ads = paginator.page(paginator.num_pages)
+
+        context['ads'] = ads
+        print(f"Current page: {page}, Total pages: {paginator.num_pages}")  # For debugging
         return context
 
     def get_queryset(self):
@@ -123,7 +141,7 @@ class HomeView(ListView):
     model = Ad
     template_name = 'talks/home.html'
     context_object_name = 'latest_ads'
-    queryset = Ad.objects.all().order_by('-date_posted')[:5]
+    queryset = Ad.objects.all().order_by('-date_posted')[:6]
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

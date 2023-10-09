@@ -30,11 +30,6 @@ header {
     font-size: 2.5em;
 }
 
-/* Навигация */
-.navbar {
-    margin-bottom: 20px;
-}
-
 /* Основной контент */
 main {
     margin: 20px;
@@ -132,6 +127,11 @@ footer {
     gap: 15px;
 }
 
+.category-nav {
+    width: 100%;  /* Указываем, что nav должен занимать всю ширину его родителя */
+    margin: 0;  /* Убираем поля */
+    padding: 0;  /* Убираем внутренние отступы */
+}
 .category-navbar a {
     text-decoration: none;
     color: #3a3a3a;
@@ -147,6 +147,7 @@ footer {
 .category-margin {
     margin-bottom: 20px;
 }
+
 .small-profile-picture {
     width: 20px;
     height: 20px;
@@ -293,4 +294,20 @@ footer {
     font-size: 1em;
     text-align: center;
     margin-bottom: 10px;
+}
+.navbar-brand {
+    margin-left: 20px;
+}
+
+#navbarCategory {
+    display: flex;
+}
+
+.navbar-nav {
+    flex-grow: 1;
+}
+
+.page-item.active .page-link {
+    background-color: #f4f4cb !important;
+    border-color: #f4f4cb !important;
 }
