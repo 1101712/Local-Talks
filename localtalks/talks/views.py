@@ -15,6 +15,8 @@ from django.contrib import messages
 from django.core.files import File
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import os
+
 
 class RegisterView(CreateView):
     form_class = ExtendedUserCreationForm
@@ -25,6 +27,10 @@ class RegisterView(CreateView):
         """
         Override the form_valid method to login the user after registration.
         """
+        base_media_path = settings.MEDIA_ROOT  # определение base_media_path
+        default_image_folder = "default_images"  # папка для изображений по умолчанию
+        default_image_filename = "default.jpg"
+        
         response = super().form_valid(form)
         user = self.object
         if not user.profile_picture:
@@ -162,6 +168,10 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = 'talks/registration/profile_edit.html'
     fields = ['email', 'profile_picture']
 
+    default_image_folder = 'default_images'
+    default_image_filename = 'default.jpg'
+    base_media_path = os.path.join(settings.MEDIA_ROOT)
+
     def get_object(self, queryset=None):
         return self.request.user
 
@@ -191,6 +201,9 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         Set the ad's author to the current user.
         """
         form.instance.author = self.request.user
+        base_media_path = settings.MEDIA_ROOT  # определение base_media_path
+        default_image_folder = "default"
+        default_image_filename = "default.jpg"
         response = super().form_valid(form)
         ad = self.object
         if not ad.image:
@@ -211,6 +224,10 @@ class AdUpdateView(UpdateView):
     model = Ad
     fields = ['title', 'description', 'image']
     template_name = 'talks/ad/ad_edit.html'
+
+    default_image_folder = 'default_images'
+    default_image_filename = 'default.jpg'
+    base_media_path = os.path.join(settings.MEDIA_ROOT)
 
     def get_success_url(self):
         return reverse_lazy('profile_view')
