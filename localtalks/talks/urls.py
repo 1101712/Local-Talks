@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView, AdUpdateView, AdDeleteView, ProfileView, ProfileDeleteView
+from .views import AdListView, AdDetailView, CustomLoginView, RegisterView, AdCreateView, test_view, HomeView, AdUpdateView, AdDeleteView, ProfileView, ProfileDeleteView, CommentDeleteView
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -28,4 +28,5 @@ urlpatterns = [
     path('how-it-works/', views.RulesView.as_view(), name='rules'),
     path('profile/edit/', views.ProfileEditView.as_view(), name='profile_edit'),
     path('profile/delete/', views.ProfileDeleteView.as_view(), name='profile_delete'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
 ]

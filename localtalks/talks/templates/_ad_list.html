@@ -1,7 +1,7 @@
 <div class="ads-wrapper">
     {% for ad in ads %}
     <div class="ad-item">
-        <h4>{{ ad.title }}</h4>
+        <h4><a href="{% url 'ad_detail' ad.id %}" class="custom-color">{{ ad.title }}</a></h4>
         <div class="post-info">
             {% if ad.author.profile_picture and not ad.author.using_default_image %}
                 <img src="{{ ad.author.profile_picture.url }}" alt="Profile picture" class="small-profile-picture">

@@ -263,3 +263,15 @@ class AdsByCategoryView(ListView):
 class RulesView(View):
     def get(self, request):
         return render(request, 'talks/rules.html')
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'talks/comment_confirm_delete.html'
+    success_url = reverse_lazy('ad-list')
+
+    def get_object(self, queryset=None):
+        """ Переопределяем этот метод для проверки, что пользователь является автором комментария """
+        obj = super().get_object()
+        if obj.author != self.request.user:
+            raise Http404("You do not have permission to delete this comment.")
+        return obj
