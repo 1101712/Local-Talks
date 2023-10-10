@@ -18,6 +18,10 @@ body {
     height: 100vh;
 }
 
+h3 {
+    font-size: 1.2em;
+}
+
 /* Шапка */
 header {
     background-color: #f2f2f2;
@@ -54,7 +58,8 @@ footer {
 }
 
 .custom-margin {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .custom-color {
@@ -109,9 +114,14 @@ footer {
     padding-bottom: 10px;
 }
 
+
 .ads-header {
     margin-bottom: 20px;
     padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .custom-ads {
@@ -171,16 +181,21 @@ footer {
     justify-content: space-between;
 }
 
+
 .ad-item {
     flex-basis: calc(50% - 10px); /* два элемента в ряд */
     box-sizing: border-box;
-    margin-bottom: 20px; /* нижний отступ для дополнительного пространства между рядами */
     display: inline-block; /* чтобы Flexbox корректно применился */
     margin-bottom: 50px;
-}
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+    padding: 20px;
+    background-color: #f6f4f1;
+    }
 
 .ad-description {
     max-height: 150px;
+    max-width: 500px;
+    margin-bottom: 30px;
     overflow-y: auto;
 }
 
@@ -203,7 +218,7 @@ footer {
     flex-direction: column;
 }
 
-.login-form .form-group label {
+.login-form .form-group label .register-form .form-group label {
     margin-bottom: 5px;
 }
 
@@ -238,10 +253,6 @@ footer {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-}
-
-.register-form .form-group label {
-    margin-bottom: 5px;
 }
 
 .register-form .form-group input {
@@ -310,4 +321,15 @@ footer {
 .page-item.active .page-link {
     background-color: #f4f4cb !important;
     border-color: #f4f4cb !important;
+}
+
+textarea {
+    height: 100px;
+    overflow-y: auto;
+}
+
+.comment-text {
+    max-width: 500px;
+    margin-bottom: 30px;
+    overflow-y: auto;
 }

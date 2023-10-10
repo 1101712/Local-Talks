@@ -2,36 +2,49 @@
 {% load static %}
 
 {% block content %}
-<h2>{{ ad.title }}</h2>
-<small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
-{% if ad.image %}
-    <img src="{{ ad.image.url }}" alt="Ad Image">
-{% else %}
-    <p>No image available for this ad.</p>
-{% endif %}
-<p>Posted by {{ ad.author }} on {{ ad.date_posted }}</p>
-<p>{{ ad.description }}</p>
 
-<h3>Comments</h3>
-{% for comment in ad.comments.all %}
-    <div class="comment">
-        <p>By {{ comment.author }} on {{ comment.created_date }}</p>
-        <p>{{ comment.text }}</p>
-        <!-- Добавляем кнопку удаления только если текущий пользователь является автором комментария -->
-        {% if user.is_authenticated and user == comment.author %}
-            <a href="{% url 'comment_delete' comment.id %}" class="custom-color">Delete comment</a>
-        {% endif %}
+<div class="content-center">
+    <div class="ad-item">
+        <h4><a href="{% url 'ad_detail' ad.id %}" class="custom-color">{{ ad.title }}</a></h4>
+            <div>
+                {% if ad.author.profile_picture and not ad.author.using_default_image %}
+                    <img src="{{ ad.author.profile_picture.url }}" alt="Profile picture" class="small-profile-picture">
+                {% else %}
+                    <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default profile picture" class="small-profile-picture">
+                {% endif %}
+                <small>Posted by <strong>{{ ad.author.username }}</strong> on: {{ ad.date_posted|date:"Y-m-d" }}</small>
+            </div>
+            <div>
+                <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+            </div>
+            <p class="ad-description custom-margin">{{ ad.description }}</p>
+            {% if ad.image and not ad.using_default_image %}
+                <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
+            {% else %}
+                <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad image" class="ad-image">
+            {% endif %}
     </div>
-{% endfor %}
+    <h3 class="custom-margin">Comments</h3>
+    {% for comment in ad.comments.all %}
+        <div class="category-margin ad-item">
+            <small>Posted by <strong>{{ ad.author.username }}</strong> on: {{ ad.date_posted|date:"Y-m-d" }}</small>
+            <p class="ad-description custom-margin">{{ comment.text }}</p>
+            <!-- Добавляем кнопку удаления только если текущий пользователь является автором комментария -->
+            {% if user.is_authenticated and user == comment.author %}
+                <a href="{% url 'comment_delete' comment.id %}" class="custom-color">Delete comment</a>
+            {% endif %}
+        </div>
+    {% endfor %}
 
-<h3>Add a Comment</h3>
-{% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Comment</button>
-    </form>
-{% else %}
-    <p>You must <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a> to post comments.</p>
-{% endif %}
+    <h3 class="custom-margin">Add a Comment</h3>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-custom custom-margin custom-ads">Add Comment</button>
+        </form>
+    {% else %}
+        <p>You must <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a> to post comments.</p>
+    {% endif %}
+</div>
 {% endblock %}

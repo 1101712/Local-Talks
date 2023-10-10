@@ -3,21 +3,25 @@
 
 {% block content %}
 <div class="profile-container">
+    <h2>Hello, {{ user.username }}!</h2>
     {% if user.profile_picture and not user.using_default_image %}
         <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">
     {% else %}
     <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Profile Picture" class="profile-image">
     {% endif %}
     <div class="profile-buttons">
-        <a href="{% url 'profile_edit' %}" class="custom-color">Edit Profile</a>
-        <a href="{% url 'profile_delete' %}" class="custom-color">Delete Profile</a>
+        <a href="{% url 'profile_edit' %}" class="custom-color custom-margin">Edit Profile</a>
+        <a href="{% url 'profile_delete' %}" class="custom-color custom-margin">Delete Profile</a>
     </div>
 </div>
 
 <div class="ads-header">
-    <h3 class="custom1-color">Your Ads</h3>
+    <h4 class="custom1-color">My Ads</h4>
     <a href="{% url 'ad_create' %}" class="custom-color">Add Ad</a>
 </div>
 
-{% include '_ad_list.html' %}
+<div class="col-md-8 mx-auto content-center">
+    {% include '_ad_list.html' %}
+</div>
+
 {% endblock %}

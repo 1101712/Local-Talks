@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
-<h2>Delete Profile</h2>
+<h4>Delete Profile</h4>
 <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, Delete</button>
+    <button type="submit" class="custom-color">Yes, Delete</button><br>
+    <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
 </form>
-<a href="{% url 'profile_view' %}">Cancel</a>
+
 {% endblock %}

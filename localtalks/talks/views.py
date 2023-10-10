@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ad, Comment, Category, CustomUser
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .forms import CommentForm, AdForm, ExtendedUserCreationForm, ProfilePictureForm
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
@@ -16,6 +16,8 @@ from django.core.files import File
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os
+from django.forms import Form
+from django import forms
 
 
 class RegisterView(CreateView):
@@ -28,7 +30,7 @@ class RegisterView(CreateView):
         Override the form_valid method to login the user after registration.
         """
         base_media_path = settings.MEDIA_ROOT  # определение base_media_path
-        default_image_folder = "default_images"  # папка для изображений по умолчанию
+        default_image_folder = "default"  # папка для изображений по умолчанию
         default_image_filename = "default.jpg"
         
         response = super().form_valid(form)
@@ -60,6 +62,7 @@ class AdListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['MEDIA_URL'] = settings.MEDIA_URL
 
         paginator = Paginator(self.get_queryset(), self.paginate_by)
         page = self.request.GET.get('page', 1) 
@@ -113,6 +116,7 @@ class AdDetailView(FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(ad=self.object)
         context['form'] = self.form_class()
+        context['MEDIA_URL'] = settings.MEDIA_URL
         return context
 
     def post(self, request, *args, **kwargs):
@@ -152,6 +156,7 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['MEDIA_URL'] = settings.MEDIA_URL
         return context
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -182,13 +187,20 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, 'Profile updated successfully')
         return super().form_valid(form)
 
+from django import forms  # не забудь импортировать forms
+
 class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     model = CustomUser
     template_name = 'talks/registration/profile_delete.html'
+    form_class = forms.Form  # используй пустую форму, так как DeleteView теперь использует FormMixin
     success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Your profile has been deleted.')
+        return super().form_valid(form)
 
 class AdCreateView(LoginRequiredMixin, CreateView):
     model = Ad
@@ -225,7 +237,7 @@ class AdUpdateView(UpdateView):
     fields = ['title', 'description', 'image']
     template_name = 'talks/ad/ad_edit.html'
 
-    default_image_folder = 'default_images'
+    default_image_folder = 'default'
     default_image_filename = 'default.jpg'
     base_media_path = os.path.join(settings.MEDIA_ROOT)
 
@@ -245,7 +257,19 @@ class AdUpdateView(UpdateView):
 class AdDeleteView(DeleteView):
     model = Ad
     template_name = 'talks/ad/ad_delete.html'
-    success_url = reverse_lazy('profile_view')
+    form_class = forms.Form  
+    
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        # Здесь можешь добавить проверки прав доступа, если это нужно
+        return obj
+
+    def get_success_url(self):
+        return reverse('profile_view')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Your ad was successfully deleted.')
+        return super().form_valid(form)
 
 class CategoryListView(ListView):
     model = Category
@@ -266,12 +290,18 @@ class RulesView(View):
 
 class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = Comment
-    template_name = 'talks/comment_confirm_delete.html'
-    success_url = reverse_lazy('ad-list')
+    template_name = 'talks/ad/comment_confirm_delete.html'
+    form_class = Form  # используй пустую форму, так как DeleteView теперь использует FormMixin
 
     def get_object(self, queryset=None):
-        """ Переопределяем этот метод для проверки, что пользователь является автором комментария """
         obj = super().get_object()
         if obj.author != self.request.user:
             raise Http404("You do not have permission to delete this comment.")
         return obj
+
+    def get_success_url(self):
+        return reverse('ad_detail', kwargs={'pk': self.object.ad.pk})
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Your comment has been deleted.')
+        return super().form_valid(form)

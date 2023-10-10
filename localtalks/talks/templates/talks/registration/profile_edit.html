@@ -2,11 +2,13 @@
 {% load static %}
 
 {% block content %}
-<h2>Edit Profile</h2>
+<h2>Edit Profile</h2><br>
+<h3>Hello, {{ user.username }}!</h3>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Update</button>
+    <button type="submit" class="custom-color">Update</button><br>
+    <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
 </form>
-<a href="{% url 'profile_view' %}">Cancel</a>
+
 {% endblock %}

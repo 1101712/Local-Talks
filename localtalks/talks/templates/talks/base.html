@@ -25,10 +25,10 @@
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item {% if request.resolver_match.url_name == 'ad-list' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'ad-list' %}">Ads</a>
+                        <a class="nav-link" href="{% url 'ad-list' %}">All Ads</a>
                     </li>
                     <li class="nav-item {% if request.resolver_match.url_name == 'profile_view' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'profile_view' %}">Profile</a>
+                        <a class="nav-link" href="{% url 'profile_view' %}">My Ads</a>
                     </li>
                     <li class="nav-item {% if request.resolver_match.url_name == 'rules' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'rules' %}">How it works</a>
