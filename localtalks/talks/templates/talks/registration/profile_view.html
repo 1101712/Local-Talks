@@ -21,7 +21,9 @@
 </div>
 
 <div class="col-md-8 mx-auto content-center">
-    {% include '_ad_list.html' %}
+    <div class="ads-profile {% if ads|length == 1 %}one-ad{% endif %}">
+        {% include '_ad_list.html' %}
+    </div>
 </div>
-
 {% endblock %}
+

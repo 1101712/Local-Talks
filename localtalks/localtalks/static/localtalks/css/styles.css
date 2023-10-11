@@ -205,6 +205,23 @@ footer {
     align-items: center;
 }
 
+.ads-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* Выравнивание элементов по центру */
+}
+
+.ads-profile .ad-item {
+    flex-basis: calc(50% - 10px); /* два элемента в ряд */
+    margin-bottom: 20px;
+    /* другие стили */
+}
+
+/* Для случая с одним объявлением */
+.ads-profile.one-ad .ad-item {
+    flex-basis: 100%;
+    text-align: center;
+}
 /* Для формы входа */
 .login-form {
     max-width: 350px;  /* Максимальная ширина формы */
