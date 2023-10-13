@@ -1,16 +1,21 @@
-{% extends "talks/base.html" %}
-{% load static %}
+{% extends "talks/base.html" %} <!-- Extending the base template -->
+{% load static %} <!-- Loading the static files -->
 
-{% block content %}
+{% block content %} <!-- Content block -->
 
+<!-- Category navigation bar -->
 <div class="category-navbar category-margin">
     <nav class="navbar navbar-expand-lg navbar-light bg-light category-nav">
+        <!-- Navbar brand -->
         <span class="navbar-brand">Ads by <br> categories:</span>
+        <!-- Navbar toggler for mobile view -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Navbar items -->
         <div class="collapse navbar-collapse" id="navbarCategory">
             <ul class="navbar-nav">
+                <!-- Loop through categories and create navbar items -->
                 {% for category in categories %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'ads_by_category' category.name %}">{{ category.name }}</a>
@@ -20,41 +25,48 @@
         </div>
     </nav>
 </div>
-
+<!-- Main content -->
 <div class="row">
     <div class="col-md-8 mx-auto content-center">
+        <!-- Show "Add Ad" button based on authentication status -->
         {% if user.is_authenticated %}
             <a href="{% url 'ad_create' %}" class="btn btn-custom custom-margin custom-ads">Add Ad</a>
         {% else %}
             <a href="{% url 'login' %}" class="btn btn-custom custom-margin custom-ads">Add Ad (Login Required)</a>
         {% endif %}
-
+        <!-- Heading -->
         <h2 class="custom1-color custom-ads">All Ads</h2>
-        
+        <!-- Include the ad list template -->
         {% include '_ad_list.html' %}
-
+        <!-- Pagination controls -->
         <nav aria-label="Page navigation example">
+            <!-- Pagination list -->
             <ul class="pagination">
+                <!-- Jump to the first page -->
                 <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
                     <a class="page-link" href="?page=1" aria-label="Previous">
                         <span class="custom-color" aria-hidden="true">&laquo;&laquo;</span>
                     </a>
                 </li>
+                <!-- Go to the previous page -->
                 <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
                     <a class="page-link" href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}1{% endif %}" aria-label="Previous">
                         <span class="custom-color" aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
+                <!-- Loop through the range of pages and display them -->
                 {% for i in page_obj.paginator.page_range %}
                     <li class="page-item {% if page_obj.number == i %}active{% endif %}">
                         <a class="page-link custom-color" href="?page={{ i }}">{{ i }}</a>
                     </li>
                 {% endfor %}
+                <!-- Go to the next page -->
                 <li class="page-item {% if not page_obj.has_next or page_obj.number == page_obj.paginator.num_pages %}disabled{% endif %}">
                     <a class="page-link" href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}{{ page_obj.paginator.num_pages }}{% endif %}" aria-label="Next">
                         <span class="custom-color" aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
+                <!-- Jump to the last page -->
                 <li class="page-item {% if not page_obj.has_next or page_obj.number == page_obj.paginator.num_pages %}disabled{% endif %}">
                     <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
                         <span class="custom-color" aria-hidden="true">&raquo;&raquo;</span>
@@ -64,4 +76,4 @@
         </nav>
     </div>
 </div>
-{% endblock %}
+{% endblock %} <!-- End of the block content -->

@@ -1,18 +1,22 @@
-{% extends "talks/base.html" %}
+{% extends "talks/base.html" %} <!-- Extend from the base template -->
 
-{% block content %}
-    <div class="ads-wrapper">
+{% block content %} <!-- Content block starts here -->
+    <div class="ads-wrapper"> <!-- Wrapper for all ads -->
+        <!-- Loop through each ad object in the 'ads' queryset -->
         {% for ad in ads %}
             <div class="ad-item">
+                <!-- Ad title linked to its detail view -->
                 <h3><a href="{% url 'ad_detail' ad.pk %}" class="custom-color">{{ ad.title }}</a></h3>
-                <p>Posted by: {{ ad.author }}</p>
-                <p>Date: {{ ad.date_posted }}</p>
+                <p>Posted by: {{ ad.author }}</p> <!-- Author of the ad -->
+                <p>Date: {{ ad.date_posted }}</p> <!-- Date when the ad was posted -->
+                <!-- Categories associated with the ad -->
                 <p>Categories: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                {% if ad.image %}
+                {% if ad.image %} <!-- Display image if available -->
                     <img src="{{ ad.image.url }}" alt="{{ ad.title }}" style="max-width: 100%;">
                 {% endif %}
+                <!-- Short description, truncated to 20 words -->
                 <p>{{ ad.description|truncatewords:20 }}</p>
             </div>
         {% endfor %}
     </div>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

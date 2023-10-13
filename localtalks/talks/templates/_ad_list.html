@@ -1,25 +1,39 @@
+<!-- Ads Wrapper -->
 <div class="ads-wrapper">
+    <!-- Loop through each Ad -->
     {% for ad in ads %}
+    <!-- Individual Ad Container -->
     <div class="ad-item">
+        <!-- Ad Title with Link to Detail Page -->
         <h4><a href="{% url 'ad_detail' ad.id %}" class="custom-color">{{ ad.title }}</a></h4>
+        <!-- Ad Author Info -->
         <div>
+            <!-- Check if Author has a profile picture that's not the default -->
             {% if ad.author.profile_picture and not ad.author.using_default_image %}
                 <img src="{{ ad.author.profile_picture.url }}" alt="Profile picture" class="small-profile-picture">
             {% else %}
+            <!-- Default Profile Picture -->
                 <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default profile picture" class="small-profile-picture">
             {% endif %}
+            <!-- Posted By and Date -->
             <small>Posted by <strong>{{ ad.author.username }}</strong> on: {{ ad.date_posted|date:"Y-m-d" }}</small>
         </div>
+        <!-- Ad Category Info -->
         <div>
+            <!-- Loop through Ad Categories -->
             <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
         </div>
+        <!-- Ad Description -->
         <p class="ad-description custom-margin">{{ ad.description }}</p>
+        <!-- Ad Image -->
         {% if ad.image and not ad.using_default_image %}
             <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
         {% else %}
+        <!-- Default Ad Image -->
             <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad image" class="ad-image">
         {% endif %}
-            
+        
+        <!-- Edit and Delete buttons for Ad's Author --> 
         {% if user.is_authenticated and user == ad.author %}
             <div class="ad-actions">
                 <a href="{% url 'ad_edit' ad.id %}" class="custom-color">Edit</a>

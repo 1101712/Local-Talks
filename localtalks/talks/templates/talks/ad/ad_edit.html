@@ -1,18 +1,23 @@
-{% extends "talks/base.html" %}
-{% load static %}
+{% extends "talks/base.html" %} <!-- Extend the base template -->
+{% load static %} <!-- Loading the static files -->
 
-{% block content %}
+{% block content %} <!-- Content block -->
+<!-- Title for the edit ad -->
 <h2>Edit Ad</h2>
+<!-- Form to edit an ad -->
 <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+    {% csrf_token %} <!-- CSRF token for security -->
+    {{ form.as_p }} <!-- Render form fields -->
 
+    <!-- Check if the ad has an image and if it's not using the default image -->
     {% if ad.image and not ad.using_default_image %}
+        <!-- Display the ad's image -->
         <img src="{{ ad.image.url }}" alt="Ad Image">
     {% else %}
+        <!-- Display the default image -->
         <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
     {% endif %}
-
+    <!-- Submit button to update the ad -->
     <button type="submit">Update</button>
 </form>
 {% endblock %}

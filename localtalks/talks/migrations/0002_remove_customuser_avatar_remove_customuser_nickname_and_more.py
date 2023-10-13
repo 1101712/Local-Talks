@@ -33,7 +33,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='ad',
             name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ads', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='ads', to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
             model_name='customuser',
@@ -43,6 +46,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='userprofile',
             name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='profile', to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

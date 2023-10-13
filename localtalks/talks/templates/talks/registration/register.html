@@ -1,38 +1,48 @@
-{% extends "talks/base.html" %}
-{% load static %}
+{% extends "talks/base.html" %} <!-- Extending the base template -->
+{% load static %} <!-- Loading static files -->
 
-{% block content %}
+{% block content %} <!-- Start of content block -->
 <h2 class="page-title" style="margin-bottom: 40px;">Register</h2>
+<!-- Display non-field errors if any -->
 {% if form.non_field_errors %}
     <div class="error-message">
         {{ form.non_field_errors }}
     </div>
 {% endif %}
-
+<!-- Display form errors if any -->
 {% if form.errors %}
     <div class="error-message">
         {{ form.errors }}
     </div>
 {% endif %}
+<!-- Form for user registration -->
 <form method="post" enctype="multipart/form-data" class="register-form"> <!-- добавили enctype для загрузки изображений -->
-    {% csrf_token %}
+    {% csrf_token %} <!-- CSRF token for security -->
+    <!-- Account Information Section -->
     <h3 class="sub-title" id="accountInfo">Account Information</h3>
+    <!-- Username field -->
     <div class="form-group">
         {{ form.username.label_tag }} {{ form.username }}
     </div>
+    <!-- Email field -->
     <div class="form-group">
         {{ form.email.label_tag }} {{ form.email }}
     </div>
+    <!-- Password field -->
     <div class="form-group">
         {{ form.password1.label_tag }} {{ form.password1 }}
     </div>
+    <!-- Confirm Password field -->
     <div class="form-group">
         {{ form.password2.label_tag }} {{ form.password2 }}
     </div>
+    <!-- Profile Picture field -->
     <div class="form-group">
         {{ form.profile_picture.label_tag }} {{ form.profile_picture }}
     </div>
+    <!-- Submit button -->
     <button type="submit" class="register-button">Register</button>
 </form>
+<!-- Include JavaScript file -->
 <script src="{% static 'localtalks/js/registration.js' %}"></script>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

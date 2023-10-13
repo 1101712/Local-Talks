@@ -49,8 +49,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase', # This is where you put the name of the db file. 
-                 # If one doesn't exist, it will be created at migration time.
+        'NAME': 'mydatabase',  # the name of the db file.
+                               # it will be created at migration time.
     }
 }
 # Quick-start development settings - unsuitable for production
@@ -59,7 +59,8 @@ DATABASES = {
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
+                 '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -110,16 +111,28 @@ WSGI_APPLICATION = 'localtalks.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
+            ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
+        ),
     },
 ]
 
@@ -146,7 +159,8 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ["https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io"]
 
 
 AUTHENTICATION_BACKENDS = (

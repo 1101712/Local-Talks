@@ -1,29 +1,37 @@
-{% extends 'talks/base.html' %}
-{% load static %}
+{% extends 'talks/base.html' %} <!-- Extending the base template -->
+{% load static %} <!-- Loading static files -->
 
-{% block content %}
+{% block content %} <!-- Start of content block -->
 <div class="profile-container">
+    <!-- Display the username -->
     <h2>Hello, {{ user.username }}!</h2>
+    <!-- Display the profile picture if available, otherwise display default image -->
     {% if user.profile_picture and not user.using_default_image %}
         <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">
     {% else %}
     <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Profile Picture" class="profile-image">
     {% endif %}
     <div class="profile-buttons">
+        <!-- Edit profile button -->
         <a href="{% url 'profile_edit' %}" class="custom-color custom-margin">Edit Profile</a>
+        <!-- Delete profile button -->
         <a href="{% url 'profile_delete' %}" class="custom-color custom-margin">Delete Profile</a>
     </div>
 </div>
 
 <div class="ads-header">
+    <!-- Section for user's ads -->
     <h4 class="custom1-color">My Ads</h4>
+    <!-- Button to create a new ad -->
     <a href="{% url 'ad_create' %}" class="custom-color">Add Ad</a>
 </div>
 
 <div class="col-md-8 mx-auto content-center">
+    <!-- Display ads. Apply 'one-ad' class if only one ad is present -->
     <div class="ads-profile {% if ads|length == 1 %}one-ad{% endif %}">
-        {% include '_ad_list.html' %}
+        {% include '_ad_list.html' %} <!-- Include the ad list partial template -->
+    </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %} <!-- End of content block -->
 

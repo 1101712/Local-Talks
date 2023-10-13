@@ -1,19 +1,20 @@
-{% extends "talks/base.html" %}
-{% load static %}
+{% extends "talks/base.html" %} <!-- Extending the base template -->
+{% load static %} <!-- Loading the static files -->
 
-{% block content %}
-<h2>Create New Ad</h2>
+{% block content %} <!-- Content block -->
+<h2>Create New Ad</h2> <!-- Title for the form -->
 
-<!-- Проверка наличия изображения и его отображение -->
+<!-- Check if the ad has an image and it's not using the default one, then display it -->
 {% if ad.image and not ad.using_default_image %}
     <img src="{{ ad.image.url }}" alt="Ad Image">
 {% else %}
     <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
 {% endif %}
 
-<form method="post" enctype="multipart/form-data"> <!-- добавили enctype для загрузки изображений -->
-    {% csrf_token %}
-    {{ form.as_p }}
+<!-- Form to create a new ad, enctype attribute is added to support file upload -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} <!-- CSRF token for security -->
+    {{ form.as_p }} <!-- Render form fields -->
     <button type="submit">Submit</button>
 </form>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

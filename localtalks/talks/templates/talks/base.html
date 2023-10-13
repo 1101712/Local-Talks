@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Lokal_buzz: Discover and share local events, resources, and opportunities in your community. From arts and culture to official announcements, find everything local here.">
     <meta name="keywords" content="Local Events, Community Talks, Local Resources, Voluntary Help, Official Announcements, Commercial Ads, Sporting Events, Local Education, Arts and Culture, Community Help">
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'localtalks/css/styles.css' %}">
+
     <title>Local buzz</title>
     
 </head>
 <body>
     <header>
+        <!-- Header Title with small images -->
         <div class="title-container">
             <img src="{% static 'localtalks/images/wom-sil.jpg' %}" alt="Woman" class="title-image left-image">
             <h1 class="custom-title">"What's the local buzz"</h1>
             <img src="{% static 'localtalks/images/man-sil.jpg' %}" alt="Man" class="title-image right-image">
         </div>
         
-                
+        <!-- Navigation Bar -->         
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- Mobile Menu Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!-- Collapsible Navbar Content -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                    <!-- Navigation Links -->
+                    <!-- Each <li> has a conditional to check if it's the active page -->
                     <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
@@ -38,14 +48,14 @@
                     <li class="nav-item {% if request.resolver_match.url_name == 'rules' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'rules' %}">How it works</a>
                     </li>
-                    
+                    <!-- Authenticated User Options -->
                     {% if user.is_authenticated %}
-                        <!-- Если пользователь вошел в систему -->
+                        <!-- If the user is logged in -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                         </li>
                     {% else %}
-                        <!-- Если пользователь НЕ вошел в систему -->
+                        <!-- If the user is NOT logged in -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
@@ -54,12 +64,14 @@
                         </li>
                     {% endif %}
                 </ul>
+                <!-- Search Form -->
                 <form class="form-inline ml-auto" method="GET" action="{% url 'ad-list' %}">
                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
         </nav>
+        <!-- Logo Image -->
         <img class="logo-image" src="{% static 'localtalks/images/local1.jpg' %}" alt="Schematic illustrations of people of different ages and moods with distinctly expressed individuality. Characters with different skin shades are depicted, as well as a character in a wheelchair and a person with a walking stick, emphasizing the importance of every person.">
     </header>
     <main>
@@ -78,6 +90,7 @@
         {% endblock %}
     </main>
     <footer>
+        <!-- Footer Content -->
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -87,7 +100,7 @@
             </div>
         </div>
     </footer>
-    
+<!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,13 +1,16 @@
-{% extends 'talks/base.html' %}
-{% load static %}
+{% extends 'talks/base.html' %} <!-- Extending the base template -->
+{% load static %} <!-- Loading static files -->
 
-{% block content %}
+{% block content %} <!-- Start of content block -->
 <h4>Delete Profile</h4>
+<!-- Warning message -->
 <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+<!-- Form for deleting profile -->
 <form method="post">
-    {% csrf_token %}
+    {% csrf_token %} <!-- CSRF token for security -->
     <button type="submit" class="custom-color">Yes, Delete</button><br>
+    <!-- Cancel button to go back to profile view -->
     <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
 </form>
 
-{% endblock %}
+{% endblock %} <!-- End of content block -->

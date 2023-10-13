@@ -1,28 +1,36 @@
-{% extends "talks/base.html" %}
-{% load static %}
+{% extends "talks/base.html" %} <!-- Extending the base template -->
+{% load static %} <!-- Loading static files -->
 
-{% block content %}
+{% block content %} <!-- Start of content block -->
+<!-- Page title -->
 <h2 class="page-title" style="margin-bottom: 40px;">Login</h2>
 
+<!-- Displaying errors not associated with a specific field -->
 {% if form.non_field_errors %}
     <div class="error-message">
         {{ form.non_field_errors }}
     </div>
 {% endif %}
 
+<!-- Login form -->
 <form method="post" class="login-form">
-    {% csrf_token %}
+    {% csrf_token %} <!-- CSRF token for security -->
+    <!-- Username input field -->
     <div class="form-group">
         {{ form.username.label_tag }} {{ form.username }}
     </div>
+    <!-- Password input field -->
     <div class="form-group">
         {{ form.password.label_tag }} {{ form.password }}
     </div>
+    <!-- Submit button -->
     <button type="submit" class="register-button">Login</button>
 </form>
+<!-- Extra links for registration and password reset -->
 <div class="extra-links">
     <a href="{% url 'register' %}" class="custom-color small-link">Register</a><br>
     <a href="{% url 'password_reset' %}" class="custom-color small-link">Forgot Password?</a>
 </div>
+<!-- Include JavaScript file -->
 <script src="{% static 'localtalks/js/registration.js' %}"></script>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

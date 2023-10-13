@@ -1,16 +1,21 @@
-{% extends "talks/base.html" %}
-{% load static %}
+{% extends "talks/base.html" %} <!-- Extending the base template -->
+{% load static %} <!-- Loading static files -->
 
-{% block content %}
+{% block content %} <!-- Start of content block -->
 
+<!-- Category Navigation Bar -->
 <div class="category-navbar category-margin">
     <nav class="navbar navbar-expand-lg navbar-light bg-light category-nav">
+        <!-- Navbar Brand/Title -->
         <span class="navbar-brand">Adds by <br> categories:</span>
+        <!-- Mobile Menu Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Collapsible Navbar Content -->
         <div class="collapse navbar-collapse" id="navbarCategory">
             <ul class="navbar-nav">
+                <!-- Dynamic Category List -->
                 {% for category in categories %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'ads_by_category' category.name %}">{{ category.name }}</a>
@@ -20,20 +25,22 @@
         </div>
     </nav>
 </div>
-
+<!-- Main Content -->
 <div class="row">
     <div class="col-md-8 mx-auto content-center">
+        <!-- Add Ad Button -->
+        <!-- Checks if the user is authenticated -->
         {% if user.is_authenticated %}
             <a href="{% url 'ad_create' %}" class="btn btn-custom custom-margin custom-ads">Add Ad</a>
         {% else %}
             <a href="{% url 'login' %}" class="btn btn-custom custom-margin custom-ads">Add Ad (Login Required)</a>
         {% endif %}
-
+        <!-- Latest Ads Title -->
         <h2 class="custom1-color custom-ads">Latest Ads</h2>
-        
+        <!-- Include Ads List -->
         {% include '_ad_list.html' with ads=latest_ads %}
-        
+        <!-- View All Ads Link -->
         <a href="{% url 'ad-list' %}" class="custom-color">View All Ads</a>
     </div>
 </div>
-{% endblock %}
+{% endblock %} <!-- End of content block -->
