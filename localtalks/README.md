@@ -36,7 +36,7 @@ This Django project offers an opportunity for the local community to share news 
     - [Database Model](#database-model)
     - [Custom Model](#custom-model)
     - [CRUD](#crud)
-[Frameworks - Libraries - Programs Used](#frameworks---libraries---programs-used)
+- [Frameworks - Libraries - Programs Used](#frameworks---libraries---programs-used)
 - [Testing](#testing)
     - [Features](#features) 
         - [Navigation](#navigation)
@@ -66,14 +66,14 @@ This Django project offers an opportunity for the local community to share news 
 - [Source Credits](#source-credits)
 - [Acknowledgments](#acknowledgments)
 
-## Introduction
-(x)
+## UI/UX
+The overall design of the website should create an atmosphere of casual, informal neighborly communication. To achieve this, minimal necessary features and interactivity are configured to avoid overwhelming the user with a large number of options. The general layout, navigation, and functionality are simple and intuitive, aligning with user expectations for any standard blog website.
 
-## Agile Methodology
-(x)
+### Agile Methodology
+Agile was used from the initial planning stage for this project. You can find more information about my development planning as well as User Story in the project I created on GitHub [here](https://github.com/users/1101712/projects/1). In it, I employed the provided Kanban board method to divide project elements into user stories and manageable tasks. The plan presented in the project represents the optimal version with features, some of which I was unable to implement due to time constraints.
 
-## Site Goals
-
+### Site Goals
+This website represents a compromise between real bulletin boards, live direct communication with neighbors, and the capabilities of modern technology. It expands the possibilities of messenger groups. Here, people can not only post or obtain the information they need, comment, edit, and delete it, but also search and sort it by keywords, author, and view all their published announcements on one page. In the basic version of the website, the administrator has the ability to remove inappropriate content. The developer plans to add the ability for private comments, visible only to the author of the announcement, which should make the atmosphere of information exchange on the site even more confidential (informal).
 ## User Experience (UX)
 ### User Stories
 (x)

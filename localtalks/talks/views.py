@@ -74,6 +74,16 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
 
+# Function for hihliting a text by search
+def highlight_text(text, query):
+    start = text.lower().find(query.lower())
+    if start == -1:
+        return text
+    end = start + len(query)
+    return (text[:start] + "<strong>" + text[start:end] + "</strong>" +
+            text[end:])
+
+
 # Class-based view for listing ads
 class AdListView(ListView):
     """
@@ -109,7 +119,17 @@ class AdListView(ListView):
         except EmptyPage:
             ads = paginator.page(paginator.num_pages)
 
+        search_query = self.request.GET.get('search', '')
+        context['search_query'] = search_query
+
+        # add function highlight_text for every ad
+        if search_query:
+            for ad in ads:
+                ad.title = highlight_text(ad.title, search_query)
+                ad.description = highlight_text(ad.description, search_query)
+
         context['ads'] = ads
+
         return context
 
     def get_queryset(self):
@@ -119,10 +139,15 @@ class AdListView(ListView):
         """
         queryset = super().get_queryset().order_by('-date_posted')
         search_term = self.request.GET.get('search', '')
+        author = self.request.GET.get('author', '')
+        category = self.request.GET.get('category', '')
         if search_term:
             queryset = queryset.filter(
                 Q(title__icontains=search_term) |
-                Q(description__icontains=search_term)
+                Q(description__icontains=search_term) |
+                Q(author__username__icontains=search_term) |
+                Q(categories__name__icontains=search_term)
+
             )
         return queryset
 
