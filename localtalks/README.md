@@ -4,12 +4,12 @@ This Django project offers an opportunity for the local community to share news 
 [Link to live site](https://herokuapp.com/)
 
 ## Table of Contents
+- [Site Goals](#site-goals)
 - [UI/UX](#uiux)
     - [Agile Methodology](#agile-methodology)
-    - [Site Goals](#site-goals)
     - [Wireframes](#wireframes)
     - [5 Planes of UX](#5-planes-of-ux)
-    - [Design](#design)
+    - [Visual Design Choices](#visual-design-choices)
         - [Colour Scheme](#colour-scheme)
         - [Imagery](#imagery)
         - [Fonts](#fonts)
@@ -26,36 +26,19 @@ This Django project offers an opportunity for the local community to share news 
     - [My Posts](#my-posts)
     - [My Bookmarks](#my-bookmarks)
     - [Error Pages](#error-pages)
-    - [Future Features](#future-features)
 - [Security Features and Defensive Design](#security-features-and-defensive-design)
     - [User Authentication](#user-authentication)
     - [Form Validation](#form-validation)
     - [Database Security](#database-security)
     - [Custom error pages](#custom-error-pages)
+- [Future Features](#future-features)
 - [Database Design](#database-design)
     - [Database Model](#database-model)
     - [Custom Model](#custom-model)
     - [CRUD](#crud)
 - [Frameworks - Libraries - Programs Used](#frameworks---libraries---programs-used)
 - [Testing](#testing)
-    - [Features](#features) 
-        - [Navigation](#navigation)
-        - [Filter Option](#filter-option)
-        - [CRUD](#crud)
-        - [Create](#create)
-        - [Read](#read)
-        - [Update](#update)
-        - [Delete](#delete)
-        - [Sign Up](#sign-up)
-        - [Login](#login)
-        - [Logout](#logout)
-        - [Commenting](#commenting)
-        - [Liking](#liking)
-        - [Social Links](#social-links)
-    - [Validator Testing](#validator-testing)
-    - [Browser Testing](#browser-testing)
-    - [Fixed Bugs](#fixed-bugs)
-    - [Unfixed Bugs](#unfixed-bugs)
+- [Unfixed Bugs](#unfixed-bugs)
 - [Deployment - Heroku](#deployment---heroku)
 - [Development](#development)
     - [Fork](#fork)
@@ -66,30 +49,65 @@ This Django project offers an opportunity for the local community to share news 
 - [Source Credits](#source-credits)
 - [Acknowledgments](#acknowledgments)
 
-## UI/UX
-The overall design of the website should create an atmosphere of casual, informal neighborly communication. To achieve this, minimal necessary features and interactivity are configured to avoid overwhelming the user with a large number of options. The general layout, navigation, and functionality are simple and intuitive, aligning with user expectations for any standard blog website.
-
-### Agile Methodology
-Agile was used from the initial planning stage for this project. You can find more information about my development planning as well as User Story in the project I created on GitHub [here](https://github.com/users/1101712/projects/1). In it, I employed the provided Kanban board method to divide project elements into user stories and manageable tasks. The plan presented in the project represents the optimal version with features, some of which I was unable to implement due to time constraints.
-
 ### Site Goals
 This website represents a compromise between real bulletin boards, live direct communication with neighbors, and the capabilities of modern technology. It expands the possibilities of messenger groups. Here, people can not only post or obtain the information they need, comment, edit, and delete it, but also search and sort it by keywords, author, and view all their published announcements on one page. In the basic version of the website, the administrator has the ability to remove inappropriate content. The developer plans to add the ability for private comments, visible only to the author of the announcement, which should make the atmosphere of information exchange on the site even more confidential (informal).
-## User Experience (UX)
-### User Stories
-(x)
 
-### Design
-#### Colour Scheme
-(x)
+## UI/UX
 
-#### Imagery
-(x)
+The overall design of the website should create an atmosphere of casual, informal neighborly communication. To achieve this, minimal necessary features and interactivity are configured to avoid overwhelming the user with a large number of options. The general layout, navigation, and functionality are simple and intuitive, aligning with user expectations for any standard blog website.
 
-#### Fonts
-(x)
+### Agile Methodology and User Story
 
-#### Wireframes
-(x)
+Agile was used from the initial planning stage for this project. You can find more information about my development planning as well as User Story in the project I created on GitHub [here](https://github.com/users/1101712/projects/1). In it, I employed the provided Kanban board method to divide project elements into user stories and manageable tasks. The plan presented in the project represents the optimal version with features, some of which I was unable to implement due to time constraints.
+
+### Wireframes
+
+The initial [wireframes in Figma](https://www.figma.com/file/w9czEkU8kcSVDod6AMa5Fu/Local-Talks?type=design&node-id=0%3A1&mode=design&t=OijBKnG8otwAM68t-1) serve as a simplified blueprint of the final product and are primarily intended for planning the website's core functionalities. You can view the wireframes by following this link and selecting the desired pages from the menu at the top left, next to the palm icon. The free version of the site offers only 3 pages for wireframe development.
+
+Not all features are covered by these initial sketches. For a comprehensive list of existing features, please refer to the [Features](#features) section.
+
+### 5 Planes of UX
+
+#### Strategy
+
+The goal is to meet the needs of local communities for a dedicated space where they can share news, advertisements, and general community information in an informal, yet organized manner. Unlike social media or e-commerce platforms, the focus here is on local, neighborly interaction.
+
+#### Scope
+
+The project aims to provide essential features that facilitate easy interaction among community members. These include:
+
+    - User Authentication: Sign up and login functionality.
+    - News and Ads Posting: CRUD operations for authenticated users.
+    - Search and Sort: Enables users to find posts by keywords, categories, and authors.
+    - Profile Page: A user-specific page where one can view all their posts.
+For a comprehensive overview of all the features currently implemented, see [Existing Features](#existing-features). Additional functionalities that have not yet been implemented, primarily due to time constraints, are discussed under [Future Features](#possible-future-features).
+
+
+#### Structure
+
+The site is modeled after a simple blog or bulletin board, offering intuitive navigation. Users can browse posts and perform advanced operations like searching and sorting. However, to post an ad or news, user authentication is required.
+
+#### Skeleton
+The initial outline of the project's skeleton can be viewed in Wireframes. The structure is designed to offer intuitive navigation through a familiar layout:
+
+    - The navbar provides quick access to all 
+    primary features and varies according to user authentication status.
+    - The main content is displayed in a list view, and each post links to its details.
+    - Buttons and links are clearly labeled, and instructions are provided where necessary.
+
+#### Surface
+
+The visual design aims to create an atmosphere of informal, neighborly interaction. The layout is clean and straightforward, devoid of any elements that could potentially overwhelm the user. For more details on the visual planning, see [Visual Design Choices](#visual-design-choices).
+
+### Visual Design Choices
+
+** Colour Scheme:**
+Colour palette from [ASPOSE](https://products.aspose.app)
+
+![Colour Palette](localtalks/static/localtalks/images/color.jpg)
+The colours chosen are quite neutral and calming. 
+
+Great care was taken to establish a good contrast between background colours and text at all times to ensure maximum user accessibility.
 
 ## Data Model
 (x)
