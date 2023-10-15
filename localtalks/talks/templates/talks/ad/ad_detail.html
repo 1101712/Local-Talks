@@ -37,7 +37,7 @@
     {% for comment in ad.comments.all %}
         <div class="category-margin ad-item">
             <!-- Comment author and date -->
-            <small>Posted by <strong>{{ ad.author.username }}</strong> on: {{ ad.date_posted|date:"Y-m-d" }}</small>
+            <small>Posted by <strong>{{ comment.author.username }}</strong> on: {{ comment.created_date|date:"Y-m-d" }}</small>
             <!-- Comment text -->
             <p class="ad-description custom-margin">{{ comment.text }}</p>
             <!-- Delete button for comment (only available to the author) -->
