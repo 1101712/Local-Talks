@@ -1,6 +1,9 @@
 {% extends "talks/base.html" %} <!-- Extend from the base template -->
 
 {% block content %} <!-- Content block starts here -->
+<div class="col-md-8 mx-auto content-center"> <!-- Additional wrapper for the header -->
+    <h2 class="custom1-color custom-ads">All ads in category: {{ category_name }}</h2>
+</div>
     <div class="ads-wrapper"> <!-- Wrapper for all ads -->
         <!-- Loop through each ad object in the 'ads' queryset -->
         {% for ad in ads %}

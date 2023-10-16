@@ -373,10 +373,13 @@ class AdsByCategoryView(ListView):
     context_object_name = 'ads'
 
     def get_queryset(self):
-        return (
-            Ad.objects.filter(categories__name=self.kwargs['category_name'])
-            .order_by('-date_posted')
-        )
+        category_name = self.kwargs['category_name']
+        return Ad.objects.filter(categories__name=category_name)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_name'] = self.kwargs['category_name']
+        return context
 
 
 # Class-based view for displaying the rules of the site
