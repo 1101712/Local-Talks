@@ -2,14 +2,15 @@
 {% load static %} <!-- Loading static files -->
 
 {% block content %} <!-- Start of content block -->
-<h2>Edit Profile</h2><br>
-<h3>Hello, {{ user.username }}!</h3>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %} <!-- CSRF token for security -->
-    <!-- Form for editing profile -->
-    {{ form.as_p }}
-    <button type="submit" class="custom-color">Update</button><br>
-    <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
-</form>
-
+<div class="profile-container">   
+    <h2 class="custom1-color">Edit Profile</h2><br>
+    <h3>Hello, {{ user.username }}!</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} <!-- CSRF token for security -->
+        <!-- Form for editing profile -->
+        {{ form.as_p }}
+        <button type="submit" class="custom-color">Update</button><br>
+        <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
+    </form>
+</div>
 {% endblock %}

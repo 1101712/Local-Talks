@@ -2,15 +2,16 @@
 {% load static %} <!-- Loading static files -->
 
 {% block content %} <!-- Start of content block -->
-<h4>Delete Profile</h4>
-<!-- Warning message -->
-<p>Are you sure you want to delete your profile? This action cannot be undone.</p>
-<!-- Form for deleting profile -->
-<form method="post">
-    {% csrf_token %} <!-- CSRF token for security -->
-    <button type="submit" class="custom-color">Yes, Delete</button><br>
-    <!-- Cancel button to go back to profile view -->
-    <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
-</form>
-
+<div class="profile-container">
+    <h2 class="custom1-color">Delete Profile</h2>
+    <!-- Warning message -->
+    <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+    <!-- Form for deleting profile -->
+    <form method="post">
+        {% csrf_token %} <!-- CSRF token for security -->
+        <button type="submit" class="custom-color">Yes, Delete</button><br>
+        <!-- Cancel button to go back to profile view -->
+        <a href="{% url 'profile_view' %}" class="custom-color">Cancel</a>
+    </form>
+</div>
 {% endblock %} <!-- End of content block -->

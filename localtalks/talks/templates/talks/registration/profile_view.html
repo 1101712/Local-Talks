@@ -4,7 +4,7 @@
 {% block content %} <!-- Start of content block -->
 <div class="profile-container">
     <!-- Display the username -->
-    <h2>Hello, {{ user.username }}!</h2>
+    <h2 class="custom1-color">Hello, {{ user.username }}!</h2>
     <!-- Display the profile picture if available, otherwise display default image -->
     {% if user.profile_picture and not user.using_default_image %}
         <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">

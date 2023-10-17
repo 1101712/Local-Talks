@@ -2,9 +2,10 @@
 {% load static %} <!-- Loading static files -->
 
 {% block content %} <!-- Start of content block -->
-<!-- Page title -->
-<h2 class="page-title" style="margin-bottom: 40px;">Login</h2>
-
+<div class="profile-container">    
+    <!-- Page title -->
+    <h2 class="page-title custom1-color" style="margin-bottom: 40px;">Login</h2>
+</div>
 <!-- Displaying errors not associated with a specific field -->
 {% if form.non_field_errors %}
     <div class="error-message">
