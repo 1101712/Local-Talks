@@ -23,7 +23,7 @@
         <!-- Ad Category Info -->
         <div>
             <!-- Loop through Ad Categories -->
-            <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+            <small>Category: {% for highlighted_category in ad.highlighted_categories %}{{ highlighted_category|safe }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
         </div>
         <!-- The description of the ad is displayed here.
         The 'safe' filter is used to mark the description as safe HTML, allowing any HTML tags (added for highlighting) to be rendered.-->

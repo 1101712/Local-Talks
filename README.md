@@ -19,7 +19,6 @@ This Django project offers an opportunity for the local community to share news 
     - [Future Features](#future-features)
 - [Database Design](#database-design)
     - [Database Model](#database-model)
-    - [Custom Model](#custom-model)
     - [CRUD](#crud)
 - [Frameworks - Libraries - Programs Used](#frameworks---libraries---programs-used)
 - [Testing](#testing)
@@ -60,12 +59,16 @@ The goal is to meet the needs of local communities for a dedicated space where t
 #### Scope
 
 The project aims to provide essential features that facilitate easy interaction among community members. These include:
-- User Authentication: Sign up and login functionality.
-- News and Ads Posting: CRUD operations for authenticated users.
-- Search and Sort: Enables users to find posts by keywords, categories, and authors.
-- Profile Page: A user-specific page where one can view all their posts.
+- **User Authentication:**   
+Sign up and login functionality.
+- **News and Ads Posting:**   
+CRUD operations for authenticated users.
+- **Search and Sort:**  
+Enables users to find posts by keywords, categories, and authors.
+- **Profile Page:**  
+A user-specific page where one can view all their posts.
 
-For a comprehensive overview of all the features currently implemented, see [Existing Features](#existing-features). Additional functionalities that have not yet been implemented, primarily due to time constraints, are discussed under [Future Features](#possible-future-features).
+For a comprehensive overview of all the features currently implemented, see [Existing Features](#existing-features). Additional functionalities that have not yet been implemented, primarily due to time constraints, are discussed under [Future Features](#future-features).
 
 
 #### Structure
@@ -94,6 +97,8 @@ The colours chosen are quite neutral and calming.
 Great care was taken to establish a good contrast between background colours and text at all times to ensure maximum user accessibility.
 
 ### Images and Icons
+
+There is only four static images on the site. The rest of the imagery will be uploaded by users for their individual recipes. 
 
 The design of the site includes images and icons made in the style of children's drawings. This style was chosen intentionally. The aim of using such images and icons is to create an atmosphere of trust and openness. 
 
@@ -129,7 +134,20 @@ The fonts from the PT Family were chosed to make the website futureproof. As alr
 
 ![Categories navbar](localtalks/localtalks/static/localtalks/images/categ-nav1.jpg)
 
-![Categories navbar](localtalks/localtalks/static/localtalks/images/categ-nav2.jpg)
+![Categories navbar](localtalks/localtalks/static/localtalks/images/categ-nav2.jpg) 
+
+#### Search Feature
+
+- **The search functionality:**   
+by the titles of the ads, categories, authors, and the text within the ads.
+
+- **Highlighting:**  
+The search results provide highlighted keywords to make it easier for you to find exactly what you're looking for. While the author names are searchable, they are not highlighted in the search results, as they are already displayed in bold text for easier recognition.  
+For a glimpse of how this works, here's an example of search results for the query "al":
+
+![Search](localtalks/localtalks/static/localtalks/images/search.jpg)
+
+![Search Results](localtalks/localtalks/static/localtalks/images/search-results.jpg)
 
 #### Ads by Categories Page
 
@@ -182,8 +200,7 @@ Here, the user is required to fill out an extended standard form with a username
 In addition to the form fields, the registration page features dynamic hints to assist users in filling out their email and password. These hints serve as error prompts, helping users understand the requirements for each field. The hints are implemented using JavaScript and are displayed below the input fields.
 Password Hints
 
-- For the password, 
-
+- **For the password**,  
     the following conditions are displayed to the user as they type:
 
         The password must be at least 8 characters long.
@@ -198,8 +215,7 @@ Password Hints
     When the user is confirming their password, real-time validation occurs. The hint for this field operates on an error principle and will display a message until there is an exact match between the entered passwords.
     Email Hints
 
-- For the email field, 
-
+- **For the email field**,   
     the following conditions are displayed:
 
         The email must contain an '@'.
@@ -210,8 +226,7 @@ Password Hints
 
 The hints are styled with a specific color (#76161eda) to ensure they are noticeable yet not too distracting. These interactive features make the registration process more user-friendly by providing immediate feedback and guidance.
 
-- Email Already Exists Scenario
-
+- **Email Already Exists Scenario:**  
     After the user submits the form, the back-end logic in Django checks whether the provided email already exists in the database. This is done in the RegisterView class within the form_valid method. If a user attempts to register with an email that already exists, a message will be displayed to inform them that a user with that email already exists. The user will then be redirected back to the registration page to correct this issue.
 
 After successful registration, the user is redirected to the newly created profile page. Therefore, there is no need for an additional message about successful profile creation.
@@ -311,15 +326,12 @@ This page  introduces a comprehensive "How it Works" guide aimed at helping user
 
 #### Authentication and Authorization:
 
-- **Custom User Model:** 
-    
+- **Custom User Model:**      
     The application uses a custom user model CustomUser with unique email constraints.
 
-- **Login Required:** 
-
+- **Login Required:**  
     Several views like ProfileView, ProfileEditView, ProfileDeleteView, etc., are protected by Django's LoginRequiredMixin, ensuring that only authenticated users can access these views.
-- **Ownership Checks:** 
-
+- **Ownership Checks:**   
     For deleting comments (CommentDeleteView), the application checks if the user attempting to delete the comment is indeed the author.
 
 #### Database Security
@@ -328,65 +340,52 @@ This page  introduces a comprehensive "How it Works" guide aimed at helping user
 
 #### User Input Handling:
 
-- **Form Validation:**
-
+- **Form Validation:**  
     Django forms (CommentForm, AdForm, etc.) are used to validate user input before saving it to the database. 
 
-- **Real-Time Form Validation:**
-
+- **Real-Time Form Validation:**  
     Dynamic Hints: The application provides real-time hints during the process of filling out the registration form. The hints are generated by JavaScript and displayed below the input fields for password and email.
 
-- **Password Complexity:**
-
+- **Password Complexity:**  
     The JavaScript code enforces password complexity requirements, ensuring that the password contains a mix of uppercase letters, lowercase letters, numbers, and special characters. This helps improve the security of user accounts.
 
-- **Password Confirmation:**
-
+- **Password Confirmation:**  
     A real-time check is performed to make sure the confirmed password matches the initial password. This minimizes the risk of users setting unintended passwords.
 
-- **Email Format Validation:**
-
+- **Email Format Validation:**  
    The JavaScript code validates the email format in real-time, providing hints about missing '@' or '.' symbols or if the overall format does not match the required email format.
 
-- **Escaping User Input:**
-
+- **Escaping User Input:**  
    The function highlight_text is designed to highlight text in search results, which could help in preventing issues related to HTML injection if properly used.
 
 #### File Handling:
 
-- **Image Resizing:** 
-
+- **Image Resizing:**  
     Both for user profile pictures and ad images, the application resizes images to specified dimensions, potentially saving storage and bandwidth.
 
-- **Default Image:** 
-
+- **Default Image:**  
     In the absence of a user-provided image, a default image is used.
 
-- **Image Deletion:** 
-
+- **Image Deletion:**  
     Old images are deleted from storage when updated, preventing storage from being filled with unused images.
 
 #### Messages:
 
-- **User Feedback:**
-    
+- **User Feedback:**     
     Uses Django's messaging framework for providing feedback like 'Profile updated successfully', etc., which is a good practice for UX but also can be seen as a security feature to confirm the action.
 
-- **Error Feedback:**
-
+- **Error Feedback:**  
      Real-time feedback is not just a user experience feature but also a security measure, as it guides users to input data in a secure and correct format, thus reducing the chances of error or security vulnerability.
 
 
 #### Signals:
 
-- **Post-save and Post-delete Signals:**
-    
+- **Post-save and Post-delete Signals:**     
     Utilizes Django's signal mechanism to handle related activities post-save and post-delete, like creating a user profile or deleting associated images.
 
 #### Others:
 
-- **Pagination:**
-
+- **Pagination:**  
     The application uses Django's built-in pagination features to limit the number of displayed ads, which can prevent Denial of Service (DoS) attacks aimed at database exhaustion.
 
 #### Notes:
@@ -395,38 +394,48 @@ Although the application has CSRF protection enabled by default (thanks to Djang
 
 While these practices enhance security, it's crucial to note that they are part of a layered security strategy and should not be relied upon as the only means of securing an application.
 
+### Special Features:
+
+#### Image Deletion Logic
+
+One of the unique aspects of this project is the handling of user and advertisement images. When a user profile or an advertisement is deleted, the associated images are also removed from the storage. However, we wanted to make sure that the default profile image doesn't get deleted when purging other images. To achieve this, a special logic was implemented.
+
+**How It Works:**
+
+Dedicated Folder for Default Image: We created a separate folder within the media directory specifically for storing the default image. This folder is named default.
+
+Checking for Default Image Usage: The code checks whether a user or an ad is using the default image upon its deletion. If so, the default image is not removed from the storage.
+
+Setting Default Image: When a new user is registered or a new ad is created, if no profile picture or ad image is uploaded, the default image is set as their picture. This logic is implemented in the form_valid method of the RegisterView and AdCreateView classes.
+
+
+This ensures that the default image remains intact in the storage while still allowing for the automated deletion of other user-generated images.
+
 ### 🚀 Future Features
 
 #### For Users
-- **Comment Edit History:** 
-
+- **Comment Edit History:**  
     Allow users to view the history of their edited comments.
 
-- **Notification for Comments:** 
-    
+- **Notification for Comments:**      
     Users will receive a notification when someone comments on their post.
 
-- **Private Commenting:** 
-
+- **Private Commenting:**  
     Enable the option for comments to be private, visible only to the author of the post.
 
 #### For Admins
-- **New Post Alerts:** 
-
+- **New Post Alerts:**  
     Admins will be notified of new posts.
 
-- **User Management:** 
-    
+- **User Management:**      
     Admins will have the ability to ban users and send them personal messages or warnings about undesirable actions.
 
 #### General Enhancements
 
-- **Pagination:** 
-
+- **Pagination:**   
     Implement pagination for profile pages and for listing posts by categories or search results.
 
-- **Location Mapping:** 
-
+- **Location Mapping:**   
     Allow users to add a location related to the post on a map.
 
 #### Security
@@ -434,31 +443,24 @@ While these practices enhance security, it's crucial to note that they are part 
 Django provides a robust foundation for building secure web applications. However, there are additional measures that can further enhance security:
 
 
-- **Two-Factor Authentication:** 
-
+- **Two-Factor Authentication:**  
     Implement 2FA to enhance user security.
 
-- **Rate Limiting:** 
-
+- **Rate Limiting:**   
     Implement rate limiting on API and user routes to improve security against brute-force attacks.
-- **Two-Factor Authentication (2FA):**
-
+- **Two-Factor Authentication (2FA):**  
     Implementing 2FA can add an extra layer of security during user logins.
 
-- **Rate Limiting:**
-
+- **Rate Limiting:**  
     To safeguard against abuse, rate limiting can be applied to API and user routes.
 
-- **Data Validation:**
-
+- **Data Validation:**  
     It is advisable to validate data on both client and server sides for additional security.
 
-- **Logging and Monitoring:**
-
+- **Logging and Monitoring:**  
     Robust logging mechanisms can help in tracking unauthorized access or other security incidents.
     
-- **Regular Updates:**
-
+- **Regular Updates:**  
     Keeping all packages up to date is essential for benefiting from the latest security patches.
 
 With the use of class-based views and existing user authentication mechanisms, these security features can be seamlessly integrated into the current codebase.
@@ -504,23 +506,149 @@ The first draft of the entity relationship diagram does not include all models a
 
 ![Site rules](localtalks/localtalks/static/localtalks/images/data-model.jpg)
 
+### CRUD
+
+The CRUD principle served as the cornerstone for this project's design process. For a detailed overview of all CRUD functionalities, please refer to the [Features](#features) section.
+
+**Create:**  
+An authenticated user can create and save profiles, ads, and comments.
+
+**Read:**  
+Users can browse and read their own as well as other users' ads and comments.
+
+**Update:**  
+An authenticated user can edit and update their own saved profiles and ads.
+
+**Delete:**  
+An authenticated user has the capability to delete their own saved profiles, ads, and comments.
+
+## Testing
+
+Testing and results can be found [here](/TESTING.md)
+
+## Unfixed Bugs
+
 ## Deployment - Heroku
-(x)
 
-## Forking this repository
-(x)
+## Development
 
-## Cloning this repository
-(x)
+### Fork
+
+### Clone
+
+### Download ZIP
 
 ## Languages
-(x)
+
+- Python
+- HTML
+- CSS
+- Javascript
 
 ## Frameworks - Libraries - Programs Used
-(x)
+### Python Libraries
 
-## Credits
-(x)
+- [os](https://docs.python.org/3/library/os.html) - Standard Python library for interacting with the operating system.
+- [PIL (Pillow)](https://pillow.readthedocs.io/en/stable/) - Python Imaging Library for image manipulation.
+
+### Django Modules
+
+- [django.shortcuts](https://docs.djangoproject.com/en/4.2/topics/http/shortcuts/) - Utilities for handling HTTP shortcuts.
+- [django.views](https://docs.djangoproject.com/en/4.2/topics/http/views/) - Base views for handling HTTP responses.
+- [django.contrib.auth](https://docs.djangoproject.com/en/4.2/topics/auth/) - Authentication and user management.
+- [django.http](https://docs.djangoproject.com/en/4.2/topics/http/) - Handling HTTP responses.
+- [django.db.models](https://docs.djangoproject.com/en/4.2/topics/db/models/) - Object-relational mapping (ORM) for database queries.
+- [django.forms](https://docs.djangoproject.com/en/4.2/topics/forms/) - Handling HTML forms.
+
+### External Libraries and Packages
+
+- [asgiref](https://pypi.org/project/asgiref/) - ASGI compatibility library.
+- [backports.zoneinfo](https://pypi.org/project/backports.zoneinfo/) - Backports of the Python 3.9 zoneinfo module.
+- [sqlparse](https://pypi.org/project/sqlparse/) - SQL query parser.
+- [psycopg2](https://pypi.org/project/psycopg2/) - PostgreSQL database adapter.
+- [python-decouple](https://pypi.org/project/python-decouple/) - Strict separation of settings from code.
+
+### Frontend Technologies
+
+- [Bootstrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/): Framework for developing responsive and mobile-first web design.
+- [Free Frontend](https://freefrontend.com/): Resource for ready-made frontend solutions and templates.
+- [Google Fonts](https://fonts.google.com/): Library of free fonts.
+
+### Code Validation and Styling
+
+- [PEP 8 Checker](https://pep8ci.herokuapp.com/): Online service for checking code adherence to PEP 8 standards.
+- [W3C HTML Validator](https://validator.w3.org/#validate_by_input): HTML validator by the W3C consortium.
+- [W3C CSS Validator](https://jigsaw.w3.org/css-validator): CSS validator by the W3C consortium.
+- [JSHint](https://jshint.com/): JavaScript code quality tool.
+- [ESLint](https://eslint.org/): Linting utility for JavaScript.
+
+### Design and Prototyping
+
+- [ami.responsivedesign.is](http://ami.responsivedesign.is/): Tool for viewing your design on various devices.
+- [Draw.io](https://app.diagrams.net/): Tool for creating data diagrams and charts.
+- [Figma](https://www.figma.com/): Platform for UI/UX design prototyping.
+- [Color Wheel](https://products.aspose.app/html/ru/color-wheel): Tool for color scheme selection.
+
+### Database Management
+
+- [SQL OnLine IDE](https://sqliteonline.com/): Online IDE for SQL.
+- [ElephantSQL](https://www.elephantsql.com/): PostgreSQL database hosting service.
+
+### Development and Deployment
+
+- [GitHub](https://github.com/): Version control and code hosting platform.
+- [GitPod](https://gitpod.io/): Online IDE for development.
+- [Heroku](https://heroku.com/): Cloud platform for app hosting.
+
+### Additional Tools
+
+- [Markdown Live Preview](https://markdownlivepreview.com/): Online editor for Markdown file preview.
+- [Guru99 on Web Testing](https://www.guru99.com/web-application-testing.html): Resource for manual web application testing guidelines.
+- [Grammarly](https://www.grammarly.com/): Grammar and style checker.
+- [Commit Message Generator](https://cbea.ms/git-commit/): Git commit message generator.
+- [Chat GPT](https://openai.com/): Artificial intelligence for text generation.
+- [Pythontutor](https://pythontutor.com/)
+
+
+##  Source Credits
+
+### Educational and Official Documentation
+
+- [W3Schools](https://www.w3schools.com/): Used for HTML, CSS, and JavaScript references.
+- [Django Docs](https://docs.djangoproject.com/en/4.1/): Official Django documentation was a go-to resource for backend functionalities.
+- [Bootstrap 4.6 Docs](https://getbootstrap.com/docs/4.6/getting-started/introduction/): Utilized for Bootstrap classes and components.
+- [Mozilla Developer Network (MDN) Docs](https://developer.mozilla.org/): Comprehensive resource for web technologies.
+- [Real Python](https://realpython.com/): In-depth Python tutorials and articles.
+- [GeeksforGeeks](https://www.geeksforgeeks.org/): Useful for understanding algorithms and data structures.
+- [FreeCodeCamp](https://www.freecodecamp.org/): Free coding bootcamp with interactive lessons.
+- [LeetCode](https://leetcode.com/): For coding challenges and interview preparation.
+
+### Community Support
+
+- [Stack Overflow](https://stackoverflow.com/): Community support for code troubleshooting.
+
+### Media Content
+
+- [Pexels](https://www.pexels.com/): All imagery on the site was sourced from Pexels.com.
+- [BBC Goodfood](https://www.bbcgoodfood.com/): All recipe content was sourced from BBC Goodfood.
+
+### Tutorials and Examples
+
+- [Update View](https://pytutorial.com/django-updateview-example): Tutorial on Django UpdateView.
+- [Pagination](https://docs.djangoproject.com/en/2.2/topics/pagination/#using-paginator-in-a-view): Used Django's own documentation for implementing pagination.
+- [AutoSlugField](https://django-extensions.readthedocs.io/en/latest/field_extensions.html): Documentation for implementing AutoSlugField in Django.
+  
+### Projects and Repositories
+
+- [Code Institute - Blog Walkthrough Project](https://github.com/Code-Institute-Solutions/Django3blog), [Code Institute](https://codeinstitute.net/ie/),  tutorials ["Hello Django"](https://github.com/ckz8780/ci-fsf-hello-django/tree/c13b414fd2e87a54b4f2788ceffec55be4ade925) and ["I Think Therefore I Blog"](https://github.com/Code-Institute-Solutions/Django3blog): Used as a reference for Django project structure.
+  
+### Custom Functions and Boilerplate
+
+- [Ian Meigh - Custom Validator function](eateasy/validators.py): Custom validator function for specific use cases.
+- [Code Institute's Django3blog source code](https://github.com/Code-Institute-Solutions/Django3blog/blob/master/06_creating_our_first_view/templates/index.html) for adding conditional pagination, including page navigation links. Styling was customized.
 
 ## Acknowledgments
-(x)
+- To Kay Welfare, for providing great psyhological support and motivation.
+- To my mentor Antonio Rodriguez for helping to resolve the technical questions.
+- I would like to mentions Openais ChatGPT, which gave me a huge opportunity to study quickly and very efficiently.
+- To the Code Institute slack community.

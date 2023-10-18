@@ -127,6 +127,10 @@ class AdListView(ListView):
             for ad in ads:
                 ad.title = highlight_text(ad.title, search_query)
                 ad.description = highlight_text(ad.description, search_query)
+                ad.highlighted_categories = [
+                    highlight_text(category.name, search_query)
+                    for category in ad.categories.all()
+                ]
 
         context['ads'] = ads
 
@@ -309,9 +313,6 @@ class AdCreateView(LoginRequiredMixin, CreateView):
             )
             ad.using_default_image = True
             ad.save()
-        messages.success(
-            self.request, 'Your ad has been successfully created.'
-        )
         return response
 
     def get_context_data(self, **kwargs):
