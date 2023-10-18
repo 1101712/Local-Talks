@@ -2,19 +2,23 @@
 {% load static %} <!-- Loading the static files -->
 
 {% block content %} <!-- Content block -->
-<h2>Create New Ad</h2> <!-- Title for the form -->
-
-<!-- Check if the ad has an image and it's not using the default one, then display it -->
-{% if ad.image and not ad.using_default_image %}
-    <img src="{{ ad.image.url }}" alt="Ad Image">
-{% else %}
-    <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
-{% endif %}
-
-<!-- Form to create a new ad, enctype attribute is added to support file upload -->
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %} <!-- CSRF token for security -->
-    {{ form.as_p }} <!-- Render form fields -->
-    <button type="submit">Submit</button>
-</form>
+<div class="content-center">
+    <div class="ad-item">
+        <h2 class="custom-color" style="text-align: center;">Create New Ad</h2> <!-- Title for the form -->
+        <div class="category-margin">
+        <!-- Check if the ad has an image and it's not using the default one, then display it -->
+        {% if ad.image and not ad.using_default_image %}
+            <img src="{{ ad.image.url }}" alt="Ad Image">
+        {% else %}
+            <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
+        {% endif %}
+        </div>
+        <!-- Form to create a new ad, enctype attribute is added to support file upload -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} <!-- CSRF token for security -->
+            {{ form.as_p }} <!-- Render form fields -->
+            <button type="submit" class="btn-custom btn-custom:hover">Submit</button>
+        </form>
+    </div>
+</div>       
 {% endblock %} <!-- End of content block -->

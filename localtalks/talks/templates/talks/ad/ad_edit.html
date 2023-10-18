@@ -2,22 +2,27 @@
 {% load static %} <!-- Loading the static files -->
 
 {% block content %} <!-- Content block -->
-<!-- Title for the edit ad -->
-<h2>Edit Ad</h2>
-<!-- Form to edit an ad -->
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %} <!-- CSRF token for security -->
-    {{ form.as_p }} <!-- Render form fields -->
+<div class="content-center">
+    <div class="ad-item">
+        <h2 class="custom-color" style="text-align: center;">Edit Ad</h2>
+        <!-- Form to edit an ad -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} <!-- CSRF token for security -->
+            {{ form.as_p }} <!-- Render form fields -->
 
-    <!-- Check if the ad has an image and if it's not using the default image -->
-    {% if ad.image and not ad.using_default_image %}
-        <!-- Display the ad's image -->
-        <img src="{{ ad.image.url }}" alt="Ad Image">
-    {% else %}
-        <!-- Display the default image -->
-        <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
-    {% endif %}
-    <!-- Submit button to update the ad -->
-    <button type="submit">Update</button>
-</form>
+            <!-- Check if the ad has an image and if it's not using the default image -->
+            {% if ad.image and not ad.using_default_image %}
+                <!-- Display the ad's image -->
+                <img src="{{ ad.image.url }}" alt="Ad Image">
+            {% else %}
+                <!-- Display the default image -->
+                <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad Image">
+            {% endif %}
+            <div class="profile-buttons">
+            <!-- Submit button to update the ad -->
+            <button type="submit" class="btn-custom btn-custom:hover">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

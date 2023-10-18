@@ -309,6 +309,9 @@ class AdCreateView(LoginRequiredMixin, CreateView):
             )
             ad.using_default_image = True
             ad.save()
+        messages.success(
+            self.request, 'Your ad has been successfully created.'
+        )
         return response
 
     def get_context_data(self, **kwargs):

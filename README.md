@@ -131,7 +131,7 @@ The fonts from the PT Family were chosed to make the website futureproof. As alr
 
 ![Categories navbar](localtalks/localtalks/static/localtalks/images/categ-nav2.jpg)
 
-#### Ads by Categoties Page
+#### Ads by Categories Page
 
 The page for all ads by categories is designed in a consistent style and displays all ads in the category selected by the user.
 
@@ -259,6 +259,22 @@ The user can delete their profile. Before finalizing the deletion, the user will
 
 ![Profile delete](localtalks/localtalks/static/localtalks/images/profile-delete-confirm.jpg)
 
+#### Ad Creation
+ 
+Only a registered and authorized user can create an ad. On the ad creation page, the user is prompted to come up with a title, create the text, optionally add an image, and select one or more categories. The layout of the ad creation field follows the style of the ad itself. After the successful creation of the ad, the user is redirected to the page displaying all ads, where they can see their newly published ad, as well as receive a message confirming the successful creation of the ad.
+
+![Ad creation](localtalks/localtalks/static/localtalks/images/ad-create.jpg)
+
+![Ad Creation Confirmation](localtalks/localtalks/static/localtalks/images/ad-create-confirm.jpg)
+
+#### Ad Editing
+
+Only the authorized author of the ad can edit it. If necessary, the user can make changes to any previously selected fields except for categories. To change categories, the user will need to delete the current ad and create a new one. The layout of the ad editing field also follows the style of the ad itself. After successfully editing the ad, the user is redirected to their profile page, where they can see all of their ads and receive a message confirming the successful update of the ad.
+
+![Ad Editing](localtalks/localtalks/static/localtalks/images/ad-edit.jpg)
+
+![Ad Editing Confirmation](localtalks/localtalks/static/localtalks/images/ad-edit-confirm.jpg)
+
 #### Ads Page with ad details and comments
 
 The user is redirected to this page when they click on the title of the ad, which is an active link. The ads page is designed in a consistent style, but without Ad Category panel. Here, in addition to the ad itself, all comments on the ads are visible. Depending on whether the user is authenticated, they may or may not see text with links inviting them to log in or register in order to leave a comment, as well as links with the option to delete a comment.
@@ -277,7 +293,7 @@ This is how the page looks for a user who is neither the author of the ad nor th
 
 #### Comment Edition and Deletion
 
-On the page of the ad to which the user has left a comment, provided that the user is authenticated, the user can delete their comment and, if necessary, write a new one. Before finalizing the deletion, the user will need to confirm their intent to delete the comment. After deleting the comment, the user will see a message confirming that their comment has been deleted. The user will be redirected back to the ad page to which the comment was just deleted.
+On the page of the ad to which the user has left a comment, provided that the user is authenticated, the user can delete their comment and, if necessary, write a new one. Only the authorized author of a comment has the right to delete it. Before finalizing the deletion, the user will need to confirm their intent to delete the comment. After deleting the comment, the user will see a message confirming that their comment has been deleted. The user will be redirected back to the ad page to which the comment was just deleted.
 
 I intentionally did not add the ability to edit comments, as I fundamentally believe that editing should come with the ability to view comment history, which would take too much time within the scope of this educational project. However, such an option should definitely be implemented in the future.
 
@@ -308,7 +324,7 @@ This page  introduces a comprehensive "How it Works" guide aimed at helping user
 
 #### Database Security
 
-    The database url and secret key are stored in the env.py file to prevent unwanted connections to the database and this was set up before the first push to Github.
+- The database url and secret key are stored in the env.py file to prevent unwanted connections to the database. Due to an oversight, the database URL and secret key were initially committed to GitHub. However, all passwords and keys have since been regenerated. They are now stored in an env.py file, which is included in the .gitignore to prevent unwanted access to the database.
 
 #### User Input Handling:
 
@@ -447,6 +463,46 @@ Django provides a robust foundation for building secure web applications. Howeve
 
 With the use of class-based views and existing user authentication mechanisms, these security features can be seamlessly integrated into the current codebase.
 
+## Database Design
+
+### Database Model
+
+- **CustomUser and UserProfile:**
+
+One to One (OneToOneField). Each CustomUser has exactly one UserProfile. This extends the user information by adding additional fields such as bio.
+
+- **CustomUser and Ad:**
+
+One to Many (ForeignKey). A single user (CustomUser) can create multiple ads (Ad), but each ad belongs to only one user.
+
+- **CustomUser and Comment:**
+
+One to Many (ForeignKey). One user can leave multiple comments (Comment), but each comment belongs to only one user.
+
+- **Ad and Category:**
+
+Many to Many (ManyToManyField). One ad can belong to multiple categories, and one category can contain multiple ads.
+
+- **Ad and Comment:**
+
+One to Many (ForeignKey). One ad can have multiple comments, but each comment belongs to only one ad.
+
+- **Signals**
+
+After saving CustomUser, a UserProfile is automatically created.
+
+Before saving edeted  CustomUser with new profile picture, the old profile picture is deleted.
+
+After deleting Ad, its picture is deleted.
+
+After deleting CustomUser, all of its pictures and ads are deleted.
+
+This structure provides a flexible and scalable way to manage users, ads, and comments, as well as their interrelationships.
+
+The database model diagram was designed using [Drawio](https://app.diagrams.net/).
+The first draft of the entity relationship diagram does not include all models and connections used in the final database.
+
+![Site rules](localtalks/localtalks/static/localtalks/images/data-model.jpg)
 
 ## Deployment - Heroku
 (x)
