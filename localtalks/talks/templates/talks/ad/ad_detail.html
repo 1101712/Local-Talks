@@ -28,7 +28,7 @@
             {% if ad.image and not ad.using_default_image %}
                 <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
             {% else %}
-                <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad image" class="ad-image">
+                <img src="{{ MEDIA_URL }}default/default.jpg" alt="" class="ad-image">
             {% endif %}
     </div>
     <!-- Comments Section -->

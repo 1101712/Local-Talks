@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 document.addEventListener("DOMContentLoaded", function() {
     const passwordInput = document.getElementById("id_password1");
     const confirmPasswordInput = document.getElementById("id_password2");

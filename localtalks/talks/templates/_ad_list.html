@@ -22,8 +22,17 @@
         </div>
         <!-- Ad Category Info -->
         <div>
-            <!-- Loop through Ad Categories -->
-            <small>Category: {% for highlighted_category in ad.highlighted_categories %}{{ highlighted_category|safe }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
+            <small>Category: 
+            {% if ad.highlighted_categories %}
+                {% for highlighted_category in ad.highlighted_categories %}
+                    {{ highlighted_category|safe }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for category in ad.categories.all %}
+                    {{ category.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            {% endif %}
+            </small>
         </div>
         <!-- The description of the ad is displayed here.
         The 'safe' filter is used to mark the description as safe HTML, allowing any HTML tags (added for highlighting) to be rendered.-->
@@ -33,7 +42,7 @@
             <img src="{{ ad.image.url }}" alt="Ad image" class="ad-image">
         {% else %}
         <!-- Default Ad Image -->
-            <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Ad image" class="ad-image">
+            <img src="{{ MEDIA_URL }}default/default.jpg" alt="" class="ad-image">
         {% endif %}
         
         <!-- Edit and Delete buttons for Ad's Author --> 

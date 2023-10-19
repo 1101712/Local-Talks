@@ -4,7 +4,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: PT Sans, Arial;
+    font-family: "PT Sans", Arial;
     color: #3a3a3a;
     overflow-y: auto;
 }

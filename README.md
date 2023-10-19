@@ -411,6 +411,22 @@ Setting Default Image: When a new user is registered or a new ad is created, if 
 
 This ensures that the default image remains intact in the storage while still allowing for the automated deletion of other user-generated images.
 
+### CRUD
+
+The CRUD principle served as the cornerstone for this project's design process. For a detailed overview of all CRUD functionalities, please refer to the [Features](#features) section.
+
+**Create:**  
+An authenticated user can create and save profiles, ads, and comments.
+
+**Read:**  
+Users can browse and read their own as well as other users' ads and comments.
+
+**Update:**  
+An authenticated user can edit and update their own saved profiles and ads.
+
+**Delete:**  
+An authenticated user has the capability to delete their own saved profiles, ads, and comments.
+
 ### 🚀 Future Features
 
 #### For Users
@@ -506,25 +522,64 @@ The first draft of the entity relationship diagram does not include all models a
 
 ![Site rules](localtalks/localtalks/static/localtalks/images/data-model.jpg)
 
-### CRUD
-
-The CRUD principle served as the cornerstone for this project's design process. For a detailed overview of all CRUD functionalities, please refer to the [Features](#features) section.
-
-**Create:**  
-An authenticated user can create and save profiles, ads, and comments.
-
-**Read:**  
-Users can browse and read their own as well as other users' ads and comments.
-
-**Update:**  
-An authenticated user can edit and update their own saved profiles and ads.
-
-**Delete:**  
-An authenticated user has the capability to delete their own saved profiles, ads, and comments.
-
 ## Testing
 
+### Manual Testing
+
 Testing and results can be found [here](/TESTING.md)
+
+### Validator Testing
+
+#### HTML [W3C validator](https://validator.w3.org/)
+
+As this is a Django project, the HTML couldn't be tested via the site's URL, due to Django tags and Bootstrap templating language in HTML files. Instead, the source code of each page was pasted into the validator directly.
+
+**Home page**  
+Document checking completed. No errors or warnings to show.  
+**All Ads page**  
+Document checking completed. No errors or warnings to show.  
+**My Ads page**  
+Document checking completed. No errors or warnings to show.  
+**How It Works page**  
+Document checking completed. No errors or warnings to show.  
+**Login page**  
+Document checking completed. No errors or warnings to show.  
+**Register page**  
+Document checking completed. No errors or warnings to show.  
+**Register page**  
+Document checking completed. No errors or warnings to show.  
+**Edit Profile page**  
+Document checking completed. No errors or warnings to show.
+**Delete Profile page**  
+Document checking completed. No errors or warnings to show.  
+
+
+**Create New Ad**  
+Problem
+**Edit Ad page** 
+Document checking completed. No errors or warnings to show.  
+**Delete Ad page**  
+Document checking completed. No errors or warnings to show.
+**Ad page**  
+Document checking completed. No errors or warnings to show.  
+**Delete Comment page**  
+Document checking completed. No errors or warnings to show.  
+**All Ads In Category: page**  
+Document checking completed. No errors or warnings to show.  
+**Reset Password page**  
+Document checking completed. No errors or warnings to show.  
+
+
+
+#### CSS [Jigsaw](https://jigsaw.w3.org/css-validator/)
+
+No error found.
+
+#### JavaScript [JSHint](https://jshint.com/)
+
+No error, no warnings found.
+
+#### Python [CI Python Linter](https://pep8ci.herokuapp.com/)
 
 ## Unfixed Bugs
 
@@ -652,3 +707,4 @@ Testing and results can be found [here](/TESTING.md)
 - To my mentor Antonio Rodriguez for helping to resolve the technical questions.
 - I would like to mentions Openais ChatGPT, which gave me a huge opportunity to study quickly and very efficiently.
 - To the Code Institute slack community.
+
