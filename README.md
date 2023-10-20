@@ -682,12 +682,12 @@ web: gunicorn <your-project-name>.wsgi:application
 
 ### Media Storage in the Project
 
-In this project, we use a combination of local and Cloudinary cloud storage for images. Since the volume of images we handle is not very large, we've opted for local storage for some of them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
+In this project, we use a combination of local and Cloudinary cloud storage for images. Since the volume of images we handle is not very large, we've opted for local storage for them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
 
 To enable Cloudinary, make sure to include the corresponding settings in your settings.py:
 
-# Cloudinary Settings (uncomment if you want to use)
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+"# Cloudinary Settings (uncomment if you want to use)  
+"# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ### Update Heroku Config Vars
 
