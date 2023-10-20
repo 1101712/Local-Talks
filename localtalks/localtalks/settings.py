@@ -11,12 +11,20 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 from decouple import Config, Csv
-
+import os
+import dj_database_url
+if os.path.exists('env.py'):
+    import env
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Cloudinary Settings (uncomment if you want to use)
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Read .env file and set environment variables
 env_path = os.path.join(BASE_DIR, '.env')
@@ -36,32 +44,43 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
+# Configure Cloudinary settings for media storage
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME')
+    or config('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY')
+    or config('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET')
+    or config('CLOUDINARY_API_SECRET'),
+    secure=True,
+)
+
+# The following SQLite database settings are commented out because
+# they are not suitable for a production environment.
+# We have switched to a more robust database like PostgreSQL for deployment.
+# For more information on deploying Django projects,
+# refer to https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'default_name'),
-#         'USER': os.environ.get('DB_USER', 'default_user'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', 'default_password'),
-#         'HOST': os.environ.get('DB_HOST', 'localhost'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',  # the name of the db file.
+#                                # it will be created at migration time.
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',  # the name of the db file.
-                               # it will be created at migration time.
-    }
-}
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
-                 '127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = [
+    '8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
+    '127.0.0.1', 'localhost',
+    'localtalks.herokuapp.com', 'localhost'
+]
 
 # Application definition
 
@@ -73,6 +92,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'talks',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
