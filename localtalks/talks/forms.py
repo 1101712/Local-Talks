@@ -44,6 +44,7 @@ class ExtendedUserCreationForm(UserCreationForm):
                 "A user with that username already exists."
             )
         return username
+
     # Validate the uniqueness of the email
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -52,6 +53,7 @@ class ExtendedUserCreationForm(UserCreationForm):
                 "A user with that email already exists."
             )
         return email
+
 
 # Form for updating the profile picture
 class ProfilePictureForm(forms.ModelForm):

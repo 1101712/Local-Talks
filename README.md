@@ -691,6 +691,7 @@ In this project, we use a local and storage for images. Since the volume of imag
     DATABASE_URL
     EMAIL_HOST_PASSWORD
     EMAIL_HOST_USER
+    DISABLE_COLLECTSTATIC = 1
     
 ### Deploying the App
 
