@@ -1,1 +1,1 @@
-web: gunicorn localtalks.localtalks.wsgi:application
+web: gunicorn localtalks.wsgi:application
