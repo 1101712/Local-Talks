@@ -684,10 +684,24 @@ web: gunicorn <your-project-name>.wsgi:application
 
 In this project, we use a combination of local and Cloudinary cloud storage for images. Since the volume of images we handle is not very large, we've opted for local storage for them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
 
-To enable Cloudinary, make sure to include the corresponding settings in your settings.py:
+#### Connect to Cloudinary
+
+- In Cloudinary dashboard, copy **API Environment variable**
+- In ``env.py`` file, add new variable ``os.environ["CLOUDINARY_URL"] = "<copied_variable"`` and remove ``CLOUDINARY_URL=`` from the variable string
+- Add same variable value as new Heroku config var named **CLOUDINARY_URL**
+- In ``settings.py``, in ``INSTALLED_APPS`` list, above ``django.contrib.staticfiles`` add ``cloudinary_storage``, below add ``cloudinary``
+- To define Cloudinary as static file storage add the following to settings.py
+    ````
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    ````
+
+ #### To enable Cloudinary, make sure to include the corresponding settings in your settings.py:
 
 "# Cloudinary Settings (uncomment if you want to use)  
 "# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+"# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 ### Update Heroku Config Vars
 
