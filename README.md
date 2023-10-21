@@ -682,36 +682,16 @@ web: gunicorn <your-project-name>.wsgi:application
 
 ### Media Storage in the Project
 
-In this project, we use a combination of local and Cloudinary cloud storage for images. Since the volume of images we handle is not very large, we've opted for local storage for them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
-
-#### Connect to Cloudinary
-
-- In Cloudinary dashboard, copy **API Environment variable**
-- In ``env.py`` file, add new variable ``os.environ["CLOUDINARY_URL"] = "<copied_variable"`` and remove ``CLOUDINARY_URL=`` from the variable string
-- Add same variable value as new Heroku config var named **CLOUDINARY_URL**
-- In ``settings.py``, in ``INSTALLED_APPS`` list, above ``django.contrib.staticfiles`` add ``cloudinary_storage``, below add ``cloudinary``
-- To define Cloudinary as static file storage add the following to settings.py
-    ````
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    ````
-
- #### To enable Cloudinary, make sure to include the corresponding settings in your settings.py:
-
-"# Cloudinary Settings (uncomment if you want to use)  
-"# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-"# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+In this project, we use a local and storage for images. Since the volume of images we handle is not very large, we've opted for local storage for them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
 
 ### Update Heroku Config Vars
 
 - Open your Heroku app's settings and add the following Config Vars:  
     SECRET_KEY
     DATABASE_URL
-    CLOUDINARY_URL
-    PORT = 8000
-    DISABLE_COLLECTSTATIC = 1
-
+    EMAIL_HOST_PASSWORD
+    EMAIL_HOST_USER
+    
 ### Deploying the App
 
 - Make sure that DEBUG is set to False in your settings.py.
@@ -813,6 +793,7 @@ Your app should now be live and operational!
 - [GeeksforGeeks](https://www.geeksforgeeks.org/): Useful for understanding algorithms and data structures.
 - [FreeCodeCamp](https://www.freecodecamp.org/): Free coding bootcamp with interactive lessons.
 - [LeetCode](https://leetcode.com/): For coding challenges and interview preparation.
+- [Python Runtime Error](https://devcenter.heroku.com/articles/python-runtimes)
 
 ### Community Support
 

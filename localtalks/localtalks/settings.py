@@ -16,18 +16,9 @@ import os
 import dj_database_url
 if os.path.exists('env.py'):
     import env
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Cloudinary Settings (uncomment if you want to use)
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-# STATICFILES_STORAGE = (
-#     'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-# )
 
 # Read .env file and set environment variables
 env_path = os.path.join(BASE_DIR, '.env')
@@ -51,23 +42,14 @@ DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
-# Configure Cloudinary settings for media storage
-cloudinary_url = os.environ.get('CLOUDINARY_URL') or config('CLOUDINARY_URL')
-if cloudinary_url:
-    cloudinary.config_from_url(cloudinary_url)
-
-# The following SQLite database settings are commented out because
-# they are not suitable for a production environment.
-# We have switched to a more robust database like PostgreSQL for deployment.
-# For more information on deploying Django projects,
-# refer to https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'mydatabase',  # the name of the db file.
-#                                # it will be created at migration time.
-#     }
-# }
+# The following SQLite database settings
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',  # the name of the db file.
+                               # it will be created at migration time.
+    }
+}
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
