@@ -715,6 +715,7 @@ In this project, we use a combination of local and Cloudinary cloud storage for 
 ### Deploying the App
 
 - Make sure that DEBUG is set to False in your settings.py.
+- Make sure to add X_FRAME_OPTIONS = 'SAMEORIGIN' in your settings.py.
 - Go to the Deploy tab on Heroku, connect your GitHub repository, and either enable automatic deploys or deploy manually.
 
 Your app should now be live and operational!

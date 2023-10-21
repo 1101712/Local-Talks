@@ -25,7 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Cloudinary Settings (uncomment if you want to use)
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+# STATICFILES_STORAGE = (
+#     'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+# )
 
 # Read .env file and set environment variables
 env_path = os.path.join(BASE_DIR, '.env')
@@ -50,15 +52,9 @@ DATABASES = {
 }
 
 # Configure Cloudinary settings for media storage
-cloudinary.config(
-    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME')
-    or config('CLOUDINARY_CLOUD_NAME'),
-    api_key=os.environ.get('CLOUDINARY_API_KEY')
-    or config('CLOUDINARY_API_KEY'),
-    api_secret=os.environ.get('CLOUDINARY_API_SECRET')
-    or config('CLOUDINARY_API_SECRET'),
-    secure=True,
-)
+cloudinary_url = os.environ.get('CLOUDINARY_URL') or config('CLOUDINARY_URL')
+if cloudinary_url:
+    cloudinary.config_from_url(cloudinary_url)
 
 # The following SQLite database settings are commented out because
 # they are not suitable for a production environment.
@@ -74,7 +70,9 @@ cloudinary.config(
 # }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
     '8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
