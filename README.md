@@ -22,8 +22,11 @@ This Django project offers an opportunity for the local community to share news 
     - [CRUD](#crud)
 - [Frameworks - Libraries - Programs Used](#frameworks---libraries---programs-used)
 - [Testing](#testing)
+    - [Manual Testing](#manual-testing)
+    - [Validator Testing](#validator-testing)
+    - [Fixed Bugs](#fixed-bugs)
 - [Unfixed Bugs](#unfixed-bugs)
-- [Deployment - Heroku](#deployment---heroku)
+- [Deployment - Heroku](#deployment-heroku)
 - [Development](#development)
     - [Fork](#fork)
     - [Clone](#clone)
@@ -534,41 +537,39 @@ Testing and results can be found [here](/TESTING.md)
 
 As this is a Django project, the HTML couldn't be tested via the site's URL, due to Django tags and Bootstrap templating language in HTML files. Instead, the source code of each page was pasted into the validator directly.
 
-**Home page**  
-Document checking completed. No errors or warnings to show.  
-**All Ads page**  
-Document checking completed. No errors or warnings to show.  
-**My Ads page**  
-Document checking completed. No errors or warnings to show.  
-**How It Works page**  
-Document checking completed. No errors or warnings to show.  
-**Login page**  
-Document checking completed. No errors or warnings to show.  
-**Register page**  
-Document checking completed. No errors or warnings to show.  
-**Register page**  
-Document checking completed. No errors or warnings to show.  
-**Edit Profile page**  
-Document checking completed. No errors or warnings to show.
-**Delete Profile page**  
-Document checking completed. No errors or warnings to show.  
+All HTML files have been verified with the above validator.
 
+All files, except for 'Create New Ad,' yielded the same result:
+
+"Document checking completed. No errors or warnings to show".
 
 **Create New Ad**  
-Problem
-**Edit Ad page** 
-Document checking completed. No errors or warnings to show.  
-**Delete Ad page**  
-Document checking completed. No errors or warnings to show.
-**Ad page**  
-Document checking completed. No errors or warnings to show.  
-**Delete Comment page**  
-Document checking completed. No errors or warnings to show.  
-**All Ads In Category: page**  
-Document checking completed. No errors or warnings to show.  
-**Reset Password page**  
-Document checking completed. No errors or warnings to show.  
+HTML Validation Issue on the Ad Creation Page  
+Description:  
 
+    Error: No p element in scope but a p end tag seen.
+
+    From line 155, column 3; to line 155, column 6
+
+      ↩    ↩  </p> <!--   
+
+The HTML validator throws an error on the ad creation page. The error is related to an extra closing <p> tag in the generated form markup. This could lead to unpredictable rendering or behavior across various browsers.
+Details:  
+
+    Template file: create_ad.html
+    Line with the issue: {{ form.as_p }}
+    Validator error: "No p element in scope but a p end tag seen."
+
+Solution:  
+Created a custom Django template filter named render_as_list_items that renders the form fields as list items within an unordered list.  
+Subsequent Issue:  
+New validation errors emerged, stating that the <li> tags were not allowed as a child of the <form> element.  
+
+Solution:  
+Enclosed {{ form|render_as_list_items }} within a <ul> tag, which resolved the validation issue by making the <li> tags valid within the form.  
+
+After fixing the code, the validator found no errors or warnings:  
+Document checking completed. No errors or warnings to show.  
 
 
 #### CSS [Jigsaw](https://jigsaw.w3.org/css-validator/)
@@ -581,9 +582,142 @@ No error, no warnings found.
 
 #### Python [CI Python Linter](https://pep8ci.herokuapp.com/)
 
+All files with python code have been verified with the above validator.
+All files yielded the same result - "All clear, no errors found".
+
+### Fixed bugs
+
+
+### Accessibility [axe DevTools Chrome Extension](https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd)
+
+### Performance, Accessibility, SEO, Best Practices (Lighthouse Chrome DevTools)
+
+Lighthouse validation was run on all pages (both mobile and desktop) in order to check accessibility and performance. 
+
+| Page           | Performance  | Accessibility | Best Practices  | SEO |
+|----------------|:------------:|:-------------:|:---------------:|:---:|
+|                |              |               |                 |     |
+| Desktop        |              |               |                 |     |
+| Home           |          100 |           100 |             100 | 100 |
+
+
+### Browser Testing
+- The Website was tested on Google Chrome, Firefox, Safari browsers with no issues noted.
+
+### Device Testing
+- The website was viewed on a variety of devices such as Desktop, Laptop, iPhone 8, iPhoneXR and iPad to ensure responsiveness on various screen sizes in both portrait and landscape mode. The website performed as intended. The responsive design was also checked using Chrome developer tools across multiple devices with structural integrity holding for the various sizes.
+
 ## Unfixed Bugs
+No Unfixed bugs  
 
 ## Deployment - Heroku
+
+### Installing Required Libraries
+
+Before deploying on Heroku, you'll need to install several libraries:
+
+- Install **Gunicorn** (a server used to run Django on Heroku):  
+pip3 install django gunicorn
+
+- Install **pyscopg2** (connects to PostgreSQL):  
+pip3 install dj_database_url pyscopg2  
+
+- Install Cloudinary (hosts static files and images):  
+pip3 install dj3-cloudinary-storage
+
+- Install Whitenoise (prevents issues with Heroku not rendering custom stylesheet):  
+pip3 install whitenoise
+
+- Install dj-database-url (enables URL-based database configuration):  
+pip3 install dj-database-url
+### Create the Heroku App
+
+- Log in to Heroku or create an account.
+- Create a new app by clicking New > Create New App.
+- Give your app a unique and meaningful name and select your region.
+
+### Database Setup
+
+#### ElephantSQL for PostgreSQL
+
+- Log into [ElephantSQL](https://api.elephantsql.com) and create a new instance.
+- Copy the DATABASE_URL from the instance details.
+
+#### Attach Heroku Postgres (Alternative)
+
+- Alternatively, you can also use Heroku Postgres.
+- Go to the Resources tab and in add-ons, type in Postgres and select Heroku Postgres.
+
+### Configuring Environment Variables
+
+- Create an env.py file in your project root.
+- Add your DATABASE_URL and SECRET_KEY to env.py
+- Make sure env.py is in your .gitignore file to keep these sensitive details out of your repository.
+- 
+
+### Update Django Settings
+
+- Add the following to the top of your settings.py
+import os
+import dj_database_url
+if os.path.exists('env.py'):
+    import env
+
+- Update your DATABASES settings to use dj_database_url  
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
+- Replace the default SECRET_KEY with your environment variable:  
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+- Add Heroku to the ALLOWED_HOSTS list:  
+ALLOWED_HOSTS = ['<your-heroku-app-name>.herokuapp.com', 'localhost']
+
+### Additional Required Files
+
+- Create a requirements.txt file to list all your Python dependencies.
+- Create a Procfile in your project root and add:  
+web: gunicorn <your-project-name>.wsgi:application
+
+### Media Storage in the Project
+
+In this project, we use a combination of local and Cloudinary cloud storage for images. Since the volume of images we handle is not very large, we've opted for local storage for them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
+
+#### Connect to Cloudinary
+
+- In Cloudinary dashboard, copy **API Environment variable**
+- In ``env.py`` file, add new variable ``os.environ["CLOUDINARY_URL"] = "<copied_variable"`` and remove ``CLOUDINARY_URL=`` from the variable string
+- Add same variable value as new Heroku config var named **CLOUDINARY_URL**
+- In ``settings.py``, in ``INSTALLED_APPS`` list, above ``django.contrib.staticfiles`` add ``cloudinary_storage``, below add ``cloudinary``
+- To define Cloudinary as static file storage add the following to settings.py
+    ````
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    ````
+
+ #### To enable Cloudinary, make sure to include the corresponding settings in your settings.py:
+
+"# Cloudinary Settings (uncomment if you want to use)  
+"# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+"# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+### Update Heroku Config Vars
+
+- Open your Heroku app's settings and add the following Config Vars:  
+    SECRET_KEY
+    DATABASE_URL
+    CLOUDINARY_URL
+    PORT = 8000
+    DISABLE_COLLECTSTATIC = 1
+
+### Deploying the App
+
+- Make sure that DEBUG is set to False in your settings.py.
+- Go to the Deploy tab on Heroku, connect your GitHub repository, and either enable automatic deploys or deploy manually.
+
+Your app should now be live and operational!
 
 ## Development
 
@@ -671,6 +805,7 @@ No error, no warnings found.
 
 - [W3Schools](https://www.w3schools.com/): Used for HTML, CSS, and JavaScript references.
 - [Django Docs](https://docs.djangoproject.com/en/4.1/): Official Django documentation was a go-to resource for backend functionalities.
+- [Deployment checklist](https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/)
 - [Bootstrap 4.6 Docs](https://getbootstrap.com/docs/4.6/getting-started/introduction/): Utilized for Bootstrap classes and components.
 - [Mozilla Developer Network (MDN) Docs](https://developer.mozilla.org/): Comprehensive resource for web technologies.
 - [Real Python](https://realpython.com/): In-depth Python tutorials and articles.
