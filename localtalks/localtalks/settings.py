@@ -18,6 +18,10 @@ from decouple import Config, Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Cloudinary Settings (uncomment if you want to use)
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
 # Read .env file and set environment variables
 env_path = os.path.join(BASE_DIR, '.env')
 if os.path.exists(env_path):
