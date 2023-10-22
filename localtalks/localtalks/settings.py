@@ -58,6 +58,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
     '8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
+    '8080-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
     '127.0.0.1', 'localhost',
     'localtalks.herokuapp.com', 'localhost'
 ]
@@ -155,7 +156,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
