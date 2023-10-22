@@ -43,16 +43,16 @@ DATABASES = {
 }
 
 # The following SQLite database settings
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'mydatabase',  # the name of the db file.
-#                                # it will be created at migration time.
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',  # the name of the db file.
+                               # it will be created at migration time.
+    }
+}
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
