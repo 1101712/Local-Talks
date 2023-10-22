@@ -1,6 +1,7 @@
 image:
   file: .gitpod.dockerfile
 tasks:
+  - init: pyenv install 3.11.6; pyenv global 3.11.6
   - init: . ${GITPOD_REPO_ROOT}/.vscode/init_tasks.sh
     command: /home/gitpod/.pg_ctl/bin/pg_start > /dev/null
   - command: . ${GITPOD_REPO_ROOT}/.vscode/uptime.sh &
