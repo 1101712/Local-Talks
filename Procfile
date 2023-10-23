@@ -1,1 +1,1 @@
-web: Is-R && qunicorn localtalks.wsgi
+web: qunicorn localtalks.wsgi

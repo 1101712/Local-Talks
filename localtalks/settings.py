@@ -72,7 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'talks',
+    'localtalks.talks',
     'cloudinary',
 ]
 
@@ -180,6 +180,6 @@ STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
 AUTH_USER_MODEL = 'talks.CustomUser'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'localtalks/media/')
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
