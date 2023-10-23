@@ -60,7 +60,8 @@ ALLOWED_HOSTS = [
     '8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
     '8080-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
     '127.0.0.1', 'localhost',
-    'localtalks.herokuapp.com', 'localhost'
+    'localtalks.herokuapp.com', 'localhost',
+    'https://localtalks-a0301ec8c843.herokuapp.com/'
 ]
 
 # Application definition
@@ -164,7 +165,8 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io"]
+    "https://8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io"
+    "https://localtalks-a0301ec8c843.herokuapp.com/"]
 
 
 AUTHENTICATION_BACKENDS = (
