@@ -701,6 +701,10 @@ In this project, we use a local and storage for images. Since the volume of imag
 
 Your app should now be live and operational!
 
+#### Deployin Isuues
+
+During deployment to Heroku, it turned out that the basic structure of the Django project was compromised. A project folder was created within another folder of the same name. To fix this issue, we had to move the entire project up one level and delete the unnecessary folder. In the process, we also had to adjust all paths and settings.
+
 ## Development
 
 ### Fork
