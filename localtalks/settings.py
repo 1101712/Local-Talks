@@ -39,7 +39,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.parse(os.environ.get(
+        "HEROKU_POSTGRESQL_NAVY_URL"))
 }
 
 # The following SQLite database settings

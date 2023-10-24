@@ -1,3 +1,4 @@
+BEGIN;
 INSERT INTO django_content_type VALUES(1,'admin','logentry');
 INSERT INTO django_content_type VALUES(2,'auth','permission');
 INSERT INTO django_content_type VALUES(3,'auth','group');
@@ -94,16 +95,4 @@ INSERT INTO talks_ad VALUES(10,'Attention to all neighbors!','A new law banning 
 INSERT INTO talks_customuser VALUES(1,'pbkdf2_sha256$600000$KsUQKE7xCXfXvpYsmx6Zvv$P8pkqnfsOHxMeTJ1AECZhvk1B/W/dUhyopGtQnlySfQ=','2023-10-19 19:00:26.108819',1,'Nataliya','','',1,1,'2023-10-05 21:51:27.413241','profile_pictures/a_beautiful_40-year-old_modern_strong-willed_powerful_well_9165b283-a19_vvNZEV5.png',0,'nataliyagergo@gmail.com');
 INSERT INTO talks_customuser VALUES(3,'pbkdf2_sha256$600000$F6NzUb6CccuakbMEV3kRiD$S6s2LWi4jxDNlimv4CPlHGw0XlehrSspzAyKxJB6o1E=','2023-10-16 20:05:58.961189',0,'test','','',0,1,'2023-10-05 23:03:58.136627','',0,'vernaal@mail.ru');
 INSERT INTO talks_customuser VALUES(4,'pbkdf2_sha256$600000$FkqScTiCmgz84eTqF8rzty$FNiTlViAesvqfjoNHd/XUOlwE4jZmlrmomZJ8kKcN4k=','2023-10-08 21:10:40.812979',0,'Lala','','',0,1,'2023-10-08 21:10:40.547295','profile_pictures/E8bw.jpg',0,'vernaal@gmail.com');
-DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('django_migrations',21);
-INSERT INTO sqlite_sequence VALUES('django_content_type',10);
-INSERT INTO sqlite_sequence VALUES('auth_permission',40);
-INSERT INTO sqlite_sequence VALUES('auth_group',0);
-INSERT INTO sqlite_sequence VALUES('django_admin_log',10);
-INSERT INTO sqlite_sequence VALUES('talks_ad',40);
-INSERT INTO sqlite_sequence VALUES('talks_customuser',15);
-INSERT INTO sqlite_sequence VALUES('talks_userprofile',15);
-INSERT INTO sqlite_sequence VALUES('talks_category',9);
-INSERT INTO sqlite_sequence VALUES('talks_ad_categories',49);
-INSERT INTO sqlite_sequence VALUES('talks_comment',51);
 COMMIT;
