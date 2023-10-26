@@ -261,6 +261,15 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('profile_view')
 
     def form_valid(self, form):
+        user = self.request.user
+
+        if user.profile_picture:
+            user.using_default_image = False
+        else:
+            user.using_default_image = True
+
+        user.save()
+
         messages.success(self.request, 'Profile updated successfully')
         return super().form_valid(form)
 

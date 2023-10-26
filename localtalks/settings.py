@@ -38,18 +38,18 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
-# DATABASES = {
-#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-# }
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 # The following SQLite database settings
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',  # the name of the db file.
-                               # it will be created at migration time.
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',  # the name of the db file.
+#                                # it will be created at migration time.
+#     }
+# }
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
