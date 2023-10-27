@@ -350,6 +350,13 @@ class AdUpdateView(UpdateView):
         if old_instance.image != new_instance.image:
             old_instance.image.delete(save=False)
 
+        if new_instance.image:
+            new_instance.using_default_image = False
+        else:
+            new_instance.using_default_image = True
+
+        new_instance.save()
+
         messages.success(self.request, 'Ad updated successfully')
         return super().form_valid(form)
 

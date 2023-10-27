@@ -13,10 +13,10 @@
             <!-- Check if the ad has an image and if it's not using the default image -->
             {% if ad.image and not ad.using_default_image %}
                 <!-- Display the ad's image -->
-                <img src="{{ ad.image.url }}" alt="Ad Image">
+                <img src="{{ ad.image.url }}" alt="Ad Image" width="200" height="200">
             {% else %}
                 <!-- Display the default image -->
-                <img src="{{ MEDIA_URL }}default/default.jpg" alt="">
+                <img src="{{ MEDIA_URL }}default/default.jpg" alt="" width="200" height="200">
             {% endif %}
             <div class="profile-buttons">
             <!-- Submit button to update the ad -->
