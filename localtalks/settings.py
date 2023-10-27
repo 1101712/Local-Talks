@@ -61,7 +61,7 @@ ALLOWED_HOSTS = [
     '8080-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
     '127.0.0.1', 'localhost',
     'localtalks.herokuapp.com', 'localhost',
-    'localtalks-a0301ec8c843.herokuapp.com'
+
 ]
 
 # Application definition
@@ -74,7 +74,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'localtalks.talks',
-    'cloudinary',
 ]
 
 MIDDLEWARE = [
