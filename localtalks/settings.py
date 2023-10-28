@@ -181,6 +181,6 @@ LOGIN_REDIRECT_URL = 'profile_view'
 AUTH_USER_MODEL = 'talks.CustomUser'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'localtalks/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'localtalks', 'media')
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
