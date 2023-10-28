@@ -59,7 +59,8 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 ALLOWED_HOSTS = [
     '8000-1101712-localtalks-gz98xw7hv6h.ws-eu105.gitpod.io',
     '127.0.0.1', 'localhost',
-    'localtalks.herokuapp.com', 'localhost'
+    'localtalks.herokuapp.com', 'localhost',
+    'localtalks-944a783c443e.herokuapp.com'
 ]
 
 # Application definition
