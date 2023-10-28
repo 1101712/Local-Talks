@@ -12,10 +12,10 @@
         <div>
             <!-- Check if Author has a profile picture that's not the default -->
             {% if ad.author.profile_picture and not ad.author.using_default_image %}
-                <img src="{{ ad.author.profile_picture.url }}" alt="Profile picture" class="small-profile-picture" loading="lazy">
+                <img src="{{ ad.author.profile_picture.url }}" alt="Profile picture" class="small-profile-picture">
             {% else %}
             <!-- Default Profile Picture -->
-                <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default profile picture" class="small-profile-picture" loading="lazy">
+                <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default profile picture" class="small-profile-picture">
             {% endif %}
             <!-- Posted By and Date -->
             <small>Posted by <strong>{{ ad.author.username }}</strong> on: {{ ad.date_posted|date:"Y-m-d" }}</small>
@@ -39,10 +39,10 @@
         <p class="ad-description custom-margin">{{ ad.description|safe }}</p>
         <!-- Ad Image -->
         {% if ad.image and not ad.using_default_image %}
-            <img src="{{ ad.image.url }}" alt="Ad image" loading="lazy">
+            <img src="{{ ad.image.url }}" alt="Ad image">
         {% else %}
         <!-- Default Ad Image -->
-            <img src="{{ MEDIA_URL }}default/default.jpg" alt="" loading="lazy">
+            <img src="{{ MEDIA_URL }}default/default.jpg" alt="">
         {% endif %}
         
         <!-- Edit and Delete buttons for Ad's Author --> 

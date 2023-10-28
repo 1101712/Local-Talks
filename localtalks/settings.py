@@ -156,7 +156,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = (
-    'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+    'whitenoise.storage.CompressedManifestStaticFilesStorage'
 )
 STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
 
@@ -177,8 +177,6 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'profile_view'
-
-STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
 
 AUTH_USER_MODEL = 'talks.CustomUser'
 

@@ -12,7 +12,6 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),  # Homepage with latest ads
     path('ads/', AdListView.as_view(), name='ad-list'),  # List of all ads
-    path('test/', test_view, name='test-view'),  # Test page
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('ad/<int:pk>/', AdDetailView.as_view(), name='ad_detail'),
