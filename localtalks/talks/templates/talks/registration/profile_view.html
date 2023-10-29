@@ -6,10 +6,10 @@
     <!-- Display the username -->
     <h2 class="custom1-color">Hello, {{ user.username }}!</h2>
     <!-- Display the profile picture if available, otherwise display default image -->
-    {% if user.profile_picture and not user.using_default_image %}
-        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-image">
+    {% if not user.using_default_image %}
+        <img src="{{ user.profile_picture_url }}" alt="Profile Picture" class="profile-image">
     {% else %}
-    <img src="{{ MEDIA_URL }}default/default.jpg" alt="Default Profile Picture" class="profile-image">
+        <img src="{{ DEFAULT_PROFILE_PICTURE }}" alt="Default Profile Picture" class="profile-image">
     {% endif %}
     <div class="profile-buttons">
         <!-- Edit profile button -->

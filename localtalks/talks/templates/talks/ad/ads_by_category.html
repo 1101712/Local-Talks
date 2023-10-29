@@ -15,7 +15,9 @@
                 <!-- Categories associated with the ad -->
                 <p>Categories: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                 {% if ad.image %} <!-- Display image if available -->
-                    <img src="{{ ad.image.url }}" alt="{{ ad.title }}" style="max-width: 100%;">
+                    <img src="{{ ad.image_url }}" alt="{{ ad.title }}" class="ad-image">
+                    {% else %} <!-- Display default image if not available -->
+                    <img src="{{ DEFAULT_PROFILE_PICTURE }}" alt="Default Ad Image" class="ad-image">
                 {% endif %}
                 <!-- Short description, truncated to 20 words -->
                 <p>{{ ad.description|truncatewords:20 }}</p>

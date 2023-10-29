@@ -8,8 +8,8 @@
         <h2 class="custom-color" style="text-align: center;">Create New Ad</h2> <!-- Title for the form -->
         <div class="category-margin">
         <!-- Check if the ad has an image and it's not using the default one, then display it -->
-        {% if ad.image and not ad.using_default_image %}
-            <img src="{{ ad.image.url }}" alt="Ad Image">
+        {% if ad.image_url and not ad.using_default_image %}
+            <img src="{{ ad.image_url }}" alt="Ad Image">
         {% else %}
             <img src="{{ MEDIA_URL }}default/default.jpg" alt="">
         {% endif %} <!-- end of if ad.image and not ad.using_default_image -->

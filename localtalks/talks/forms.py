@@ -4,6 +4,7 @@ from .models import CustomUser
 from .models import Comment, Ad, CustomUser, Category
 from django.core.exceptions import ValidationError
 from django.db import models
+from .utils import upload_image_to_cloudinary
 
 
 # Form for creating comments
@@ -19,6 +20,7 @@ class AdForm(forms.ModelForm):
         queryset=Category.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
+    image = forms.ImageField(required=False, help_text='This is optional.')
 
     class Meta:
         model = Ad
@@ -33,7 +35,7 @@ class ExtendedUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = (
-            'username', 'email', 'password1', 'password2', 'profile_picture'
+            'username', 'email', 'password1', 'password2', 'profile_picture_url'
         )
 
     # Validate the uniqueness of the username
@@ -57,6 +59,8 @@ class ExtendedUserCreationForm(UserCreationForm):
 
 # Form for updating the profile picture
 class ProfilePictureForm(forms.ModelForm):
+    profile_picture = forms.ImageField(required=False, help_text='This is optional.')
+
     class Meta:
-        model = CustomUser  # same model as in ExtendedUserCreationForm
+        model = CustomUser
         fields = ['profile_picture']

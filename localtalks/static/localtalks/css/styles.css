@@ -165,6 +165,10 @@ footer {
 }
 
 /* ads*/
+.ad-image {
+    max-width: 300px;
+    height: auto;
+}
 .ads-header {
     margin-bottom: 20px;
     padding-bottom: 10px;

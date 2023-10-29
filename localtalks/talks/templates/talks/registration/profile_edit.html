@@ -5,6 +5,15 @@
 <div class="profile-container">   
     <h2 class="custom1-color">Edit Profile</h2><br>
     <h3>Hello, {{ user.username }}!</h3>
+    
+    <!-- Display current profile picture -->
+    {% if user.profile_picture_url %}
+        <img src="{{ user.profile_picture_url }}" alt="Profile Picture" width="100" class="profile-image">
+    {% else %}
+        <!-- Display default picture -->
+        <img src="{{ DEFAULT_PROFILE_PICTURE }}" alt="Default Profile Picture" width="100" class="profile-image">
+    {% endif %}
+    
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %} <!-- CSRF token for security -->
         <!-- Form for editing profile -->

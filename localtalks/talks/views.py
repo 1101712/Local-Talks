@@ -21,6 +21,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os
 from django.forms import Form
 from django import forms
+from cloudinary.uploader import upload
+from .utils import upload_image_to_cloudinary
 
 
 # Class-based view for user registration
@@ -34,33 +36,19 @@ class RegisterView(CreateView):
         Override the form_valid method to login the user after registration,
         sets a default profile picture for the user and logs them in.
         """
-
-        # Define paths and filenames for the default profile picture
-        base_media_path = settings.MEDIA_ROOT
-        default_image_folder = "default"
-        default_image_filename = "default.jpg"
-
         # Call the parent class's form_valid method and get the user object
         response = super().form_valid(form)
         user = self.object
-        # Check if a profile picture is set; if not, set a default one
-        if not user.profile_picture:
-            user.profile_picture.save(
-                'default.jpg',
-                File(
-                    open(
-                        os.path.join(
-                            base_media_path,
-                            default_image_folder,
-                            default_image_filename
-                        ),
-                        'rb'
-                    )
-                )
-            )
-            user.using_default_image = True
-            user.save()
-        login(self.request, user)  # autho login
+
+        uploaded_file = self.request.FILES.get('profile_picture', None)
+        default_image_url = settings.DEFAULT_PROFILE_PICTURE
+
+        user.profile_picture_url, user.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
+
+        user.save()
+
+        login(self.request, user)
+
         return response
 
 
@@ -103,6 +91,7 @@ class AdListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
 
         paginator = Paginator(self.get_queryset(), self.paginate_by)
         page = self.request.GET.get('page', 1)
@@ -181,6 +170,7 @@ class AdDetailView(FormMixin, DetailView):
         context['comments'] = Comment.objects.filter(ad=self.object)
         context['form'] = self.form_class()
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
         return context
 
     def post(self, request, *args, **kwargs):
@@ -241,6 +231,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['ads'] = (Ad.objects.filter(author=self.request.user)
                                     .order_by('-date_posted'))
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
         return context
 
 
@@ -248,11 +239,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'talks/registration/profile_edit.html'
-    fields = ['email', 'profile_picture']
-
-    default_image_folder = 'default_images'
-    default_image_filename = 'default.jpg'
-    base_media_path = os.path.join(settings.MEDIA_ROOT)
+    form_class = ProfilePictureForm
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -262,11 +249,11 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         user = self.request.user
+        uploaded_file = self.request.FILES.get('profile_picture', None)
 
-        if user.profile_picture:
-            user.using_default_image = False
-        else:
-            user.using_default_image = True
+        default_image_url = settings.DEFAULT_PROFILE_PICTURE
+
+        user.profile_picture_url, user.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         user.save()
 
@@ -297,68 +284,50 @@ class AdCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('ad-list')
 
     def form_valid(self, form):
-        """
-        Set the ad's author to the current user.
-        """
         form.instance.author = self.request.user
-        base_media_path = settings.MEDIA_ROOT
-        default_image_folder = "default"
-        default_image_filename = "default.jpg"
         response = super().form_valid(form)
         ad = self.object
-        if not ad.image:
-            ad.image.save(
-                'default.jpg',
-                File(
-                    open(
-                        os.path.join(
-                            base_media_path,
-                            default_image_folder,
-                            default_image_filename
-                        ),
-                        'rb'
-                    )
-                )
-            )
-            ad.using_default_image = True
-            ad.save()
+
+        uploaded_file = self.request.FILES.get('image', None)
+        default_image_url = settings.DEFAULT_PROFILE_PICTURE
+        ad.image_url, ad.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
+
+        ad.save()
         return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
         return context
 
 
 # Class-based view for updating an existing ad
 class AdUpdateView(UpdateView):
     model = Ad
-    fields = ['title', 'description', 'image']
+    form_class = AdForm
     template_name = 'talks/ad/ad_edit.html'
-
-    default_image_folder = 'default'
-    default_image_filename = 'default.jpg'
-    base_media_path = os.path.join(settings.MEDIA_ROOT)
 
     def get_success_url(self):
         return reverse_lazy('profile_view')
 
     def form_valid(self, form):
-        old_instance = Ad.objects.get(id=self.object.id)
         new_instance = form.save(commit=False)
 
-        if old_instance.image != new_instance.image:
-            old_instance.image.delete(save=False)
+        uploaded_file = self.request.FILES.get('image', None)
+        default_image_url = settings.DEFAULT_PROFILE_PICTURE
 
-        if new_instance.image:
-            new_instance.using_default_image = False
-        else:
-            new_instance.using_default_image = True
+        new_instance.image_url, new_instance.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         new_instance.save()
 
         messages.success(self.request, 'Ad updated successfully')
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
+        return context
 
 
 # Class-based view for deleting an existing ad

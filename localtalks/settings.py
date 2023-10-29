@@ -14,6 +14,9 @@ from pathlib import Path
 from decouple import Config, Csv
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 if os.path.exists('env.py'):
     import env
 
@@ -41,6 +44,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback_value')
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+
+DEFAULT_PROFILE_PICTURE = "https://res.cloudinary.com/duwv0smeo/image/upload/v1698522865/default_vfarsz.jpg"
 
 # The following SQLite database settings
 # DATABASES = {
@@ -52,7 +58,7 @@ DATABASES = {
 # }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -73,6 +79,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'localtalks.talks',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -160,6 +168,12 @@ STATICFILES_STORAGE = (
 )
 STATICFILES_DIRS = [BASE_DIR / "localtalks" / "static"]
 
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'localtalks', 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -179,8 +193,3 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'profile_view'
 
 AUTH_USER_MODEL = 'talks.CustomUser'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'localtalks', 'media')
-
-MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'

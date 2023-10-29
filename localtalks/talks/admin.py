@@ -4,7 +4,7 @@ from .models import CustomUser, Category, Ad, Comment, UserProfile
 
 # Custom admin view for CustomUser model
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'profile_picture')
+    list_display = ('username', 'email', 'profile_picture_url')
 
 
 # Custom admin view for Category model
@@ -14,7 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 # Custom admin view for Ad model
 class AdAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'author', 'date_posted', 'image')
+    list_display = ('title', 'description', 'author', 'date_posted', 'image_url')
 
 
 # Custom admin view for Comment model

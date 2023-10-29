@@ -17,7 +17,7 @@
         </div>
     {% endif %}
     <!-- Form for user registration -->
-    <form method="post" enctype="multipart/form-data" class="register-form"> <!-- добавили enctype для загрузки изображений -->
+    <form method="post" enctype="multipart/form-data" class="register-form">
         {% csrf_token %} <!-- CSRF token for security -->
         <!-- Account Information Section -->
         <h3 class="sub-title" id="accountInfo">Account Information</h3>
