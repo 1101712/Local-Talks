@@ -16,6 +16,7 @@ from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.contrib import messages
 from django.core.files import File
+from django.core.paginator import Paginator, EmptyPage
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os
@@ -171,6 +172,7 @@ class AdDetailView(FormMixin, DetailView):
         context['form'] = self.form_class()
         context['MEDIA_URL'] = settings.MEDIA_URL
         context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
+        context['ads'] = [self.object]
         return context
 
     def post(self, request, *args, **kwargs):
@@ -353,6 +355,7 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'talks/ad/category_list.html'
     context_object_name = 'categories'
+    paginate_by = 10
 
 
 # Class-based view for displaying ads by category

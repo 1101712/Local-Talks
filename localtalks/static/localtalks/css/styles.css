@@ -185,6 +185,9 @@ footer {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+.ads-wrapper.one-ad {
+    justify-content: center;
+}
 .ad-item {
     flex-basis: calc(50% - 10px);
     box-sizing: border-box;

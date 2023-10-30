@@ -1,27 +1,12 @@
-{% extends "talks/base.html" %} <!-- Extend from the base template -->
+{% extends "talks/base.html" %}
+{% load static %}
 
-{% block content %} <!-- Content block starts here -->
-<div class="col-md-8 mx-auto content-center"> <!-- Additional wrapper for the header -->
-    <h2 class="custom1-color custom-ads">All ads in category: {{ category_name }}</h2>
+{% block content %}
+<div class="content-center">
+    <h2 class="custom1-color custom-ads">Ads in category: {{ category_name }}</h2>
+    <!-- Include the ad list template -->
+    {% include '_ad_list.html' %}
+    <!-- Include the pagination template -->
+    {% include '_pagination.html' %}
 </div>
-    <div class="ads-wrapper"> <!-- Wrapper for all ads -->
-        <!-- Loop through each ad object in the 'ads' queryset -->
-        {% for ad in ads %}
-            <div class="ad-item">
-                <!-- Ad title linked to its detail view -->
-                <h3><a href="{% url 'ad_detail' ad.pk %}" class="custom-color">{{ ad.title }}</a></h3>
-                <p>Posted by: {{ ad.author }}</p> <!-- Author of the ad -->
-                <p>Date: {{ ad.date_posted }}</p> <!-- Date when the ad was posted -->
-                <!-- Categories associated with the ad -->
-                <p>Categories: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                {% if ad.image %} <!-- Display image if available -->
-                    <img src="{{ ad.image_url }}" alt="{{ ad.title }}" class="ad-image">
-                    {% else %} <!-- Display default image if not available -->
-                    <img src="{{ DEFAULT_PROFILE_PICTURE }}" alt="Default Ad Image" class="ad-image">
-                {% endif %}
-                <!-- Short description, truncated to 20 words -->
-                <p>{{ ad.description|truncatewords:20 }}</p>
-            </div>
-        {% endfor %}
-    </div>
 {% endblock %} <!-- End of content block -->

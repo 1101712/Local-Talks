@@ -1,5 +1,5 @@
 <!-- Ads Wrapper -->
-<div class="ads-wrapper">
+<div class="ads-wrapper {% if ads|length == 1 %}one-ad{% endif %}">
     <!-- Loop through each Ad -->
     {% for ad in ads %}
     <!-- Individual Ad Container -->

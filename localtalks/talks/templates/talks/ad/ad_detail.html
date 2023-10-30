@@ -4,41 +4,9 @@
 {% block content %} <!-- Content block -->
 
 <div class="content-center">
-    <div class="ad-item">
-        <!-- Ad title linked to its detail page -->
-        <h4><a href="{% url 'ad_detail' ad.id %}" class="custom-color">{{ ad.title }}</a></h4>
-            <!-- Author and profile picture -->
-            <div>
-                <!-- Check for profile picture and display accordingly -->
-                {% if ad.author.profile_picture and not ad.author.using_default_image %}
-                    <img src="{{ ad.author.profile_picture_url }}" alt="Profile picture" class="small-profile-picture">
-                {% else %}
-                <img src="{{ DEFAULT_PROFILE_PICTURE }}" alt="Default profile picture" class="small-profile-picture">
-                {% endif %}
-                <!-- Author username and date posted -->
-                <small>Posted by <strong>{{ ad.author.username }}</strong> on: {{ ad.date_posted|date:"Y-m-d" }}</small>
-            </div>
-            <!-- Categories -->
-            <div>
-                <small>Category: {% for category in ad.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small>
-            </div>
-            <!-- Ad description -->
-            <p class="ad-description custom-margin">{{ ad.description }}</p>
-            <!-- Ad image -->
-            {% if ad.image_url and not ad.using_default_image %}
-                <img src="{{ ad.image_url }}" alt="Ad image" class="ad-image">
-            {% else %}
-                <img src="{{ MEDIA_URL }}default/default.jpg" alt="" class="ad-image">
-            {% endif %}
+    <!-- Include the ad list template -->
+    {% include '_ad_list.html' %}
 
-            <!-- Edit and Delete buttons for Ad's Author --> 
-            {% if user.is_authenticated and user == ad.author %}
-                <div class="ad-actions">
-                    <a href="{% url 'ad_edit' ad.id %}" class="custom-color">Edit</a>
-                    <a href="{% url 'ad_delete' ad.id %}" class="custom-color">Delete</a>
-            </div>
-        {% endif %}
-    </div>
     <!-- Comments Section -->
     <h3 class="custom-margin">Comments</h3>
     <!-- Loop through all comments -->
@@ -72,4 +40,7 @@
     {% endif %}
 </div>
 <!-- End of content block -->
+<div>
+    <a href="javascript:history.back()" class="custom-color content-center">Go to previous page</a>
+</div>
 {% endblock %}
