@@ -3,7 +3,8 @@ from django.contrib.auth.views import LogoutView
 from .views import (
     AdListView, AdDetailView, CustomLoginView, RegisterView,
     AdCreateView, test_view, HomeView, AdUpdateView,
-    AdDeleteView, ProfileView, ProfileDeleteView, CommentDeleteView
+    AdDeleteView, ProfileView, ProfileDeleteView, CommentDeleteView,
+    custom_logout
 )
 from . import views
 from django.contrib.auth import views as auth_views
@@ -64,4 +65,6 @@ urlpatterns = [
         views.AdsByCategoryView.as_view(),
         name='ads_by_category'
         ),
+    # to preserve messages after logout
+    path('custom_logout/', custom_logout, name='custom_logout'),
 ]

@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View, generic
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.views.generic.edit import FormMixin, UpdateView, DeleteView
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
@@ -14,7 +15,6 @@ from .forms import (
 )
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
-from django.contrib import messages
 from django.core.files import File
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -49,7 +49,13 @@ class RegisterView(CreateView):
 
         login(self.request, user)
 
+        messages.success(self.request, 'Registration successful. Welcome!')
+
         return response
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Registration failed. Please check your input.')
+        return super().form_invalid(form)
 
 
 # Class-based view for custom login page
@@ -195,6 +201,7 @@ class AdDetailView(FormMixin, DetailView):
         comment.ad = self.object
         comment.author = self.request.user
         comment.save()
+        messages.success(self.request, 'Comment added successfully.')
         return super().form_valid(form)
 
 
@@ -261,6 +268,16 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, 'Profile updated successfully')
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(self.request, 'Failed to update profile. Please check your input.')
+        return super().form_invalid(form)
+
+
+# Custom logout function to preserve messages after logout
+def custom_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
 
 # Class-based view for deleting the user's profile
 class ProfileDeleteView(LoginRequiredMixin, DeleteView):
@@ -273,8 +290,14 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
         return self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, 'Your profile has been deleted.')
-        return super().form_valid(form)
+        user = self.request.user
+        try:
+            user.delete()
+            messages.success(self.request, 'Your profile has been deleted.')
+            return HttpResponseRedirect(reverse_lazy('custom_logout'))
+        except Exception as e:
+            messages.error(self.request, 'An error occurred while trying to delete your profile.')
+            return super().form_invalid(form)
 
 
 # Class-based view for creating a new ad
@@ -294,7 +317,13 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         ad.image_url, ad.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         ad.save()
+
+        messages.success(self.request, 'Ad created successfully.')
         return response
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Failed to create ad. Please check your input.')
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -325,6 +354,10 @@ class AdUpdateView(UpdateView):
         messages.success(self.request, 'Ad updated successfully')
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(self.request, 'Failed to update ad. Please check your input.')
+        return super().form_invalid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
@@ -347,6 +380,10 @@ class AdDeleteView(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, 'Your ad was successfully deleted.')
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Failed to delete ad.')
+        return super().form_invalid(form)
 
 
 # Class-based view for listing all categories
@@ -397,3 +434,7 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         messages.success(self.request, 'Your comment has been deleted.')
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Failed to delete comment.')
+        return super().form_invalid(form)

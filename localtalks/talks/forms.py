@@ -29,7 +29,7 @@ class AdForm(forms.ModelForm):
 # Extended user creation form with email and optional profile picture
 class ExtendedUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    profile_picture = forms.ImageField(required=False, help_text='Optional.')
+    profile_picture = forms.ImageField(required=False, help_text='This is optional.')
 
     class Meta:
         model = CustomUser
