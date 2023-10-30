@@ -16,7 +16,6 @@ from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.contrib import messages
 from django.core.files import File
-from django.core.paginator import Paginator, EmptyPage
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os

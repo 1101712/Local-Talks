@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser
 from .models import Comment, Ad, CustomUser, Category
 from django.core.exceptions import ValidationError
 from django.db import models

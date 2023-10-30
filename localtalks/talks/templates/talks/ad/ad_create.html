@@ -11,7 +11,7 @@
         {% if ad.image_url and not ad.using_default_image %}
             <img src="{{ ad.image_url }}" alt="Ad Image">
         {% else %}
-            <img src="{{ MEDIA_URL }}default/default.jpg" alt="">
+        <img src="{{ DEFAULT_PROFILE_PICTURE }}" alt="">
         {% endif %} <!-- end of if ad.image and not ad.using_default_image -->
         </div>
         <!-- Form to create a new ad, enctype attribute is added to support file upload -->

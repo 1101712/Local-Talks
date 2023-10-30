@@ -54,6 +54,8 @@ class Ad(models.Model):
     )
     categories = models.ManyToManyField(Category)
     image_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
+    using_default_image = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
