@@ -3,7 +3,7 @@ This Django project offers an opportunity for the local community to share news 
 
 Attention! The website is currently not working with an ad blocker enabled.
 
-![responsive mockup](https://res.cloudinary.com/)
+![responsive mockup](https://res.cloudinary.com/duwv0smeo/image/upload/v1698793373/mockup_bmltxq.jpg)
 
 
 [Link to live site](https://localtalks-944a783c443e.herokuapp.com/)
@@ -623,7 +623,7 @@ Lighthouse validation was run on all pages (both mobile and desktop) in order to
 - The Website was tested on Google Chrome, Firefox, Safari browsers with no issues noted.
 
 ### Device Testing
-- The website was viewed on a variety of devices such as Desktop, Laptop, iPhone 8, iPhoneXR and iPad to ensure responsiveness on various screen sizes in both portrait and landscape mode. The website performed as intended. The responsive design was also checked using Chrome developer tools across multiple devices with structural integrity holding for the various sizes.
+- The website was viewed on [a variety of devices](https://mobilemoxie.com/tools/mobile-page-test/) such as Desktop, Laptop, iPhone 8, iPhoneXR and iPad to ensure responsiveness on various screen sizes in both portrait and landscape mode. The website performed as intended. The responsive design was also checked using Chrome developer tools across multiple devices with structural integrity holding for the various sizes.
 
 ## Unfixed Bugs
 No Unfixed bugs  
@@ -835,6 +835,7 @@ To clone this repository follow the below steps:
 - [Commit Message Generator](https://cbea.ms/git-commit/): Git commit message generator.
 - [Chat GPT](https://openai.com/): Artificial intelligence for text generation.
 - [Pythontutor](https://pythontutor.com/)
+- [Website Screenshot API ](https://www.page2images.com/): site mockap generator
 
 
 ##  Source Credits
