@@ -1,6 +1,8 @@
 # Local buzz
 This Django project offers an opportunity for the local community to share news in an informal setting. The website combines the features of a bulletin board with casual news sharing between neighbors, like a friendly chat on the street. Topics are not restricted, as long as they fall within the bounds of common sense and decency, which are overseen by the site administrator. Anyone can post news or an advertisement, express their opinions, or simply respond to a post by leaving a comment. However, to take an active part in the life of this online community, one must become a member by registering.
 
+Attention! The website is currently not working with an ad blocker enabled.
+
 ![responsive mockup](https://res.cloudinary.com/)
 
 
@@ -104,7 +106,7 @@ Great care was taken to establish a good contrast between background colours and
 
 ### Images and Icons
 
-There is only four static images on the site. The rest of the imagery will be uploaded by users for their individual recipes. 
+There is only four static images on the site. The rest of the imagery will be uploaded by users for their individual ads. 
 
 The design of the site includes images and icons made in the style of children's drawings. This style was chosen intentionally. The aim of using such images and icons is to create an atmosphere of trust and openness. 
 
@@ -181,7 +183,8 @@ At the bottom of the main page, below the first 6 ads, there is a link to the pa
 
 #### Footer
 
-In the footer, you can find contact information: the site admin's email, which is also a link styled in the same way — purple and underlined when hovered over with the mouse.
+In the footer, you can find contact information: the site admin's email, which is also a link styled in the same way — purple and underlined when hovered over with the mouse.  
+As the website continues to develop, a contact form will be implemented instead of Email to prevent spam. If social media accounts are created, they will also be featured in the website footer.
 
 ![footer](https://res.cloudinary.com/duwv0smeo/image/upload/v1698750218/footer_csjh0w.jpg)
 
@@ -221,6 +224,8 @@ Password Hints
     When the user is confirming their password, real-time validation occurs. The hint for this field operates on an error principle and will display a message until there is an exact match between the entered passwords.
     Email Hints
 
+    ![registration hint](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751581/registr2_zctdnt.jpg)
+
 - **For the email field**,   
     the following conditions are displayed:
 
@@ -232,22 +237,27 @@ Password Hints
 
 The hints are styled with a specific color (#76161eda) to ensure they are noticeable yet not too distracting. These interactive features make the registration process more user-friendly by providing immediate feedback and guidance.
 
+![registration form](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751576/registr_r84b9k.jpg)
+
 - **Email Already Exists Scenario:**  
     After the user submits the form, the back-end logic in Django checks whether the provided email already exists in the database. This is done in the RegisterView class within the form_valid method. If a user attempts to register with an email that already exists, a message will be displayed to inform them that a user with that email already exists. The user will then be redirected back to the registration page to correct this issue.
 
-After successful registration, the user is redirected to the newly created profile page. Therefore, there is no need for an additional message about successful profile creation.
+    ![email already exist](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751591/registr-email-exist_lvmyfr.jpg)
+
+After successful registration, the user is redirected to the newly created profile page. where they will subsequently see all of their ads. Additionally, the user will see a confirmation message upon successful account creation. Otherwise, an error message will be displayed.
+
+![account sucsess](https://res.cloudinary.com/duwv0smeo/image/upload/v1698778501/account-create-success_redgzp.jpg)
 
 With these added features, the registration page becomes not only a gateway for new users but also a comprehensive, user-friendly interface that guides users through the process, helping them correct errors and understand requirements.
 
-![registration form](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751576/registr_r84b9k.jpg)
-
-![registration hint](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751581/registr2_zctdnt.jpg)
-
-![email already exist](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751591/registr-email-exist_lvmyfr.jpg)
-
 #### Login 
 
-In the application, users can securely log in through an authentication process. Additionally, if a user forgets their password, the system provides a password reset functionality to help them regain access to their account.
+In the application, users can securely log in through an authentication process.   
+If the user enters an incorrect Username or password, they will see an error message with a hint.
+
+![login](https://res.cloudinary.com/duwv0smeo/image/upload/v1698779516/login-error_irlhmr.jpg)
+
+Additionally, if a user forgets their password, the system provides a password reset functionality to help them regain access to their account.
 
 Initially designed to send an email for password reset functionality, the feature has been adapted due to difficulties with sending emails from Gitpod. 
 
@@ -257,24 +267,24 @@ Initially designed to send an email for password reset functionality, the featur
 
 ![reset email](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751933/login-reset-message_dqa15r.jpg)
 
-#### Profile Page
+#### My Ads Page
 
-User's Listings Page (also known as Profile Page)
+User's Ads Page (also known as Profile Page)
 This page is designed in a consistent style, but without Ad Category panel. The page is accessible only to registered and authenticated users. If a user is not authenticated, they will be prompted to log in or register. Authenticated users see a greeting with their name on their page, their rounded profile image links to edit or delete their profile, a link to add a new listing, and all the listings they have published with options to edit or delete each listing. All links are styled in the same way — purple and underlined when hovered over with the mouse — consistent with the overall site design.
 
 ![Profile page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752085/profile_a05iyw.jpg)
 
 #### Profile Editing Page
 
-The user can change or delete their uploaded image. If the image is deleted, it will be replaced with a default image. After completing the editing process, the user will see a message indicating the successful completion of the profile edit. The user will be redirected back to their profile page.
+The user can change or delete their uploaded image. If the image is deleted, it will be replaced with a default image. After completing the editing process, the user will see a message indicating the successful completion of the profile edit. Otherwise, an error message will be displayed. The user will be redirected back to their profile page.
 
-![Profile edit](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752201/profile-edit_l3zdm5.jpg)
+![Profile edit](https://res.cloudinary.com/duwv0smeo/image/upload/v1698780388/profile-edit_sjyp8u.jpg)
 
-![Profile edit](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507980/ad-edit-confirm_n6esnh.jpg)
+![Profile edit](https://res.cloudinary.com/duwv0smeo/image/upload/v1698780624/profile-edit-suc_vrd1ck.jpg)
 
 #### Profile Deletion Page
 
-The user can delete their profile. Before finalizing the deletion, the user will need to confirm their intent to delete the profile. After clicking the confirmation button again, the user will see a message stating that their profile has been deleted. The user will be redirected to the Home Page.
+The user can delete their profile. Before finalizing the deletion, the user will need to confirm their intent to delete the profile. After clicking the confirmation button again, the user will see a message stating that their profile has been deleted. Otherwise, an error message will be displayed. The user will be redirected to the Home Page.
 
 ![Profile delete](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752430/profile-delete_azbeyb.jpg)
 
@@ -282,7 +292,9 @@ The user can delete their profile. Before finalizing the deletion, the user will
 
 #### Ad Creation
  
-Only a registered and authorized user can create an ad. On the ad creation page, the user is prompted to come up with a title, create the text, optionally add an image, and select one or more categories. The layout of the ad creation field follows the style of the ad itself. After the successful creation of the ad, the user is redirected to the page displaying all ads, where they can see their newly published ad, as well as receive a message confirming the successful creation of the ad.
+Only a registered and authorized user can create an ad. On the ad creation page, the user is prompted to come up with a title, create the text, optionally add an image, and select one or more categories.   
+Text editing is not available in the current version, but it is a priority for future development of the website.  
+The layout of the ad creation field follows the style of the ad itself. After the successful creation of the ad, the user is redirected to the page displaying all ads, where they can see their newly published ad, as well as receive a message confirming the successful creation of the ad. Otherwise, an error message will be displayed.
 
 ![Ad creation](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507954/ad-create_yufqh3.jpg)
 
@@ -290,11 +302,19 @@ Only a registered and authorized user can create an ad. On the ad creation page,
 
 #### Ad Editing
 
-Only the authorized author of the ad can edit it. If necessary, the user can make changes to any previously selected fields except for categories. To change categories, the user will need to delete the current ad and create a new one. The layout of the ad editing field also follows the style of the ad itself. After successfully editing the ad, the user is redirected to their profile page, where they can see all of their ads and receive a message confirming the successful update of the ad.
+Only the authorized author of the ad can edit it. If necessary, the user can make changes to any previously selected fields. The layout of the ad editing field also follows the style of the ad itself. After successfully editing the ad, the user is redirected to their profile page, where they can see all of their ads and receive a message confirming the successful update of the ad. Otherwise, an error message will be displayed.
 
-![Ad Editing](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507975/ad-edit_vqpqe7.jpg)
+![Ad Editing](https://res.cloudinary.com/duwv0smeo/image/upload/v1698782257/ad-edit_jy4peh.jpg)
 
 ![Ad Editing Confirmation](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507980/ad-edit-confirm_n6esnh.jpg)
+
+#### Ad Deletion
+
+ Only the authorized author of the ad can delete it. Before deleting, the user will need to confirm their intent. After confirmation and successful deletion, the user will see a confirmation message. Otherwise, an error message will be displayed.
+
+ ![Ad deletion](https://res.cloudinary.com/duwv0smeo/image/upload/v1698783252/ad-delet-conf_u3z8bl.jpg)
+
+ ![Ad deletion](https://res.cloudinary.com/duwv0smeo/image/upload/v1698783325/ad-del-confirm_giv9tr.jpg)
 
 #### Ads Page with ad details and comments
 
@@ -314,9 +334,9 @@ This is how the page looks for a user who is neither the author of the ad nor th
 
 #### Comment Edition and Deletion
 
-On the page of the ad to which the user has left a comment, provided that the user is authenticated, the user can delete their comment and, if necessary, write a new one. Only the authorized author of a comment has the right to delete it. Before finalizing the deletion, the user will need to confirm their intent to delete the comment. After deleting the comment, the user will see a message confirming that their comment has been deleted. The user will be redirected back to the ad page to which the comment was just deleted.
+On the page of the ad to which the user has left a comment, provided that the user is authenticated, the user can delete their comment and, if necessary, write a new one. Only the authorized author of a comment has the right to delete it. Before finalizing the deletion, the user will need to confirm their intent to delete the comment. After deleting the comment, the user will see a message confirming that their comment has been deleted. The user will be redirected back to the ad page to which the comment was just deleted. Otherwise, an error message will be displayed.
 
-I intentionally did not add the ability to edit comments, as I fundamentally believe that editing should come with the ability to view comment history, which would take too much time within the scope of this educational project. However, such an option should definitely be implemented in the future.
+We intentionally did not add the ability to edit comments, as we fundamentally believe that editing should come with the ability to view comment history, which would take too much time within the scope of this educational project. However, such an option should definitely be implemented in the future.
 
 ![Comments deletion](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508034/comment-del-confirm_f5wg9h.jpg)
 
@@ -338,7 +358,7 @@ This page  introduces a comprehensive "How it Works" guide aimed at helping user
 - **Login Required:**  
     Several views like ProfileView, ProfileEditView, ProfileDeleteView, etc., are protected by Django's LoginRequiredMixin, ensuring that only authenticated users can access these views.
 - **Ownership Checks:**   
-    For deleting comments (CommentDeleteView), the application checks if the user attempting to delete the comment is indeed the author.
+    For example for deleting comments (CommentDeleteView), the application checks if the user attempting to delete the comment is indeed the author.
 
 #### Database Security
 
@@ -366,14 +386,10 @@ This page  introduces a comprehensive "How it Works" guide aimed at helping user
 
 #### File Handling:
 
-- **Image Resizing:**  
-    Both for user profile pictures and ad images, the application resizes images to specified dimensions, potentially saving storage and bandwidth.
-
 - **Default Image:**  
     In the absence of a user-provided image, a default image is used.
 
-- **Image Deletion:**  
-    Old images are deleted from storage when updated, preventing storage from being filled with unused images.
+
 
 #### Messages:
 
@@ -402,24 +418,14 @@ While these practices enhance security, it's crucial to note that they are part 
 
 ### Special Features:
 
-#### Image Deletion Logic
+#### Image Handling with Cloudinary
 
-One of the unique aspects of this project is the handling of user and advertisement images. When a user profile or an advertisement is deleted, the associated images are also removed from the storage. However, we wanted to make sure that the default profile image doesn't get deleted when purging other images. To achieve this, a special logic was implemented.
+We use Cloudinary for image storage and manipulation. This ensures that all images are securely stored and optimally delivered.  
+upload_image_to_cloudinary function takes a file and a default URL as parameters. If a file is provided, it uploads the file to Cloudinary, gets a secure URL, and adds an auto-format parameter to it.If no file is provided, the function returns a default URL. In case of any exception during the upload, an error message is printed and the default URL is returned.
 
-**How It Works:**
+#### Unique Email and Username Validation:
 
-Dedicated Folder for Default Image: We created a separate folder within the media directory specifically for storing the default image. This folder is named default.
-
-Checking for Default Image Usage: The code checks whether a user or an ad is using the default image upon its deletion. If so, the default image is not removed from the storage.
-
-Setting Default Image: When a new user is registered or a new ad is created, if no profile picture or ad image is uploaded, the default image is set as their picture. This logic is implemented in the form_valid method of the RegisterView and AdCreateView classes.
-
-
-This ensures that the default image remains intact in the storage while still allowing for the automated deletion of other user-generated images.
-
-#### Unique Email Validation:
-
-The application ensures that each user has a unique email address. This validation is performed in the ExtendedUserCreationForm class via the clean_email method. The method checks the database for existing accounts with the same email and raises a validation error if a duplicate is found.
+The application ensures that each user has a unique email address and Username. This validation is performed in the ExtendedUserCreationForm class via the clean_email method. The method checks the database for existing accounts with the same email and raises a validation error if a duplicate is found.
 
 ### CRUD
 
@@ -449,6 +455,15 @@ An authenticated user has the capability to delete their own saved profiles, ads
 - **Private Commenting:**  
     Enable the option for comments to be private, visible only to the author of the post.
 
+- **Text Editing for Ads:**
+    Implement a rich text editor for creating and editing ad content, offering users more formatting options.
+
+- **User Bio:**
+    Allow users to add a short bio or description about themselves on their profile page.
+
+- **Clickable Profile Mini-Image:**
+    The user's profile mini-image will serve as a clickable link leading to a page with more detailed information that the user wants to share about themselves.
+
 #### For Admins
 - **New Post Alerts:**  
     Admins will be notified of new posts.
@@ -457,9 +472,6 @@ An authenticated user has the capability to delete their own saved profiles, ads
     Admins will have the ability to ban users and send them personal messages or warnings about undesirable actions.
 
 #### General Enhancements
-
-- **Pagination:**   
-    Implement pagination for profile pages and for listing posts by categories or search results.
 
 - **Location Mapping:**   
     Allow users to add a location related to the post on a map.
@@ -519,18 +531,11 @@ One to Many (ForeignKey). One ad can have multiple comments, but each comment be
 
 After saving CustomUser, a UserProfile is automatically created.
 
-Before saving edeted  CustomUser with new profile picture, the old profile picture is deleted.
-
-After deleting Ad, its picture is deleted.
-
-After deleting CustomUser, all of its pictures and ads are deleted.
-
-This structure provides a flexible and scalable way to manage users, ads, and comments, as well as their interrelationships.
 
 The database model diagram was designed using [Drawio](https://app.diagrams.net/).
 The first draft of the entity relationship diagram does not include all models and connections used in the final database.
 
-![Site rules](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508039/data-model_yzh68a.jpg)
+![Database](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508039/data-model_yzh68a.jpg)
 
 ## Testing
 
@@ -606,8 +611,13 @@ Lighthouse validation was run on all pages (both mobile and desktop) in order to
 |                |              |               |                 |     |
 | Desktop        |              |               |                 |     |
 | Home           |           99 |            96 |              92 | 100 |
+| All Ads        |           99 |            96 |              92 | 100 |
+| My Ads         |           98 |            96 |              92 | 100 |
+| How it works   |           99 |            96 |              92 | 100 |
+| Register       |           99 |            96 |              92 | 100 |
+| Login          |           99 |            96 |              92 | 100 |
 
-![Accessibility](localtalks/static/localtalks/images/accessibility-desk.jpg)
+![Accessibility](https://res.cloudinary.com/duwv0smeo/image/upload/v1698775956/accessibility-desk_mhffog.jpg)
 
 ### Browser Testing
 - The Website was tested on Google Chrome, Firefox, Safari browsers with no issues noted.
@@ -638,6 +648,7 @@ pip3 install whitenoise
 
 - Install dj-database-url (enables URL-based database configuration):  
 pip3 install dj-database-url
+
 ### Create the Heroku App
 
 - Log in to Heroku or create an account.
@@ -651,17 +662,12 @@ pip3 install dj-database-url
 - Log into [ElephantSQL](https://api.elephantsql.com) and create a new instance.
 - Copy the DATABASE_URL from the instance details.
 
-#### Attach Heroku Postgres (Alternative)
-
-- Alternatively, you can also use Heroku Postgres.
-- Go to the Resources tab and in add-ons, type in Postgres and select Heroku Postgres.
-
 ### Configuring Environment Variables
 
 - Create an env.py file in your project root.
 - Add your DATABASE_URL and SECRET_KEY to env.py
 - Make sure env.py is in your .gitignore file to keep these sensitive details out of your repository.
-- 
+- Add Cloudinary URL to env.py
 
 ### Update Django Settings
 
@@ -690,7 +696,7 @@ web: gunicorn <your-project-name>.wsgi:application
 
 ### Media Storage in the Project
 
-In this project, we use a local and storage for images. Since the volume of images we handle is not very large, we've opted for local storage for them. However, the code is configured in a way that makes it easy to fully transition to Cloudinary for performance optimization and easier media management.
+In this project, we use a Cloudinary to storage media files.
 
 ### Update Heroku Config Vars
 
@@ -699,7 +705,8 @@ In this project, we use a local and storage for images. Since the volume of imag
     DATABASE_URL
     EMAIL_HOST_PASSWORD
     EMAIL_HOST_USER
-        
+    CLOUDINARY_URL
+
 ### Deploying the App
 
 - Make sure that DEBUG is set to False in your settings.py.
@@ -712,13 +719,51 @@ Your app should now be live and operational!
 
 During deployment to Heroku, it turned out that the basic structure of the Django project was compromised. A project folder was created within another folder of the same name. To fix this issue, we had to move the entire project up one level and delete the unnecessary folder. In the process, we also had to adjust all paths and settings.
 
+However, we encountered limitations with Heroku's ephemeral filesystem, which does not support permanent storage of images. To address this, we transitioned to using Cloudinary for image storage.
+
+Before Cloudinary
+
+Originally, our application had a set of features for handling images:
+
+    CustomUser Profile Pictures:
+    Before saving an edited CustomUser with a new profile picture, the old profile picture was deleted from the server.
+
+    Ad Images:
+    Upon deleting an Ad, its associated picture was also deleted from the server.
+
+    CustomUser Deletion:
+    When a CustomUser was deleted, all of their associated pictures and ads were also deleted.
+
+This architecture was designed to offer a flexible and scalable way to manage users, ads, and comments, as well as their interrelationships.
+
+Now we use the Cloudinary Python library to upload images and return secure URLs, which are then stored in our database. Cloudinary also allows us to handle errors gracefully, ensuring a smooth user experience.
+
+This transition has been a vital step in ensuring that our application remains robust and scalable, while also being compatible with cloud-based hosting services like Heroku.
+
 ## Development
 
 ### Fork
 
+- Locate the repository at this link [Local buzz](https://github.com/1101712/Local-Talks).
+- At the top of the repository, on the right side of the page, select "Fork" from the buttons available. 
+- A copy of the repository is now created.
+
 ### Clone
 
+To clone this repository follow the below steps: 
+
+1. Locate the repository at this link [Local buzz](https://github.com/1101712/Local-Talks). 
+2. Under **'Code'**, see the different cloning options, HTTPS, SSH, and GitHub CLI. Click the prefered cloning option, and then copy the link provided. 
+3. Open **Terminal**.
+4. In Terminal, change the current working directory to the desired location of the cloned directory.
+5. Type **'git clone'**, and then paste the URL copied from GitHub earlier. 
+6. Type **'Enter'** to create the local clone. 
+
 ### Download ZIP
+
+- Log into GitHub and click on repository to download [Local buzz](https://github.com/1101712/Local-Talks])
+- Select **Code** and click "Download Zip" file
+- Once download is completed, extract ZIP file and use in your local environment
 
 ## Languages
 
@@ -833,7 +878,7 @@ During deployment to Heroku, it turned out that the basic structure of the Djang
 
 ## Acknowledgments
 - To Kay Welfare, for providing great psyhological support and motivation.
-- To my mentor Antonio Rodriguez for helping to resolve the technical questions.
+- To Margarita Andrianova for helping to resolve the technical questions.
 - I would like to mentions Openais ChatGPT, which gave me a huge opportunity to study quickly and very efficiently.
-- To the Code Institute slack community.
+- To the Code Institute Slack community.
 

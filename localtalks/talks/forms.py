@@ -29,12 +29,15 @@ class AdForm(forms.ModelForm):
 # Extended user creation form with email and optional profile picture
 class ExtendedUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    profile_picture = forms.ImageField(required=False, help_text='This is optional.')
+    profile_picture = forms.ImageField(
+        required=False, help_text='This is optional.'
+    )
 
     class Meta:
         model = CustomUser
         fields = (
-            'username', 'email', 'password1', 'password2', 'profile_picture_url'
+            'username',
+            'email', 'password1', 'password2', 'profile_picture_url'
         )
 
     # Validate the uniqueness of the username
@@ -58,7 +61,9 @@ class ExtendedUserCreationForm(UserCreationForm):
 
 # Form for updating the profile picture
 class ProfilePictureForm(forms.ModelForm):
-    profile_picture = forms.ImageField(required=False, help_text='This is optional.')
+    profile_picture = forms.ImageField(
+        required=False, help_text='This is optional.'
+    )
 
     class Meta:
         model = CustomUser

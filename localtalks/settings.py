@@ -46,7 +46,10 @@ DATABASES = {
 }
 CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 
-DEFAULT_PROFILE_PICTURE = "https://res.cloudinary.com/duwv0smeo/image/upload/v1698522865/default_vfarsz.jpg"
+DEFAULT_PROFILE_PICTURE = (
+    "https://res.cloudinary.com/duwv0smeo/image/upload/"
+    "v1698522865/default_vfarsz.jpg"
+)
 
 # The following SQLite database settings
 # DATABASES = {

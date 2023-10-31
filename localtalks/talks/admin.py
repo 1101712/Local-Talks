@@ -14,7 +14,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 # Custom admin view for Ad model
 class AdAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'author', 'date_posted', 'image_url')
+    list_display = (
+        'title', 'description', 'author', 'date_posted', 'image_url'
+    )
 
 
 # Custom admin view for Comment model

@@ -7,7 +7,7 @@
         <!-- The title of each ad is wrapped in a hyperlink that leads to the detailed view of the ad.
         The 'safe' filter is used to mark the title as safe HTML, allowing any HTML tags
         (added for highlighting) to be rendered.-->
-        <h2><a href="{% url 'ad_detail' ad.id %}" class="custom-color">{{ ad.title|safe }}</a></h4>
+        <h2><a href="{% url 'ad_detail' ad.id %}" class="custom-color">{{ ad.title|safe }}</a></h2>
         <!-- Ad Author Info -->
         <div>
             <!-- Check if Author has a profile picture that's not the default -->
