@@ -43,7 +43,8 @@ class RegisterView(CreateView):
         uploaded_file = self.request.FILES.get('profile_picture', None)
         default_image_url = settings.DEFAULT_PROFILE_PICTURE
 
-        user.profile_picture_url, user.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
+        user.profile_picture_url, user.using_default_image = \
+            upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         user.save()
 
@@ -54,7 +55,9 @@ class RegisterView(CreateView):
         return response
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Registration failed. Please check your input.')
+        messages.error(
+            self.request, 'Registration failed. Please check your input.'
+        )
         return super().form_invalid(form)
 
 
@@ -261,7 +264,8 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
         default_image_url = settings.DEFAULT_PROFILE_PICTURE
 
-        user.profile_picture_url, user.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
+        user.profile_picture_url, user.using_default_image = \
+            upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         user.save()
 
@@ -269,7 +273,9 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Failed to update profile. Please check your input.')
+        messages.error(
+            self.request, 'Failed to update profile. Please check your input.'
+        )
         return super().form_invalid(form)
 
 
@@ -296,7 +302,7 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
             messages.success(self.request, 'Your profile has been deleted.')
             return HttpResponseRedirect(reverse_lazy('custom_logout'))
         except Exception as e:
-            messages.error(self.request, 'An error occurred while trying to delete your profile.')
+            messages.error(self.request, 'Failed to delete profile.')
             return super().form_invalid(form)
 
 
@@ -314,7 +320,8 @@ class AdCreateView(LoginRequiredMixin, CreateView):
 
         uploaded_file = self.request.FILES.get('image', None)
         default_image_url = settings.DEFAULT_PROFILE_PICTURE
-        ad.image_url, ad.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
+        ad.image_url, ad.using_default_image = \
+            upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         ad.save()
 
@@ -322,7 +329,9 @@ class AdCreateView(LoginRequiredMixin, CreateView):
         return response
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Failed to create ad. Please check your input.')
+        messages.error(
+            self.request, 'Failed to create ad. Please check your input.'
+        )
         return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
@@ -347,7 +356,8 @@ class AdUpdateView(UpdateView):
         uploaded_file = self.request.FILES.get('image', None)
         default_image_url = settings.DEFAULT_PROFILE_PICTURE
 
-        new_instance.image_url, new_instance.using_default_image = upload_image_to_cloudinary(uploaded_file, default_image_url)
+        new_instance.image_url, new_instance.using_default_image = \
+            upload_image_to_cloudinary(uploaded_file, default_image_url)
 
         new_instance.save()
 
@@ -355,7 +365,9 @@ class AdUpdateView(UpdateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Failed to update ad. Please check your input.')
+        messages.error(
+            self.request, 'Failed to update ad. Please check your input.'
+        )
         return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):

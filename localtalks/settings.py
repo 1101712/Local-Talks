@@ -58,7 +58,7 @@ DEFAULT_PROFILE_PICTURE = "https://res.cloudinary.com/duwv0smeo/image/upload/v16
 # }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

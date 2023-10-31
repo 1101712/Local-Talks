@@ -1,7 +1,10 @@
 # Local buzz
 This Django project offers an opportunity for the local community to share news in an informal setting. The website combines the features of a bulletin board with casual news sharing between neighbors, like a friendly chat on the street. Topics are not restricted, as long as they fall within the bounds of common sense and decency, which are overseen by the site administrator. Anyone can post news or an advertisement, express their opinions, or simply respond to a post by leaving a comment. However, to take an active part in the life of this online community, one must become a member by registering.
 
-[Link to live site](https://herokuapp.com/)
+![responsive mockup](https://res.cloudinary.com/)
+
+
+[Link to live site](https://localtalks-944a783c443e.herokuapp.com/)
 
 ## Table of Contents
 - [Site Goals](#site-goals)
@@ -94,7 +97,7 @@ The visual design aims to create an atmosphere of informal, neighborly interacti
 ### Colour Scheme:
 Colour palette from [ASPOSE](https://products.aspose.app)
 
-![Colour Palette](localtalks/static/localtalks/images/color.jpg)
+![Colour Palette](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508011/color_u9larf.jpg)
 The colours chosen are quite neutral and calming. 
 
 Great care was taken to establish a good contrast between background colours and text at all times to ensure maximum user accessibility.
