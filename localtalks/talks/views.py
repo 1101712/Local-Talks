@@ -227,6 +227,7 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['MEDIA_URL'] = settings.MEDIA_URL
+        context['DEFAULT_PROFILE_PICTURE'] = settings.DEFAULT_PROFILE_PICTURE
         return context
 
 

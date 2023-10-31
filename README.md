@@ -126,11 +126,11 @@ The fonts from the PT Family were chosed to make the website futureproof. As alr
 - Active link rendered bald
 - Collapsible burger menu with drop-down on small to medium screens
 
-![navbar](localtalks/static/localtalks/images/nav1.jpg)
+![navbar](https://res.cloudinary.com/duwv0smeo/image/upload/v1698748926/nav1_c5cil7.jpg)
 
-![navbar](localtalks/static/localtalks/images/nav2.jpg)
+![navbar](https://res.cloudinary.com/duwv0smeo/image/upload/v1698748933/nav2_zpcyqg.jpg)
 
-![burger menu](localtalks/static/localtalks/images/nav3.jpg)
+![burger menu](https://res.cloudinary.com/duwv0smeo/image/upload/v1698748957/nav3_fuwztk.jpg)
 
 #### Сategory Panel
 - Panel with links to ads by category
@@ -138,9 +138,9 @@ The fonts from the PT Family were chosed to make the website futureproof. As alr
   highlighted in purple
 - Collapsible burger menu with drop-down on small to medium screens
 
-![Categories navbar](localtalks/static/localtalks/images/categ-nav1.jpg)
+![Categories navbar](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507999/categ-nav1_io7mic.jpg)
 
-![Categories navbar](localtalks/static/localtalks/images/categ-nav2.jpg) 
+![Categories navbar](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508003/categ-nav2_qfwizy.jpg) 
 
 #### Search Feature
 
@@ -151,15 +151,15 @@ by the titles of the ads, categories, authors, and the text within the ads.
 The search results provide highlighted keywords to make it easier for you to find exactly what you're looking for. While the author names are searchable, they are not highlighted in the search results, as they are already displayed in bold text for easier recognition.  
 For a glimpse of how this works, here's an example of search results for the query "al":
 
-![Search](localtalks/static/localtalks/images/search.jpg)
+![Search](https://res.cloudinary.com/duwv0smeo/image/upload/v1698749421/search_ctlupo.jpg)
 
-![Search Results](localtalks/static/localtalks/images/search-results.jpg)
+![Search Results](https://res.cloudinary.com/duwv0smeo/image/upload/v1698749428/search-results_kaebuu.jpg)
 
 #### Ads by Categories Page
 
 The page for all ads by categories is designed in a consistent style and displays all ads in the category selected by the user.
 
-![Ads by categories page](localtalks/static/localtalks/images/ads_by_categ.jpg)
+![Ads by categories page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507987/ads_by_categ_icltgv.jpg)
 
 #### Home Page
 
@@ -174,16 +174,16 @@ Default images are included to maintain a consistent style.
 Unlogged users cannot see the edit or delete ads buttons.
 At the bottom of the main page, below the first 6 ads, there is a link to the page with all ads. It is designed in the  the same for all links way — purple in color and underlined when hovered over with the mouse.
 
-![home page](localtalks/static/localtalks/images/home1.jpg)
+![home page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698750024/home1_k9jvbv.jpg)
 
-![home page](localtalks/static/localtalks/images/home2.jpg)
+![home page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698750027/home2_ny440s.jpg)
 
 
 #### Footer
 
 In the footer, you can find contact information: the site admin's email, which is also a link styled in the same way — purple and underlined when hovered over with the mouse.
 
-![footer](localtalks/static/localtalks/images/footer.jpg)
+![footer](https://res.cloudinary.com/duwv0smeo/image/upload/v1698750218/footer_csjh0w.jpg)
 
 #### All Ads Page
 
@@ -195,7 +195,7 @@ The page starts with the heading 'All Ads' and displays 6 listings at a time, si
 
 From a development perspective, having a dedicated 'All Ads' page offers several advantages. First, it helps in optimizing performance; the main page can load faster as it only needs to fetch and display a limited number of listings. This is especially beneficial for users with slower internet connections. Secondly, it provides a more modular approach to development. Features like sorting, filtering, and advanced search can be implemented on the 'All Ads' page without cluttering the main page, making the codebase easier to manage and extend. Lastly, it allows for more targeted analytics. By tracking user interactions on the 'All Ads' page separately, developers can gain insights into user behavior that can be used for future improvements. Overall, the 'All Ads' page not only enhances the user experience but also provides a more manageable and scalable solution for developers.
 
-![All ads page](localtalks/static/localtalks/images/all-ads.jpg)
+![All ads page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507995/all-ads_jpskh9.jpg)
 
 #### Registration Page
 
@@ -239,11 +239,11 @@ After successful registration, the user is redirected to the newly created profi
 
 With these added features, the registration page becomes not only a gateway for new users but also a comprehensive, user-friendly interface that guides users through the process, helping them correct errors and understand requirements.
 
-![registration form](localtalks/static/localtalks/images/registr.jpg)
+![registration form](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751576/registr_r84b9k.jpg)
 
-![registration hint](localtalks/static/localtalks/images/registr2.jpg)
+![registration hint](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751581/registr2_zctdnt.jpg)
 
-![email already exist](localtalks/static/localtalks/images/registr-email-exist.jpg)
+![email already exist](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751591/registr-email-exist_lvmyfr.jpg)
 
 #### Login 
 
@@ -251,50 +251,50 @@ In the application, users can securely log in through an authentication process.
 
 Initially designed to send an email for password reset functionality, the feature has been adapted due to difficulties with sending emails from Gitpod. 
 
-![login](localtalks/static/localtalks/images/login1.jpg)
+![login](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751916/login1_pd4twq.jpg)
 
-![login reset](localtalks/static/localtalks/images/login-reset-pass.jpg)
+![login reset](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751924/login-reset-pass_d0wjvq.jpg)
 
-![reset email](localtalks/static/localtalks/images/login-reset-message.jpg)
+![reset email](https://res.cloudinary.com/duwv0smeo/image/upload/v1698751933/login-reset-message_dqa15r.jpg)
 
 #### Profile Page
 
 User's Listings Page (also known as Profile Page)
 This page is designed in a consistent style, but without Ad Category panel. The page is accessible only to registered and authenticated users. If a user is not authenticated, they will be prompted to log in or register. Authenticated users see a greeting with their name on their page, their rounded profile image links to edit or delete their profile, a link to add a new listing, and all the listings they have published with options to edit or delete each listing. All links are styled in the same way — purple and underlined when hovered over with the mouse — consistent with the overall site design.
 
-![Profile page](localtalks/static/localtalks/images/profile.jpg)
+![Profile page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752085/profile_a05iyw.jpg)
 
 #### Profile Editing Page
 
 The user can change or delete their uploaded image. If the image is deleted, it will be replaced with a default image. After completing the editing process, the user will see a message indicating the successful completion of the profile edit. The user will be redirected back to their profile page.
 
-![Profile edit](localtalks/static/localtalks/images/profile-edit.jpg)
+![Profile edit](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752201/profile-edit_l3zdm5.jpg)
 
-![Profile edit](localtalks/static/localtalks/images/profile-edit-confirm.jpg)
+![Profile edit](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507980/ad-edit-confirm_n6esnh.jpg)
 
 #### Profile Deletion Page
 
 The user can delete their profile. Before finalizing the deletion, the user will need to confirm their intent to delete the profile. After clicking the confirmation button again, the user will see a message stating that their profile has been deleted. The user will be redirected to the Home Page.
 
-![Profile delete](localtalks/static/localtalks/images/profile-delete.jpg)
+![Profile delete](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752430/profile-delete_azbeyb.jpg)
 
-![Profile delete](localtalks/static/localtalks/images/profile-delete-confirm.jpg)
+![Profile delete](https://res.cloudinary.com/duwv0smeo/image/upload/v1698752435/profile-delete-confirm_njnj8c.jpg)
 
 #### Ad Creation
  
 Only a registered and authorized user can create an ad. On the ad creation page, the user is prompted to come up with a title, create the text, optionally add an image, and select one or more categories. The layout of the ad creation field follows the style of the ad itself. After the successful creation of the ad, the user is redirected to the page displaying all ads, where they can see their newly published ad, as well as receive a message confirming the successful creation of the ad.
 
-![Ad creation](localtalks/static/localtalks/images/ad-create.jpg)
+![Ad creation](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507954/ad-create_yufqh3.jpg)
 
-![Ad Creation Confirmation](localtalks/static/localtalks/images/ad-create-confirm.jpg)
+![Ad Creation Confirmation](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507970/ad-create-confirm_ijxn9g.jpg)
 
 #### Ad Editing
 
 Only the authorized author of the ad can edit it. If necessary, the user can make changes to any previously selected fields except for categories. To change categories, the user will need to delete the current ad and create a new one. The layout of the ad editing field also follows the style of the ad itself. After successfully editing the ad, the user is redirected to their profile page, where they can see all of their ads and receive a message confirming the successful update of the ad.
 
-![Ad Editing](localtalks/static/localtalks/images/ad-edit.jpg)
+![Ad Editing](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507975/ad-edit_vqpqe7.jpg)
 
-![Ad Editing Confirmation](localtalks/static/localtalks/images/ad-edit-confirm.jpg)
+![Ad Editing Confirmation](https://res.cloudinary.com/duwv0smeo/image/upload/v1698507980/ad-edit-confirm_n6esnh.jpg)
 
 #### Ads Page with ad details and comments
 
@@ -302,15 +302,15 @@ The user is redirected to this page when they click on the title of the ad, whic
 
 This is how the page looks for a user who has left a comment:
 
-![Ads page](localtalks/static/localtalks/images/comment1.jpg) 
+![Ads page](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508016/comment1_cuw8ha.jpg) 
 
 This is how the page looks for a user who is not authenticated:
 
-![Comments](localtalks/static/localtalks/images/comment2.jpg)
+![Comments](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508019/comment2_pgdpca.jpg)
 
 This is how the page looks for a user who is neither the author of the ad nor the author of the comment:
 
-![Comments](localtalks/static/localtalks/images/comment3.jpg)
+![Comments](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508026/comment3_jeakm6.jpg)
 
 #### Comment Edition and Deletion
 
@@ -318,15 +318,15 @@ On the page of the ad to which the user has left a comment, provided that the us
 
 I intentionally did not add the ability to edit comments, as I fundamentally believe that editing should come with the ability to view comment history, which would take too much time within the scope of this educational project. However, such an option should definitely be implemented in the future.
 
-![Comments deletion](localtalks/static/localtalks/images/comment-del-confirm.jpg)
+![Comments deletion](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508034/comment-del-confirm_f5wg9h.jpg)
 
-![Comments deletion](localtalks/static/localtalks/images/comment-del.jpg)
+![Comments deletion](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508029/comment-del_tui21e.jpg)
 
 #### How It Works Page
 
 This page  introduces a comprehensive "How it Works" guide aimed at helping users navigate and make the most out of the "Local Buzz" platform. The guide covers everything from account creation and management, using default images, posting ads, to interacting with other users through comments. It explains how to use  default images for profiles and ads, categorized view for easier navigation, and efficient search functionality.
 
-![Site rules](localtalks/static/localtalks/images/rules.jpg)
+![Site rules](https://res.cloudinary.com/duwv0smeo/image/upload/v1698754438/rules_kly0x2.jpg)
 
 ### Security Features and Defensive Design
 
@@ -530,7 +530,7 @@ This structure provides a flexible and scalable way to manage users, ads, and co
 The database model diagram was designed using [Drawio](https://app.diagrams.net/).
 The first draft of the entity relationship diagram does not include all models and connections used in the final database.
 
-![Site rules](localtalks/static/localtalks/images/data-model.jpg)
+![Site rules](https://res.cloudinary.com/duwv0smeo/image/upload/v1698508039/data-model_yzh68a.jpg)
 
 ## Testing
 
